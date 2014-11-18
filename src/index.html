@@ -1,0 +1,123 @@
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=5,IE=9" ><![endif]-->
+<!DOCTYPE html>
+<html>
+<head>
+	<!--CUSTOM_PARAMETERS - Title, description, etc-->
+    <title>Diagrams Online | draw.io</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="Description" content="draw.io is a free online diagram drawing application for workflow, BPM, org charts, UML, ER, network diagrams">
+    <meta name="Keywords" content="diagram, online, drawing, javascript">
+    <meta itemprop="name" content="draw.io - free diagrams online">
+	<meta itemprop="description" content="draw.io is a free online diagram drawing application. You can use it to create UML, entity relationship, org charts, BPMN and BPM, 
+		database schema and networks. Also possible are telecommunication network, workflow, flowcharts, maps overlays and GIS, electronic 
+		circuit and social network diagrams. It's like a mini version of Visio in your browser.">
+	<meta itemprop="image" content="https://lh4.googleusercontent.com/-cLKEldMbT_E/Tx8qXDuw6eI/AAAAAAAAAAs/Ke0pnlk8Gpg/w500-h344-k/BPMN%2Bdiagram%2Brc2f.png">
+    <link rel="stylesheet" type="text/css" href="styles/grapheditor.css">
+    <link rel="stylesheet" type="text/css" href="styles/app.css">
+
+	<script>
+		//force SSL for all browsers except for IE8 and under
+		if('https:' != document.location.protocol && (navigator.userAgent.indexOf('MSIE') == -1 || navigator.userAgent.indexOf('MSIE 9') != -1 || navigator.userAgent.indexOf('MSIE 10') != -1)) 
+		{
+			if(window.location.host.indexOf('www.draw.io') != -1 || window.location.host.indexOf('diagram.ly') != -1 || window.location.host.indexOf('diagramly.com') != -1) 
+			{
+				var url = 'https://www.draw.io' + window.location.search;
+				window.location.replace(url);
+			}
+		}
+	</script>
+	<!--[if lte IE 8]>
+	<script>
+		if('https:' == document.location.protocol) 
+		{
+			if(window.location.host.indexOf('www.draw.io') != -1 || window.location.host.indexOf('diagram.ly') != -1 || window.location.host.indexOf('diagramly.com') != -1) 
+			{
+				var url = 'http://www.draw.io' + window.location.search;   
+				window.location.replace(url);
+			}
+		}
+	</script>
+	<![endif]-->
+	<script type="text/javascript" src="js/app.js"></script>
+</head>
+<body class="geEditor">
+<div id="geInfo">
+	<div class="geBlock">
+		<h1>Free Online Diagramming Software</h1>
+		<p>
+		draw.io is a free online diagram drawing application. You can use it to create UML, entity relationship, org charts, BPMN and BPM,
+		database schema and networks. Also possible are telecommunication network, workflow, flowcharts, maps overlays and GIS, electronic 
+		circuit and social network diagrams. It's like a mini version of Visio in your browser.
+		</p>
+		<p>
+		You can export your diagram in our raw XML format, PNG or JPG, PDF or SVG and later re-load your saved XML.
+		</p>
+		<p>
+		If you are reading this, your browser might not be capable of displaying the application. 
+		The supported list of browsers is Firefox 3+, Microsoft Internet Explorer 7+, Safari 5+, Opera 9.0+,
+		Camino 2+, Epiphany 2.0+, Galeon 2.0+ and Google Chrome 12+.
+		</p>
+	</div>
+	<div class="geBlock" style="margin-top:20px;padding:0px;text-align:center;">
+		<h3 id="geStatus">Loading... Please Wait</h3>
+	</div>
+</div>
+<noscript>
+	<br>
+	<p> no javascript :(</p>
+</noscript>
+<div id="geFooter" style="visibility:hidden;padding-top:6px;padding-left:6px;">
+	<table width="100%" height="100%" align="right">
+	  <tr>
+		<td id="gePowered" width="25%" valign="top" align="left" style="white-space:nowrap;overflow:hidden;padding-top:3px;font-family:'Helvetica Neue',Arial,sans-serif;padding-right:8px;_padding-right:16px;"> 
+	      <a title="Powered by mxGraph" href="http://www.jgraph.com/mxgraph.html" target="_blank" style="font-size:8pt;text-decoration:none;font-weight:bold;color:#454545;">
+	      Powered by mxGraph
+	      </a>
+	    </td>
+		<td id="gePlug1" width="25%" valign="top" align="center" style="overflow:hidden;padding-top:3px;_padding-top:7px;font-family:'Helvetica Neue',Arial,sans-serif;padding-right:8px;_padding-right:16px;"> 
+	      <a title="Confluence Plugin" href="https://marketplace.atlassian.com/plugins/com.mxgraph.confluence.plugins.diagramly" target="_blank" style="font-size:8pt;white-space:nowrap;text-decoration:none;font-weight:bold;color:#454545;">
+	      	Confluence&reg Plugin
+	      </a>
+	    </td>
+		<td id="gePlug2" width="25%" valign="top" align="center" style="overflow:hidden;padding-top:3px;_padding-top:7px;font-family:'Helvetica Neue',Arial,sans-serif;padding-right:8px;_padding-right:16px;"> 
+	      <a title="Google Apps For Business" href="https://www.google.com/enterprise/marketplace/viewListing?productListingId=18806+14512935155953175632" target="_blank" style="font-size:8pt;white-space:nowrap;text-decoration:none;font-weight:bold;color:#454545;">
+	      	Add to Google Apps For Business
+	      </a>
+	    </td>
+	    <td id="geSocial" width="25%" align="right" style="white-space:nowrap;overflow:hidden;padding-bottom:10px;padding-right:20px;">
+	      <a href="https://plus.google.com/b/100634082864796769666/" target="__blank"><img title="Draw.io on Google+" src="images/web/glyphicons_362_google+_alt.png" width="24" height="24" border=""></a>
+	      <a href="https://twitter.com/Diagramly" target="__blank"><img title="Draw.io on Twitter" src="images/web/glyphicons_392_twitter.png" width="24" height="24" border=""></a>
+	      <a href="http://www.facebook.com/pages/drawio/161015263923018" target="__blank"><img title="Draw.io on Facebook" src="images/web/glyphicons_390_facebook.png" width="24" height="24" border=""></a>
+	      <a href="https://github.com/jgraph/draw.io" target="__blank"><img title="Draw.io on Github" src="images/web/glyphicons_381_github.png" width="24" height="24" border=""></a>
+	    </td>
+	  </tr>
+	</table>
+</div>
+<!-- Main -->
+<script type="text/javascript">
+(function()
+{
+	var ui = new EditorUi(new Editor());
+
+	if (typeof(gapi) != 'undefined')
+	{
+		//once the Google API is loaded, try to integrate with it
+		gapi.load('auth:client', function() 
+		{
+			gapi.client.setApiKey(mxGoogleDrive.apiKey);
+
+			gapi.auth.init(function()
+			{
+				// TODO: Check if client successfully loaded in IE9
+				mxIntegration.startIntegration();
+			});
+		});
+	}
+})();
+</script>
+<!-- tinyMCE - LATER: Do not load if touchStyle is true. -->
+<script src="js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" src="js/tinyApp.js"></script>
+
+</body>
+</html>
