@@ -442,7 +442,6 @@ function NewDialog(editorUi)
 	this.container = div;
 };
 
-NewOpenossadGraph
 // Constructs a dialog for creating new files from templates.
 function NewOpenossadGraph(editorUi)
 {
