@@ -547,6 +547,21 @@
 					this.editor.undoManager.clear();
 				}));
 			}
+            // Opens the given template
+            var template = urlParams['tmpo'];
+
+            if (template != null && template.length > 0)
+            {
+                mxUtils.get(OPENOSSAD_TEMPLATE_PATH + '/xml/' + template + '.xml', mxUtils.bind(this, function(req)
+                {
+                    this.editor.setGraphXml(req.getDocumentElement());
+
+                    // Restores initial diagram state
+                    this.editor.modified = false;
+                    this.editor.undoManager.clear();
+                }));
+            }
+
 		} else
 		{
 			editorUiOpen.apply(this, arguments);

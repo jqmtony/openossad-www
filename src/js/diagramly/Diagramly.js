@@ -309,7 +309,7 @@ function setCurrentXml(data, filename)
 		
 		this.editorUi.actions.addAction('fromTemplate', mxUtils.bind(this, function()
 		{
-			this.editorUi.showDialog(new NewDialog(this.editorUi).container, 680, 540, true, true);
+			this.editorUi.showDialog(new NewOpenossadGraph(this.editorUi).container, 680, 540, true, true);
 			this.editorUi.dialog.container.style.overflow = 'auto';
 		}));
 		

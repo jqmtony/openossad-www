@@ -442,6 +442,59 @@ function NewDialog(editorUi)
 	this.container = div;
 };
 
+NewOpenossadGraph
+// Constructs a dialog for creating new files from templates.
+function NewOpenossadGraph(editorUi)
+{
+    var div = document.createElement('div');
+
+    // Defines the templates for NewDialog (see below)
+    var templates = ['P2&libs=general'];
+
+    for (var i = 0; i < templates.length; i++)
+    {
+        var img = document.createElement('img');
+        img.style.margin = '10px';
+        img.setAttribute('border', '0');
+        var base = templates[i];
+        var index = base.indexOf('&');
+
+        if (index > 0)
+        {
+            base = base.substring(0, index);
+        }
+
+        img.setAttribute('src', OPENOSSAD_TEMPLATE_PATH + '/images/' + base + '.png');
+
+        var href = editorUi.getUrl(window.location.pathname + '?tmpo=' + templates[i]);
+        var link = document.createElement('a');
+        link.setAttribute('href', 'javascript:void(0);');
+        link.setAttribute('target', '_blank');
+        link.appendChild(img);
+
+        (function(url)
+        {
+            mxEvent.addListener(link, 'click', function(evt)
+            {
+                window.open(url);
+                editorUi.hideDialog();
+                mxEvent.consume(evt);
+            });
+        })(href);
+
+        div.appendChild(link);
+    }
+
+    mxUtils.br(div);
+    mxUtils.br(div);
+    div.appendChild(mxUtils.button(mxResources.get('close'), function()
+    {
+        editorUi.hideDialog();
+    }));
+
+    this.container = div;
+};
+
 // Constructs a new about dialog.
 function AboutDialog(editorUi)
 {

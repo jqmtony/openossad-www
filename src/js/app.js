@@ -22,6 +22,7 @@ var t0 = new Date();
 		var CSS_PATH = 'styles';
 		var OPEN_FORM = 'open.html';
 		var TEMPLATE_PATH = '/templates';
+		var OPENOSSAD_TEMPLATE_PATH = '/openossad/templates';
 
 		// Directory for i18 files and basename for main i18n file
 		var RESOURCES_PATH = 'resources';
