@@ -517,11 +517,11 @@ function AboutDialog(editorUi)
 	mxUtils.write(div, 'Graphic design of process and procedures');
 	var link = document.createElement('a');
 	mxUtils.br(div);
-	mxUtils.write(div, 'application built using the');
+	mxUtils.write(div, 'Architecture matter to us');
 	mxUtils.br(div);
-	link.setAttribute('href', 'http://www.jgraph.com/mxgraph.html');
+	link.setAttribute('href', 'http://www.apiumtech.com');
 	link.setAttribute('target', '_blank');
-	mxUtils.write(link, 'mxGraph JavaScript library');
+	mxUtils.write(link, 'We are Apiumtech');
 	div.appendChild(link);
 	mxUtils.br(div);
 	mxUtils.br(div);
