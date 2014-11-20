@@ -344,7 +344,7 @@ Sidebar.prototype.hideTooltip = function()
  */
 Sidebar.prototype.addGeneralPalette = function(expand)
 {
-	this.addPalette('general', mxResources.get('general'), expand || true, mxUtils.bind(this, function(content)
+	this.addPalette('general', mxResources.get('general'), expand || false, mxUtils.bind(this, function(content)
 	{
 		content.appendChild(this.createVertexTemplate('swimlane', 200, 200, 'Container', 'Container', true));
 	    content.appendChild(this.createVertexTemplate(null, 120, 60, '', 'Rectangle', true));
@@ -1247,5 +1247,78 @@ Sidebar.prototype.addStencilPalette = function(id, title, stencilFile, style, ig
 					Math.round(w * scale), Math.round(h * scale), ''));
 			}
 		}), true);
+    }));
+
+};
+
+/**
+ * Adds the openossad palettes.
+ */
+Sidebar.prototype.addProcessPalette = function(expand)
+{
+    this.addPalette('process', 'Process', expand || false , mxUtils.bind(this, function(content)
+    {
+        content.appendChild(this.createVertexTemplate('swimlane', 200, 200, 'Container', 'Container', true));
+        content.appendChild(this.createVertexTemplate(null, 120, 60, '', 'Rectangle', true));
+        content.appendChild(this.createVertexTemplate('rounded=1', 120, 60, '', 'Rounded Rectangle', true));
+        content.appendChild(this.createVertexTemplate('text;spacingTop=-5;', 30, 20, 'Text', 'Text', true));
+        content.appendChild(this.createVertexTemplate('ellipse', 80, 80, '', 'Circle', true));
+
+        var cells = [new mxCell('', new mxGeometry(0, 0, 100, 100), 'curved=1')];
+        cells[0].geometry.setTerminalPoint(new mxPoint(0, 100), true);
+        cells[0].geometry.setTerminalPoint(new mxPoint(100, 0), false);
+        cells[0].geometry.points = [new mxPoint(100, 100), new mxPoint(0, 0)];
+        cells[0].geometry.relative = true;
+        cells[0].edge = true;
+
+        content.appendChild(this.createEdgeTemplateFromCells(cells, 100, 100, 'Curve', true));
+        content.appendChild(this.createEdgeTemplate('shape=link', 100, 100, '', 'Link', true));
+        content.appendChild(this.createEdgeTemplate('arrow', 100, 100, '', 'Arrow', true));
+    }));
+};
+
+Sidebar.prototype.addProcedurePalette = function(expand)
+{
+    this.addPalette('procedures', 'Procedures', expand || false, mxUtils.bind(this, function(content)
+    {
+        content.appendChild(this.createVertexTemplate('swimlane', 200, 200, 'Container', 'Container', true));
+        content.appendChild(this.createVertexTemplate(null, 120, 60, '', 'Process', true));
+        content.appendChild(this.createVertexTemplate('rounded=1', 120, 60, '', 'Rol', true));
+        content.appendChild(this.createVertexTemplate('text;spacingTop=-5;', 30, 20, 'Text', 'Text', true));
+        content.appendChild(this.createVertexTemplate('ellipse', 80, 80, '', 'Circle', true));
+
+        var cells = [new mxCell('', new mxGeometry(0, 0, 100, 100), 'curved=1')];
+        cells[0].geometry.setTerminalPoint(new mxPoint(0, 100), true);
+        cells[0].geometry.setTerminalPoint(new mxPoint(100, 0), false);
+        cells[0].geometry.points = [new mxPoint(100, 100), new mxPoint(0, 0)];
+        cells[0].geometry.relative = true;
+        cells[0].edge = true;
+
+        content.appendChild(this.createEdgeTemplateFromCells(cells, 100, 100, 'Curve', true));
+        content.appendChild(this.createEdgeTemplate('shape=link', 100, 100, '', 'Link', true));
+        content.appendChild(this.createEdgeTemplate('arrow', 100, 100, '', 'Arrow', true));
+    }));
+};
+
+Sidebar.prototype.addTasksPalette = function(expand)
+{
+    this.addPalette('tasks', 'Tasks', expand || false, mxUtils.bind(this, function(content)
+    {
+        content.appendChild(this.createVertexTemplate('swimlane', 200, 200, 'Container', 'Container', true));
+        content.appendChild(this.createVertexTemplate(null, 120, 60, '', 'Rectangle', true));
+        content.appendChild(this.createVertexTemplate('rounded=1', 120, 60, '', 'Rounded Rectangle', true));
+        content.appendChild(this.createVertexTemplate('text;spacingTop=-5;', 30, 20, 'Text', 'Text', true));
+        content.appendChild(this.createVertexTemplate('ellipse', 80, 80, '', 'Circle', true));
+
+        var cells = [new mxCell('', new mxGeometry(0, 0, 100, 100), 'curved=1')];
+        cells[0].geometry.setTerminalPoint(new mxPoint(0, 100), true);
+        cells[0].geometry.setTerminalPoint(new mxPoint(100, 0), false);
+        cells[0].geometry.points = [new mxPoint(100, 100), new mxPoint(0, 0)];
+        cells[0].geometry.relative = true;
+        cells[0].edge = true;
+
+        content.appendChild(this.createEdgeTemplateFromCells(cells, 100, 100, 'Curve', true));
+        content.appendChild(this.createEdgeTemplate('shape=link', 100, 100, '', 'Link', true));
+        content.appendChild(this.createEdgeTemplate('arrow', 100, 100, '', 'Arrow', true));
     }));
 };

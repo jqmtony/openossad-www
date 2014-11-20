@@ -221,7 +221,7 @@ function setCurrentXml(data, filename)
 	// ------------------------------------------------------
 	// End of Experimental code for rich text in-place editor
 	// ------------------------------------------------------
-	
+
 	// Adds all Sign stencils
 	var signs = ['Animals', 'Food', 'Healthcare', 'Nature', 'People', 'Safety', 'Science', 'Sports', 'Tech', 'Transportation', 'Travel'];
 	Sidebar.prototype.signs = signs;
@@ -272,21 +272,16 @@ function setCurrentXml(data, filename)
 				}
 			});
 			
+			addItem(['process'], 'Process');
+			addItem(['procedures'], 'Procedures');
+			addItem(['tasks'], 'Tasks');
+
 			addItem(['general'], mxResources.get('general'));
 			addItem(['images'], mxResources.get('images'));
 			addItem(['uml'], 'UML');
-			addItem(['bpmn', 'bpmnGateways', 'bpmnEvents'], 'BPMN');
 			addItem(['flowchart'], 'Flowchart');
 			addItem(['basic'], mxResources.get('basic'));
 			addItem(['arrows'], mxResources.get('arrows'));
-			addItem(signs, 'Signs', 'signs');
-			addItem(mockups, 'Mockup', 'ui');
-			addItem(ee, 'Electrical', 'electrical');
-			addItem(['Compute', 'ContentDelivery', 'Database', 'DeploymentManagement',
-                     'Groups', 'Messaging', 'Misc', 'Networking', 'NonServiceSpecific',
-                     'OnDemandWorkforce', 'Storage'], 'AWS', 'aws');
-			addItem(pids, 'P&ID', 'pid');
-			addItem(['leanMapping'], 'Lean Mapping');
 		})));
 		
 		this.editorUi.actions.put('new', new Action(mxResources.get('blankDrawing'), mxUtils.bind(this, function()
