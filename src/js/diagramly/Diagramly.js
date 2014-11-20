@@ -279,7 +279,6 @@ function setCurrentXml(data, filename)
 			addItem(['flowchart'], 'Flowchart');
 			addItem(['basic'], mxResources.get('basic'));
 			addItem(['arrows'], mxResources.get('arrows'));
-			addItem(['computer', 'finance', 'clipart', 'networking', 'people', 'telco'], 'Clipart');
 			addItem(signs, 'Signs', 'signs');
 			addItem(mockups, 'Mockup', 'ui');
 			addItem(ee, 'Electrical', 'electrical');

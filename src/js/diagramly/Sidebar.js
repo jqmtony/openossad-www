@@ -60,82 +60,6 @@
 			';fillColor=#ffffff;strokeColor=#000000;strokeWidth=2');
 		this.addStencilPalette('arrows', mxResources.get('arrows'), dir + '/arrows.xml',
 			';fillColor=#ffffff;strokeColor=#000000;strokeWidth=2');
-		this.addImagePalette('computer', 'Clipart / Computer', imgDir
-				+ '/lib/clip_art/computers/', '_128x128.png', [ 'Antivirus',
-				'Data_Filtering', 'Database', 'Database_Add', 'Database_Minus',
-				'Database_Move_Stack', 'Database_Remove', 'Fujitsu_Tablet',
-				'Harddrive', 'IBM_Tablet', 'iMac', 'iPad', 'Laptop', 'MacBook',
-				'Mainframe', 'Monitor', 'Monitor_Tower',
-				'Monitor_Tower_Behind', 'Netbook', 'Network', 'Network_2',
-				'Printer', 'Printer_Commercial', 'Secure_System', 'Server',
-				'Server_Rack', 'Server_Rack_Empty', 'Server_Rack_Partial',
-				'Server_Tower', 'Software', 'Stylus', 'Touch', 'USB_Hub',
-				'Virtual_Application', 'Virtual_Machine', 'Virus',
-				'Workstation' ], [ 'Antivirus', 'Data Filtering', 'Database',
-	            'Database Add', 'Database Minus', 'Database Move Stack',
-	            'Database Remove', 'Fujitsu Tablet', 'Harddrive', 'IBMTablet',
-	            'iMac', 'iPad', 'Laptop', 'MacBook', 'Mainframe', 'Monitor',
-	            'Monitor Tower', 'Monitor Tower Behind', 'Netbook', 'Network',
-	            'Network 2', 'Printer', 'Printer Commercial', 'Secure System',
-	            'Server', 'Server Rack', 'Server Rack Empty', 'Server Rack Partial',
-	            'Server Tower', 'Software', 'Stylus', 'Touch', 'USB Hub',
-	            'Virtual Application', 'Virtual Machine', 'Virus', 'Workstation' ]);
-		this.addImagePalette('finance', 'Clipart / Finance', imgDir
-				+ '/lib/clip_art/finance/', '_128x128.png', [ 'Arrow_Down',
-				'Arrow_Up', 'Coins', 'Credit_Card', 'Dollar', 'Graph',
-				'Pie_Chart', 'Piggy_Bank', 'Safe', 'Shopping_Cart',
-				'Stock_Down', 'Stock_Up' ], [ 'Arrow_Down', 'Arrow Up',
-	            'Coins', 'Credit Card', 'Dollar', 'Graph', 'Pie Chart',
-	            'Piggy Bank', 'Safe', 'Shopping Basket', 'Stock Down', 'Stock Up' ]);
-		this.addImagePalette('clipart', 'Clipart / Various', imgDir
-				+ '/lib/clip_art/general/', '_128x128.png', [ 'Battery_0',
-				'Battery_100', 'Battery_50', 'Battery_75', 'Battery_allstates',
-				'Bluetooth', 'Earth_globe', 'Empty_Folder', 'Full_Folder',
-				'Gear', 'Keys', 'Lock', 'Mouse_Pointer', 'Plug', 'Ships_Wheel',
-				'Star', 'Tire' ], [ 'Battery 0%', 'Battery 100%', 'Battery 50%',
-	            'Battery 75%', 'Battery', 'Bluetooth', 'Globe',
-	            'Empty Folder', 'Full Folder', 'Gear', 'Keys', 'Lock', 'Mousepointer',
-	            'Plug', 'Ships Wheel', 'Star', 'Tire' ] );
-		this.addImagePalette('networking', 'Clipart / Networking', imgDir
-				+ '/lib/clip_art/networking/', '_128x128.png', [ 'Bridge',
-				'Certificate', 'Certificate_Off', 'Cloud', 'Cloud_Computer',
-				'Cloud_Computer_Private', 'Cloud_Rack', 'Cloud_Rack_Private',
-				'Cloud_Server', 'Cloud_Server_Private', 'Cloud_Storage',
-				'Concentrator', 'Email', 'Firewall_02', 'Firewall',
-				'Firewall-page1', 'Ip_Camera', 'Modem',
-				'power_distribution_unit', 'Print_Server',
-				'Print_Server_Wireless', 'Repeater', 'Router', 'Router_Icon',
-				'Switch', 'UPS', 'Wireless_Router', 'Wireless_Router_N' ]);
-		this.addImagePalette('people', 'Clipart / People', imgDir
-				+ '/lib/clip_art/people/', '_128x128.png', [ 'Suit_Man',
-				'Suit_Man_Black', 'Suit_Man_Blue', 'Suit_Man_Green',
-				'Suit_Man_Green_Black', 'Suit_Woman', 'Suit_Woman_Black',
-				'Suit_Woman_Blue', 'Suit_Woman_Green',
-				'Suit_Woman_Green_Black', 'Construction_Worker_Man',
-				'Construction_Worker_Man_Black', 'Construction_Worker_Woman',
-				'Construction_Worker_Woman_Black', 'Doctor_Man',
-				'Doctor_Man_Black', 'Doctor_Woman', 'Doctor_Woman_Black',
-				'Farmer_Man', 'Farmer_Man_Black', 'Farmer_Woman',
-				'Farmer_Woman_Black', 'Nurse_Man', 'Nurse_Man_Black',
-				'Nurse_Man_Green', 'Nurse_Man_Red', 'Nurse_Woman',
-				'Nurse_Woman_Black', 'Nurse_Woman_Green', 'Nurse_Woman_Red',
-				'Military_Officer', 'Military_Officer_Black',
-				'Military_Officer_Woman', 'Military_Officer_Woman_Black',
-				'Pilot_Man', 'Pilot_Man_Black', 'Pilot_Woman',
-				'Pilot_Woman_Black', 'Scientist_Man', 'Scientist_Man_Black',
-				'Scientist_Woman', 'Scientist_Woman_Black', 'Security_Man',
-				'Security_Man_Black', 'Security_Woman', 'Security_Woman_Black',
-				'Soldier', 'Soldier_Black', 'Tech_Man', 'Tech_Man_Black',
-				'Telesales_Man', 'Telesales_Man_Black', 'Telesales_Woman',
-				'Telesales_Woman_Black', 'Waiter', 'Waiter_Black',
-				'Waiter_Woman', 'Waiter_Woman_Black', 'Worker_Black',
-				'Worker_Man', 'Worker_Woman', 'Worker_Woman_Black' ]);
-		this.addImagePalette('telco', 'Clipart / Telecommunication', imgDir
-				+ '/lib/clip_art/telecommunication/', '_128x128.png', [
-				'BlackBerry', 'Cellphone', 'HTC_smartphone', 'iPhone',
-				'Palm_Treo', 'Signal_tower_off', 'Signal_tower_on' ],
-				[ 'BlackBerry', 'Cellphone', 'HTC smartphone', 'iPhone',
-				  'Palm Treo', 'Signaltower off', 'Signaltower on' ]);
 
 		for (var i = 0; i < signs.length; i++)
 		{
@@ -177,8 +101,7 @@
 				';fillColor=#ffffff;strokeColor=#000000');
 		}
 		
-		this.addStencilPalette('leanMapping', 'Lean Mapping', dir + '/lean_mapping.xml',
-			';fillColor=#ffffff;strokeColor=#000000;strokeWidth=2');
+		this.addStencilPalette('leanMapping', 'Lean Mapping', dir + '/lean_mapping.xml', ';fillColor=#ffffff;strokeColor=#000000;strokeWidth=2');
 		this.addMoreShapes();
 	};
 	
