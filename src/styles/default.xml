@@ -102,4 +102,336 @@
 		<add as="edgeStyle" value="none"/>
 		<add as="fillColor" value="#ffffff"/>
 	</add>
+
+
+
+    <!-- unidad -->
+    <add as="10" extend="defaultVertex">
+        <add as="rounded" value="1"/>
+        <add as="strokeWidth" value="3"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+
+    <!-- rolinterno -->
+    <add as="6" extend="defaultVertex">
+        <add as="rounded" value="1"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+
+    <!-- rolexterno -->
+    <add as="9" extend="defaultVertex">
+        <add as="rounded" value="1"/>
+        <add as="shadow" value="1"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+
+    <!-- MacroInstrucción Es una intrucción que puede tener childs como subprocesos-->
+    <add as="333" extend="defaultVertex">
+    </add>
+
+    <!-- Subproceso (se meten en macro-instrucciones-->
+    <add as="16" extend="defaultVertex">
+    </add>
+
+    <!-- Instrucción -->
+    <add as="3" extend="defaultVertex">
+    </add>
+
+    <!-- Instrucción colaborativa-->
+    <add as="5" extend="defaultVertex">
+    </add>
+
+    <!-- información-->
+    <add as="4" extend="straight">
+    </add>
+
+    <!-- Rol destino -->
+    <add as="17" extend="defaultVertex">
+        <add as="rounded" value="1"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+
+    <!-- inicio -->
+    <add as="7" extend="defaultVertex">
+        <add as="shape" value="ellipse"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+
+    <!-- fin -->
+    <add as="18" extend="defaultVertex">
+        <add as="shape" value="ellipse"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+
+    <!-- indicador de respuesta -->
+    <add as="42" extend="defaultVertex">
+        <add as="shape" value="ellipse"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+        <add as="fillColor" value="#e9e9e9"/>
+        <add as="fontStyle" value="1"/>
+        <add as="verticalAlign" value="middle"/>
+        <add as="spacingTop" value="8"/>
+    </add>
+
+    <!-- Operadores Y e O  (lo pongo en otro tipo (2))-->
+    <add as="2" extend="defaultVertex">
+        <add as="shape" value="rhombus"/>
+        <add as="perimeter" value="rhombusPerimeter"></add>
+        <add as="fontStyle" value="1"/>
+        <add as="verticalAlign" value="center"/>
+        <add as="spacingTop" value="8"/>
+    </add>
+
+    <!-- Documento-->
+    <add as="8" extend="defaultVertex">
+        <add as="shape" value="swimlane"/>
+        <add as="fontSize" value="11"/>
+        <add as="fontStyle" value="1"/>
+        <add as="startSize" value="20"/>
+    </add>
+
+    <!-- medio -->
+    <add as="14" extend="defaultVertex">
+        <add as="shape" value="triangle"/>
+        <add as="perimeter" value="trianglePerimeter"/>
+        <add as="direction" value="directionNorth"></add>
+    </add>
+
+    <!-- entidad -->
+    <add as="111" extend="defaultVertex">
+        <add as="shape" value="ellipse"/>
+        <add as="shadow" value="1"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+    <!-- proceso -->
+    <add as="112" extend="defaultVertex">
+        <add as="shadow" value="1"/>
+    </add>
+
+    <!-- procedimiento -->
+    <add as="113" extend="defaultVertex">
+
+    </add>
+
+    <!-- subproceso -->
+    <add as="114" extend="defaultVertex">
+        <add as="strokeWidth" value="3"/>
+    </add>
+
+    <!-- ///////////////////////////////////////////////////// -->
+    <!-- Rol  -->
+    <add as="131" extend="defaultVertex">
+        <add as="rounded" value="1"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+
+    <!-- macroinstruccion  -->
+    <add as="132" extend="defaultVertex">
+    </add>
+
+    <!-- instruccion  -->
+    <add as="133" extend="defaultVertex">
+    </add>
+
+    <!-- operación de control  -->
+    <add as="134" extend="defaultVertex">
+    </add>
+
+    <!-- operación correctiva  -->
+    <add as="135" extend="defaultVertex">
+    </add>
+
+    <!-- información-->
+    <add as="136" extend="straight">
+    </add>
+
+    <!-- indicador de respuesta -->
+    <add as="137" extend="defaultVertex">
+        <add as="shape" value="ellipse"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+        <add as="fillColor" value="#e9e9e9"/>
+        <add as="fontStyle" value="1"/>
+        <add as="verticalAlign" value="middle"/>
+        <add as="spacingTop" value="8"/>
+    </add>
+
+    <!-- inicio -->
+    <add as="138" extend="defaultVertex">
+        <add as="shape" value="ellipse"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+
+    <!-- fin -->
+    <add as="139" extend="defaultVertex">
+        <add as="shape" value="ellipse"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+
+
+    <!-- Operadores Y e O  (lo pongo en otro tipo (2))-->
+    <add as="143" extend="defaultVertex">
+        <add as="shape" value="rhombus"/>
+        <add as="perimeter" value="rhombusPerimeter"/>
+        <add as="fontStyle" value="1"/>
+        <add as="verticalAlign" value="center"/>
+        <add as="spacingTop" value="8"/>
+    </add>
+
+    <!-- Documento-->
+    <add as="144" extend="defaultVertex">
+        <add as="shape" value="swimlane"/>
+        <add as="fontSize" value="11"/>
+        <add as="fontStyle" value="1"/>
+        <add as="startSize" value="20"/>
+    </add>
+
+    <!-- medio -->
+    <add as="145" extend="defaultVertex">
+        <add as="shape" value="triangle"/>
+        <add as="perimeter" value="trianglePerimeter"/>
+        <add as="direction" value="directionNorth"></add>
+    </add>
+
+    <!-- human -->
+    <add as="801" extend="defaultVertex">
+        <add as="shape" value="ellipse"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+        <add as="shadow" value="1"/>
+    </add>
+
+    <!-- human -->
+    <add as="802" extend="defaultVertex">
+        <add as="shape" value="ellipse"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+        <add as="strokeWidth" value="3"/>
+
+    </add>
+
+    <!-- human -->
+    <add as="803" extend="defaultVertex">
+        <add as="shape" value="ellipse"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+    <!-- human -->
+    <add as="804" extend="defaultVertex">
+        <add as="shape" value="actor"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+        <add as="fillColor" value="blue"/>
+    </add>
+    <!-- human -->
+    <add as="805" extend="defaultVertex">
+        <add as="shape" value="actor"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+        <add as="fillColor" value="red"/>
+    </add>
+    <!-- human -->
+    <add as="806" extend="defaultVertex">
+        <add as="shape" value="actor"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+        <add as="shadow" value="1"/>
+    </add>
+    <!-- human -->
+    <add as="807" extend="defaultVertex">
+        <add as="shape" value="hexagon"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+        <add as="shadow" value="1"/>
+    </add>
+    <!-- human -->
+    <add as="808" extend="defaultVertex">
+        <add as="shape" value="doubleEllipse"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+
+
+
+    <!-- unidad -->
+    <add as="821" extend="defaultVertex">
+        <add as="rounded" value="1"/>
+        <add as="strokeWidth" value="3"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+
+    <!-- rolinterno -->
+    <add as="822" extend="defaultVertex">
+        <add as="rounded" value="1"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+
+    <!-- rolexterno -->
+    <add as="823" extend="defaultVertex">
+        <add as="rounded" value="1"/>
+        <add as="shadow" value="1"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+
+    <!-- unidad -->
+    <add as="824" extend="defaultVertex">
+        <add as="shape" value="ellipse"/>
+        <add as="shadow" value="1"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+
+    <!-- rolinterno -->
+    <add as="825" extend="defaultVertex">
+        <add as="shape" value="ellipse"/>
+        <add as="strokeWidth" value="3"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+
+    <!-- rolexterno -->
+    <add as="826" extend="defaultVertex">
+        <add as="shape" value="ellipse"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+    <add as="827" extend="defaultVertex">
+        <add as="shape" value="hexagon"/>
+        <add as="shadow" value="1"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+    <add as="828" extend="defaultVertex">
+        <add as="shadow" value="1"/>
+        <add as="strokeWidth" value="3"/>
+
+    </add>
+    <add as="829" extend="defaultVertex">
+        <add as="shape" value="cylinder"/>
+
+    </add>
+
+    <!-- rolinterno -->
+    <!-- human -->
+    <add as="831" extend="defaultVertex">
+        <add as="shape" value="actor"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+        <add as="fillColor" value="blue"/>
+    </add>
+    <!-- rolinterno -->
+    <add as="832" extend="defaultVertex">
+        <add as="rounded" value="1"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+
+    <!-- rolexterno -->
+    <add as="833" extend="defaultVertex">
+        <add as="rounded" value="1"/>
+        <add as="shadow" value="1"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+    <!-- titulo -->
+    <!-- rolexterno -->
+    <add as="834" extend="defaultVertex">
+        <add as="rounded" value="1"/>
+        <add as="shadow" value="1"/>
+        <add as="perimeter" value="ellipsePerimeter"/>
+    </add>
+
+    <add as="sepRol" extend="defaultVertex">
+        <!--<add as="shape" value="connector"/>-->
+        <!--<add as="shape" value="line"/>  -->
+        <add as="dashed" value="1"/>
+        <add as="opacity" value="70"/>
+        <add as="fillColor" value="white"/>
+        <add as="elbow" value="vertical"/>
+    </add>
+
 </mxStylesheet>

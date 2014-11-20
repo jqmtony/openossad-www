@@ -1271,7 +1271,7 @@ Sidebar.prototype.addProcedurePalette = function(expand)
 {
     this.addPalette('procedures', 'Procedures', expand || false, mxUtils.bind(this, function(content)
     {
-        content.appendChild(this.createVertexTemplate(null, 120, 60, 'Rol', 'Process', true));
+        content.appendChild(this.createVertexTemplate(null, 120, 60, 'Process', 'Process', true));
         content.appendChild(this.createVertexTemplate('rounded=1', 120, 60, 'Rol', 'Rol', true));
         content.appendChild(this.createVertexTemplate('ellipse', 40, 40, '', 'Begin', true));
         content.appendChild(this.createVertexTemplate('ellipse', 40, 40, '', 'End', true));
@@ -1289,6 +1289,10 @@ Sidebar.prototype.addProcedurePalette = function(expand)
         content.appendChild(this.createEdgeTemplateFromCells(cells, 100, 100, 'Curve', true));
         content.appendChild(this.createEdgeTemplate('shape=link', 100, 100, '', 'Link', true));
         content.appendChild(this.createEdgeTemplate('arrow', 100, 100, '', 'Arrow', true));
+
+        content.appendChild(this.createVertexTemplate("10", 120, 60, 'Group', 'Group', true));
+        content.appendChild(this.createVertexTemplate("6", 120, 60, 'Intern Rol', 'Intern Rol', true));
+        content.appendChild(this.createVertexTemplate("9", 120, 60, 'Extern Rol', 'Extern Rol', true));
     }));
 };
 
