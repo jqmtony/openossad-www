@@ -351,13 +351,13 @@ function setCurrentXml(data, filename)
 		{
 			this.editorUi.showDialog(new ShareDialog(this.editorUi).container, 340, 100, true, true);
 		}));*/
-		this.editorUi.actions.put('about', new Action(mxResources.get('aboutDrawio'), mxUtils.bind(this, function()
+		this.editorUi.actions.put('about', new Action(mxResources.get('aboutOpenossad'), mxUtils.bind(this, function()
 		{
 			this.editorUi.showDialog(new AboutDialog(this.editorUi).container, 300, 344, true, true);
 		}), null, null, 'F1'));
-		this.editorUi.actions.put('help', new Action('draw.io mierder @ StackExchange', mxUtils.bind(this, function()
+		this.editorUi.actions.put('help', new Action('OpenOSSAD Blog', mxUtils.bind(this, function()
 		{
-			window.open('http://webapps.stackexchange.com/questions/tagged/draw.io');
+			window.open('http://openossad.wordpress.com');
 		})));
 		this.editorUi.actions.addAction('image', function()
 		{

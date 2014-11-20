@@ -510,11 +510,11 @@ function AboutDialog(editorUi)
 	div.appendChild(img);
 	mxUtils.br(div);
 	var h3 = document.createElement('h2');
-	mxUtils.write(h3, 'draw.io');
+	mxUtils.write(h3, 'openossad');
 	h3.style.margin = '0px';
 	div.appendChild(h3);
 	mxUtils.br(div);
-	mxUtils.write(div, 'draw.io is an online diagramming');
+	mxUtils.write(div, 'Graphic design of process and procedures');
 	var link = document.createElement('a');
 	mxUtils.br(div);
 	mxUtils.write(div, 'application built using the');
@@ -533,7 +533,7 @@ function AboutDialog(editorUi)
 	mxUtils.br(div);
 	mxUtils.br(div);
 	var small = document.createElement('small');
-	small.innerHTML = '&copy; 2005-2013 JGraph Ltd.<br>All Rights Reserved.';
+	small.innerHTML = '&copy; 2012-2015 Openossad Ldt.<br>All Rights Reserved.';
 	div.appendChild(small);
 	
 	mxEvent.addListener(div, 'click', function(e)
