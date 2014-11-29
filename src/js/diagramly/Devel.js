@@ -10,6 +10,7 @@
 // Uses grapheditor from devhost
 mxscript(geBasePath +'/Editor.js');
 mxscript(geBasePath +'/Graph.js');
+mxscript(geBasePath +'/OpenossadGraph.js');
 mxscript(geBasePath +'/Shapes.js');
 mxscript(geBasePath +'/EditorUi.js');
 mxscript(geBasePath +'/Actions.js');

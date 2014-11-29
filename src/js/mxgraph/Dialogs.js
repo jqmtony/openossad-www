@@ -643,7 +643,6 @@ function SaveDialog(editorUi)
 	var tbody = document.createElement('tbody');
 	
 	row = document.createElement('tr');
-	
 	td = document.createElement('td');
 	td.style.fontSize = '10pt';
 	td.style.width = '100px';
@@ -1087,7 +1086,7 @@ function ExportDialog(editorUi)
 	
 				if (xml.length < MAX_REQUEST_SIZE)
 				{
-					xml = encodeURIComponent(xml);
+                    xml = encodeURIComponent(xml);
 					new mxXmlRequest(SAVE_URL, 'filename=' + name + '&format=' + format +
 							'&xml=' + xml).simulate(document, "_blank");
 				}
@@ -1119,16 +1118,14 @@ function ExportDialog(editorUi)
 				var w = Math.ceil(bounds.width * scale / vs + 2 * b);
 				var h = Math.ceil(bounds.height * scale / vs + 2 * b);
 				var xml = mxUtils.getXml(root);
-
 				// Requests image if request is valid
-				if (xml.length <= MAX_REQUEST_SIZE && width < MAX_WIDTH && width > 0 &&
-					height < MAX_HEIGHT && height > 0)
+				if (xml.length <= MAX_REQUEST_SIZE && width < MAX_WIDTH && width > 0 && height < MAX_HEIGHT && height > 0)
 				{
 					var bg = graph.background || '#ffffff';
-					
+
 					new mxXmlRequest(EXPORT_URL, 'filename=' + name + '&format=' + format +
 	        			'&bg=' + bg + '&w=' + w + '&h=' + h + '&plain=' + encodeURIComponent(xml)).
-	        			simulate(document, '_blank');
+                        simulate(document, '_blank');
 				}
 				else
 				{

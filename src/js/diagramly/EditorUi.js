@@ -150,6 +150,10 @@
 			this.sidebar.togglePalettes('pid', pids);
 		}
 
+
+
+
+
 		// TODO: Expand the first entry
 
 		// Adds zoom via shift-wheel

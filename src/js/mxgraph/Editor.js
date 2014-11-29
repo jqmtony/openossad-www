@@ -43,7 +43,7 @@ Editor = function()
 	mxEventSource.call(this);
 	this.init();
 	this.initStencilRegistry();
-	this.graph = new Graph();
+	this.graph = new OpenossadGraph();
 	this.outline = new mxOutline(this.graph);
 	this.outline.updateOnPan = true;
 	this.undoManager = this.createUndoManager();

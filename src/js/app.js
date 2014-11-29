@@ -6,8 +6,8 @@ var t0 = new Date();
 		var MAX_HEIGHT = 6000;
 
 		// CUSTOM_PARAMETERS - URLs for save and export
-		var EXPORT_URL = 'http://exp.draw.io/ImageExport2/export';
-		var SHARE_HOST = 'http://shr.diagramly.com:8000';
+		var EXPORT_URL = 'http://openossad.localhost:9000/api/export';
+		var SHARE_HOST = 'http://www.openossad.com:8000';
 
 		var SAVE_URL = 'save';
 		var OPEN_URL = 'open';

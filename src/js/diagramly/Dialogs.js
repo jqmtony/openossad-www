@@ -13,7 +13,6 @@ function SaveDialog(editorUi)
 	var tbody = document.createElement('tbody');
 	
 	row = document.createElement('tr');
-	
 	td = document.createElement('td');
 	td.style.fontSize = '10pt';
 	td.style.width = '100px';
@@ -885,6 +884,7 @@ function ExportDialog(editorUi)
 				
 				if (xml.length < MAX_REQUEST_SIZE)
 				{
+                    console.log(xml);
 					xml = encodeURIComponent(xml);
 					new mxXmlRequest(SAVE_URL, 'filename=' + name + '&format=' + format +
 							'&xml=' + xml).simulate(document, "_blank");
@@ -929,7 +929,7 @@ function ExportDialog(editorUi)
 					{
 						bg = '&bg=' + backgroundInput.value;
 					}
-					
+                    console.log(xml);
 					// NOTE: Overridden request parameter name for Amazon export (plain=xml)
 					new mxXmlRequest(EXPORT_URL, 'filename=' + name + '&format=' + format +
 	        			bg + '&w=' + w + '&h=' + h + '&plain=' + encodeURIComponent(xml)).
