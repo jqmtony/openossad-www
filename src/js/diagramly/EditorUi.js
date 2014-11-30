@@ -28,6 +28,9 @@
 		var ee = this.sidebar.ee;
 		var pids = this.sidebar.pids;
 
+        b = Math.max(document.body.clientHeight || 0, document.documentElement.clientHeight || 0) / 2;
+        this.spinner = this.createSpinner(document.body.clientWidth / 2 - 2, b, 24);
+
 		// Adds style input in test mode
 		if (urlParams['test'] == '1')
 		{
@@ -633,33 +636,15 @@
 		}
 
 	}
-    EditorUi.prototype.createFile = function (a, b, c, d, e) {
-        d = null != d ? d : this.mode;
-        if (null != a && this.spinner.spin(document.body, mxResources.get("inserting"))) {
-            b = null != b ? b : "";
-            var f = mxUtils.bind(this, function (a) {
-                this.spinner.stop();
-                null == a && null == this.getCurrentFile() && null == this.dialog ? this.showSplash() : null != a && this.handleError(a)
-            });
-            d == App.MODE_GOOGLE ? this.drive.insertFile(a, b, null != this.stateArg ? this.stateArg.folderId : null, mxUtils.bind(this, function (a) {
-                null != this.stateArg ? (this.setCurrentFile(a), window.location.hash =
-                    a.getHash(), window.location.search = this.getSearch(["state"])) : (null != e && e(), this.spinner.stop(), this.fileCreated(a, c))
-            }), f) : d == App.MODE_DROPBOX ? this.dropbox.insertFile(a, b, mxUtils.bind(this, function (a) {
-                null != e && e();
-                this.spinner.stop();
-                this.fileCreated(a, c)
-            }), f) : d == App.MODE_BROWSER ? (this.spinner.stop(), d = mxUtils.bind(this, function () {
-                var d = new StorageFile(this, b, a);
-                d.doSave(a, mxUtils.bind(this, function () {
-                    null != e && e();
-                    this.fileCreated(d, c)
-                }), f)
-            }), null == localStorage.getItem(a) ? d() : this.confirm(mxResources.get("replace",
-                [a]), d, mxUtils.bind(this, function () {
-                null == this.getCurrentFile() && null == this.dialog && this.showSplash()
-            }))) : d == App.MODE_DEVICE && (null != e && e(), this.spinner.stop(), this.fileCreated(new LocalFile(this, b, a), c))
-        }
+
+    EditorUi.prototype.currentFile = null;
+    EditorUi.prototype.setCurrentFile = function (a) {
+        this.currentFile = a
     };
+    EditorUi.prototype.getCurrentFile = function () {
+        return this.currentFile
+    };
+
 	// Sharing
 	/*EditorUi.prototype.connect = function(name, highlight)
 	{

@@ -198,14 +198,18 @@ App.prototype.open = function () {
     }
 };
 App.prototype.load = function () {
-    "1" != urlParams.embed && this.spinner.spin(document.body, mxResources.get("starting")) && (this.stateArg = null != urlParams.state && null != this.drive ? JSON.parse(decodeURIComponent(urlParams.state)) : null, this.editor.graph.setEnabled(null != this.getCurrentFile()), "undefined" != typeof Storage && null != this.stateArg && null != this.stateArg.userId && this.drive.setUserId(this.stateArg.userId), null != this.stateArg && "open" == this.stateArg.action ? (window.location.hash = "G" + this.stateArg.ids[0], window.location.search =
-        this.getSearch(["state"])) : null != urlParams.fileId ? (window.location.hash = "G" + urlParams.fileId, window.location.search = this.getSearch(["fileId"])) : null == this.drive ? this.start() : gapi.load("auth:client,drive-realtime,drive-share", mxUtils.bind(this, function () {
-        gapi.client.load("drive", "v2", mxUtils.bind(this, function () {
-            gapi.auth.init(mxUtils.bind(this, function () {
-                this.start()
-            }))
-        }))
-    })))
+
+    var spin = this.spinner.spin(document.body, mxResources.get("starting"));
+//    "1" != urlParams.embed  && spin && (this.stateArg = null != urlParams.state && null != this.drive ? JSON.parse(decodeURIComponent(urlParams.state)) : null, this.editor.graph.setEnabled(null != this.getCurrentFile()), "undefined" != typeof Storage && null != this.stateArg && null != this.stateArg.userId && this.drive.setUserId(this.stateArg.userId), null != this.stateArg && "open" == this.stateArg.action ? (window.location.hash = "G" + this.stateArg.ids[0], window.location.search =
+//        this.getSearch(["state"])) : null != urlParams.fileId ? (window.location.hash = "G" + urlParams.fileId, window.location.search = this.getSearch(["fileId"])) : null == this.drive ? this.start() : gapi.load("auth:client,drive-realtime,drive-share",
+//        mxUtils.bind(this, function () {
+//        gapi.client.load("drive", "v2", mxUtils.bind(this, function () { gapi.auth.init(mxUtils.bind(this, function ()
+//        {
+//                this.start()
+//        }))
+//        }))
+//    })))
+    this.start();
 };
 App.prototype.showRemoteAlert = function () {
     if (isLocalStorage && !this.isOffline())try {
@@ -842,7 +846,8 @@ App.prototype.updateHeader = function () {
         this.appIcon.style.backgroundImage = a;
         this.appIcon.style.backgroundPosition = "center center";
         this.appIcon.style.backgroundRepeat = "no-repeat";
-        mxUtils.setPrefixedStyle(this.appIcon.style, "transition", "all 125ms linear");
+        var style = this.appIcon.style;
+//        mxUtils.setPrefixedStyle(style, "transition", "all 125ms linear");
         mxEvent.addListener(this.appIcon, "mouseover", mxUtils.bind(this, function () {
             this.mode == App.MODE_GOOGLE ? this.appIcon.style.backgroundImage = "url(" + IMAGE_PATH + "/google-drive-logo-white.svg)" : this.mode == App.MODE_DROPBOX &&
                 (this.appIcon.style.backgroundImage = "url(" + IMAGE_PATH + "/dropbox-logo-white.svg)")

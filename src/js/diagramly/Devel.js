@@ -8,7 +8,8 @@
 // files and the mxClient.js loads other files.
 
 // Uses grapheditor from devhost
-mxscript(geBasePath +'/OpenossadEditor.js');
+//mxscript(geBasePath +'/OpenossadEditor.js');
+mxscript(geBasePath +'/Editor.js');
 mxscript(geBasePath +'/Graph.js');
 mxscript(geBasePath +'/OpenossadGraph.js');
 mxscript(geBasePath +'/Shapes.js');
@@ -26,9 +27,12 @@ mxscript('js/diagramly/Dialogs.js');
 mxscript('js/diagramly/OpenossadDialogs.js');
 mxscript('js/diagramly/Sidebar.js');
 mxscript('js/diagramly/EditorUi.js');
-mxscript('js/diagramly/Sharing.js');
-mxscript('js/diagramly/Diagramly.js');
 
+mxscript('js/googledrive/DriveClient.js');
+mxscript('js/dropbox/DropboxClient.js');
 mxscript('js/openossad/App.js');
+mxscript('js/diagramly/Sharing.js');
+
+mxscript('js/diagramly/Diagramly.js');
 
 

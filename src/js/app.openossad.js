@@ -261,14 +261,14 @@ var uiTheme = (function()
 })();
 
 // Used to request grapheditor/mxgraph sources in dev mode
-var mxDevUrl = document.location.protocol + '//devhost.jgraph.com/mxgraph2';
+var mxDevUrl = document.location.protocol + '//devhost.openossad.com/mxgraph2';
 
 // Used to request draw.io sources in dev mode
 var drawDevUrl = '';
 
 if (urlParams['drawdev'] == '1')
 {
-    drawDevUrl = document.location.protocol + '//drawhost.jgraph.com/';
+    drawDevUrl = document.location.protocol + '//drawhost.openossad.com/';
 }
 
 // Customizes export URL

@@ -13,16 +13,16 @@ var touchStyle = mxClient.IS_TOUCH || urlParams['touch'] == '1';
 var counter = 0;
 
 // Cross-domain window access is not allowed in FF, so if we
-// were opened from another domain then this will fail. 
+// were opened from another domain then this will fail.
 try
 {
 	var op = window;
-	
+
 	while (op.opener != null && !isNaN(op.opener.counter))
 	{
 		op = op.opener;
 	}
-	
+
 	// Increments the counter in the first opener in the chain
 	if (op != null)
 	{
@@ -48,7 +48,7 @@ Editor = function()
 	this.outline.updateOnPan = true;
 	this.undoManager = this.createUndoManager();
 	this.status = '';
-	
+
 	// Contains the name which was used for the last save. Default value is null.
 	this.filename = null;
 
@@ -56,19 +56,19 @@ Editor = function()
 	{
 		return this.filename || mxResources.get('drawing', [counter]) + '.xml';
 	};
-	
+
 	this.getFilename = function()
 	{
 		return this.filename;
 	};
-	
+
 	// Sets the status and fires a statusChanged event
 	this.setStatus = function(value)
 	{
 		this.status = value;
 		this.fireEvent(new mxEventObject('statusChanged'));
 	};
-	
+
 	// Returns the current status
 	this.getStatus = function()
 	{
@@ -84,7 +84,7 @@ Editor = function()
 	{
 		this.modified = true;
 	}));
-	
+
 	// Installs dialog if browser window is closed without saving
 	// This must be disabled during save and image export
 	window.onbeforeunload = mxUtils.bind(this, function()
@@ -94,7 +94,7 @@ Editor = function()
 			return mxResources.get('allChangesLost');
 		}
 	});
-	
+
 	// Sets persistent graph state defaults
 	this.graph.resetViewOnRootChange = false;
 	this.graph.scrollbars = true;
@@ -120,7 +120,7 @@ Editor.prototype.transparentImage = IMAGE_PATH + '/transparent.gif';
 Editor.prototype.setGraphXml = function(node)
 {
 	var dec = new mxCodec(node.ownerDocument);
-	
+
 	if (node.nodeName == 'mxGraphModel')
 	{
 		this.graph.view.scale = 1;
@@ -130,7 +130,7 @@ Editor.prototype.setGraphXml = function(node)
 		this.graph.setConnectable(node.getAttribute('connect') != '0');
 		this.graph.foldingEnabled = node.getAttribute('fold') != '0';
 		this.graph.scrollbars = node.getAttribute('scrollbars') != '0';
-		
+
 		if (!this.graph.scrollbars)
 		{
 			this.graph.container.scrollLeft = 0;
@@ -140,12 +140,12 @@ Editor.prototype.setGraphXml = function(node)
 		}
 
 		this.graph.pageVisible = node.getAttribute('page') == '1';
-		this.graph.pageBreaksVisible = this.graph.pageVisible; 
+		this.graph.pageBreaksVisible = this.graph.pageVisible;
 		this.graph.preferPageSize = this.graph.pageBreaksVisible;
-		
+
 		// Loads the persistent state settings
 		var ps = node.getAttribute('pageScale');
-		
+
 		if (ps != null)
 		{
 			this.graph.pageScale = ps;
@@ -154,10 +154,10 @@ Editor.prototype.setGraphXml = function(node)
 		{
 			this.graph.pageScale = 1.5;
 		}
-		
+
 		var pw = node.getAttribute('pageWidth');
 		var ph = node.getAttribute('pageHeight');
-		
+
 		if (pw != null && ph != null)
 		{
 			this.graph.pageFormat = new mxRectangle(0, 0, parseFloat(pw), parseFloat(ph));
@@ -166,12 +166,12 @@ Editor.prototype.setGraphXml = function(node)
 
 		// Loads the persistent state settings
 		var bg = node.getAttribute('background');
-		
+
 		if (bg != null && bg.length > 0)
 		{
 			this.graph.background = bg;
 		}
-		
+
 		dec.decode(node, this.graph.getModel());
 		this.updateGraphComponents();
 	}
@@ -190,18 +190,18 @@ Editor.prototype.getGraphXml = function()
 		node.setAttribute('dx', Math.round(this.graph.view.translate.x * 100) / 100);
 		node.setAttribute('dy', Math.round(this.graph.view.translate.y * 100) / 100);
 	}
-	
+
 	node.setAttribute('grid', (this.graph.isGridEnabled()) ? '1' : '0');
 	node.setAttribute('guides', (this.graph.graphHandler.guidesEnabled) ? '1' : '0');
 	node.setAttribute('guides', (this.graph.graphHandler.guidesEnabled) ? '1' : '0');
 	node.setAttribute('tooltips', (this.graph.tooltipHandler.isEnabled()) ? '1' : '0');
-	node.setAttribute('connect', (this.graph.connectionHandler.isEnabled()) ? '1' : '0');	
+	node.setAttribute('connect', (this.graph.connectionHandler.isEnabled()) ? '1' : '0');
 	node.setAttribute('fold', (this.graph.foldingEnabled) ? '1' : '0');
 	node.setAttribute('page', (this.graph.pageVisible) ? '1' : '0');
 	node.setAttribute('pageScale', this.graph.pageScale);
 	node.setAttribute('pageWidth', this.graph.pageFormat.width);
 	node.setAttribute('pageHeight', this.graph.pageFormat.height);
-	
+
 	if (!this.graph.scrollbars)
 	{
 		node.setAttribute('scrollbars', '0');
@@ -211,7 +211,7 @@ Editor.prototype.getGraphXml = function()
 	{
 		node.setAttribute('background', this.graph.background);
 	}
-	
+
 	return node;
 };
 
@@ -222,7 +222,7 @@ Editor.prototype.updateGraphComponents = function()
 {
 	var graph = this.graph;
 	var outline = this.outline;
-	
+
 	if (graph.container != null && outline.outline.container != null)
 	{
 		if (graph.background != null)
@@ -238,7 +238,7 @@ Editor.prototype.updateGraphComponents = function()
 					graph.view.backgroundPageShape.fill = graph.background;
 					graph.view.backgroundPageShape.reconfigure();
 				}
-				
+
 				graph.container.style.backgroundColor = graph.background;
 			}
 		}
@@ -261,7 +261,7 @@ Editor.prototype.updateGraphComponents = function()
 		{
 			graph.container.style.border = '';
 		}
-		
+
 		outline.outline.container.style.backgroundColor = graph.container.style.backgroundColor;
 
 		if (outline.outline.pageVisible != graph.pageVisible ||
@@ -271,7 +271,7 @@ Editor.prototype.updateGraphComponents = function()
 			outline.outline.pageVisible = graph.pageVisible;
 			outline.outline.view.validate();
 		}
-		
+
 		if (graph.scrollbars && graph.container.style.overflow == 'hidden' && !touchStyle)
 		{
 			graph.container.style.overflow = 'auto';
@@ -280,7 +280,7 @@ Editor.prototype.updateGraphComponents = function()
 		{
 			graph.container.style.overflow = 'hidden';
 		}
-		
+
 		// Transparent.gif is a workaround for focus repaint problems in IE
 		var noBackground = (mxClient.IS_IE && document.documentMode >= 9) ? 'url(' + this.transparentImage + ')' : 'none';
 		graph.container.style.backgroundImage = (!graph.pageVisible && graph.isGridEnabled()) ? 'url(' + this.gridImage + ')' : noBackground;
@@ -315,7 +315,7 @@ Editor.prototype.init = function()
 	mxConnectionHandler.prototype.createMarker = function()
 	{
 		var marker = mxConnectionHandlerCreateMarker.apply(this, arguments);
-		
+
 		// Overrides to ignore hotspot only for target terminal
 		marker.intersects = mxUtils.bind(this, function(state, evt)
 		{
@@ -323,16 +323,16 @@ Editor.prototype.init = function()
 			{
 				return true;
 			}
-			
+
 			return mxCellMarker.prototype.intersects.apply(marker, arguments);
 		});
-		
+
 		return marker;
 	};
 
 	// Makes the shadow brighter
 	mxConstants.SHADOWCOLOR = '#d0d0d0';
-	
+
 	// Changes some default colors
 	mxConstants.HANDLE_FILLCOLOR = '#99ccff';
 	mxConstants.HANDLE_STROKECOLOR = '#0088cf';
@@ -348,10 +348,10 @@ Editor.prototype.init = function()
 
 	mxGraph.prototype.pageBreakColor = '#c0c0c0';
 	mxGraph.prototype.pageScale = 1;
-	
+
 	// Increases default rubberband opacity (default is 20)
 	mxRubberband.prototype.defaultOpacity = 30;
-	
+
 	// Changes border color of background page shape
 	mxGraphView.prototype.createBackgroundPageShape = function(bounds)
 	{
@@ -362,13 +362,13 @@ Editor.prototype.init = function()
 	mxGraphView.prototype.getBackgroundPageBounds = function()
 	{
 		var gb = this.getGraphBounds();
-		
+
 		// Computes unscaled, untranslated graph bounds
 		var x = (gb.width > 0) ? gb.x / this.scale - this.translate.x : 0;
 		var y = (gb.height > 0) ? gb.y / this.scale - this.translate.y : 0;
 		var w = gb.width / this.scale;
 		var h = gb.height / this.scale;
-		
+
 		var fmt = this.graph.pageFormat;
 		var ps = this.graph.pageScale;
 
@@ -379,22 +379,22 @@ Editor.prototype.init = function()
 		var y0 = Math.floor(Math.min(0, y) / ph);
 		var xe = Math.ceil(Math.max(1, x + w) / pw);
 		var ye = Math.ceil(Math.max(1, y + h) / ph);
-		
+
 		var rows = xe - x0;
 		var cols = ye - y0;
 
 		var bounds = new mxRectangle(this.scale * (this.translate.x + x0 * pw), this.scale *
 				(this.translate.y + y0 * ph), this.scale * rows * pw, this.scale * cols * ph);
-		
+
 		return bounds;
 	};
-	
+
 	// Add panning for background page in VML
 	var graphPanGraph = mxGraph.prototype.panGraph;
 	mxGraph.prototype.panGraph = function(dx, dy)
 	{
 		graphPanGraph.apply(this, arguments);
-		
+
 		if ((this.dialect != mxConstants.DIALECT_SVG && this.view.backgroundPageShape != null) &&
 			(!this.useScrollbarsForPanning || !mxUtils.hasScrollbars(this.container)))
 		{
@@ -402,14 +402,14 @@ Editor.prototype.init = function()
 			this.view.backgroundPageShape.node.style.marginTop = dy + 'px';
 		}
 	};
-	
+
 	var editor = this;
-	
+
 	// Uses HTML for background pages (to support grid background image)
 	mxGraphView.prototype.validateBackground = function()
 	{
 		var bg = this.graph.getBackgroundImage();
-		
+
 		if (bg != null)
 		{
 			if (this.backgroundImage == null || this.backgroundImage.image != bg.src)
@@ -418,15 +418,15 @@ Editor.prototype.init = function()
 				{
 					this.backgroundImage.destroy();
 				}
-				
+
 				var bounds = new mxRectangle(0, 0, 1, 1);
-				
+
 				this.backgroundImage = new mxImageShape(bounds, bg.src);
 				this.backgroundImage.dialect = this.graph.dialect;
 				this.backgroundImage.init(this.backgroundPane);
 				this.backgroundImage.redraw();
 			}
-			
+
 			this.redrawBackgroundImage(this.backgroundImage, bg);
 		}
 		else if (this.backgroundImage != null)
@@ -434,11 +434,11 @@ Editor.prototype.init = function()
 			this.backgroundImage.destroy();
 			this.backgroundImage = null;
 		}
-		
+
 		if (this.graph.pageVisible)
 		{
 			var bounds = this.getBackgroundPageBounds();
-			
+
 			if (this.backgroundPageShape == null)
 			{
 				this.backgroundPageShape = this.createBackgroundPageShape(bounds);
@@ -450,10 +450,10 @@ Editor.prototype.init = function()
 				this.graph.container.firstChild.style.position = 'absolute';
 				this.graph.container.insertBefore(this.backgroundPageShape.node, this.graph.container.firstChild);
 				this.backgroundPageShape.redraw();
-				
+
 				this.backgroundPageShape.node.className = 'geBackgroundPage';
 				this.backgroundPageShape.node.style.backgroundPosition = '-1px -1px';
-				
+
 				// Adds listener for double click handling on background
 				mxEvent.addListener(this.backgroundPageShape.node, 'dblclick',
 					mxUtils.bind(this, function(evt)
@@ -461,7 +461,7 @@ Editor.prototype.init = function()
 						this.graph.dblClick(evt);
 					})
 				);
-				
+
 				// Adds basic listeners for graph event dispatching outside of the
 				// container and finishing the handling of a single gesture
 				mxEvent.addGestureListeners(this.backgroundPageShape.node,
@@ -477,7 +477,7 @@ Editor.prototype.init = function()
 						{
 							this.graph.tooltipHandler.hide();
 						}
-						
+
 						if (this.graph.isMouseDown &&
 							!mxEvent.isConsumed(evt))
 						{
@@ -497,7 +497,7 @@ Editor.prototype.init = function()
 				this.backgroundPageShape.bounds = bounds;
 				this.backgroundPageShape.redraw();
 			}
-			
+
 			this.backgroundPageShape.node.style.backgroundImage = (this.graph.isGridEnabled()) ?
 					'url(' + editor.gridImage + ')' : 'none';
 		}
@@ -507,7 +507,7 @@ Editor.prototype.init = function()
 			this.backgroundPageShape = null;
 		}
 	};
-	
+
 	// Draws page breaks only within the page
 	mxGraph.prototype.updatePageBreaks = function(visible, width, height)
 	{
@@ -542,7 +542,7 @@ Editor.prototype.init = function()
 			{
 				var pts = [new mxPoint(bounds2.x + (i + 1) * bounds.width, bounds2.y),
 				           new mxPoint(bounds2.x + (i + 1) * bounds.width, bottom)];
-				
+
 				if (this.horizontalPageBreaks[i] != null)
 				{
 					this.horizontalPageBreaks[i].scale = 1;
@@ -558,31 +558,31 @@ Editor.prototype.init = function()
 					pageBreak.scale = scale;
 					pageBreak.init(this.view.backgroundPane);
 					pageBreak.redraw();
-					
+
 					this.horizontalPageBreaks[i] = pageBreak;
 				}
 			}
-			
+
 			for (var i = horizontalCount; i < this.horizontalPageBreaks.length; i++)
 			{
 				this.horizontalPageBreaks[i].destroy();
 			}
-			
+
 			this.horizontalPageBreaks.splice(horizontalCount, this.horizontalPageBreaks.length - horizontalCount);
 		}
-		
+
 		if (this.verticalPageBreaks == null && verticalCount > 0)
 		{
 			this.verticalPageBreaks = [];
 		}
-		
+
 		if (this.verticalPageBreaks != null)
 		{
 			for (var i = 0; i <= verticalCount; i++)
 			{
 				var pts = [new mxPoint(bounds2.x, bounds2.y + (i + 1) * bounds.height),
 				           new mxPoint(right, bounds2.y + (i + 1) * bounds.height)];
-				
+
 				if (this.verticalPageBreaks[i] != null)
 				{
 					this.verticalPageBreaks[i].scale = 1; //scale;
@@ -598,20 +598,20 @@ Editor.prototype.init = function()
 					pageBreak.scale = scale;
 					pageBreak.init(this.view.backgroundPane);
 					pageBreak.redraw();
-		
+
 					this.verticalPageBreaks[i] = pageBreak;
 				}
 			}
-			
+
 			for (var i = verticalCount; i < this.verticalPageBreaks.length; i++)
 			{
 				this.verticalPageBreaks[i].destroy();
 			}
-			
+
 			this.verticalPageBreaks.splice(verticalCount, this.verticalPageBreaks.length - verticalCount);
 		}
 	};
-	
+
 	// Enables snapping to off-grid terminals for edge waypoints
 	mxEdgeHandler.prototype.snapToTerminals = true;
 
@@ -627,29 +627,29 @@ Editor.prototype.init = function()
 			if (this.graph.getModel().isVertex(cells[i]))
 			{
 				var geo = this.graph.getCellGeometry(cells[i]);
-				
+
 				if (geo != null && geo.relative)
 				{
 					return false;
 				}
 			}
 		}
-		
+
 		return mxGraphHandlerShouldRemoveCellsFromParent.apply(this, arguments);
 	};
-	
+
 	// Alt-move disables guides
 	mxGuide.prototype.isEnabledForEvent = function(evt)
 	{
 		return !mxEvent.isAltDown(evt);
 	};
-	
+
 	// Consumes click events for disabled menu items
 	mxPopupMenuAddItem = mxPopupMenu.prototype.addItem;
 	mxPopupMenu.prototype.addItem = function(title, image, funct, parent, iconCls, enabled)
 	{
 		var result = mxPopupMenuAddItem.apply(this, arguments);
-		
+
 		if (enabled != null && !enabled)
 		{
 			mxEvent.addListener(result, 'mousedown', function(evt)
@@ -657,7 +657,7 @@ Editor.prototype.init = function()
 				mxEvent.consume(evt);
 			});
 		}
-		
+
 		return result;
 	};
 
@@ -669,7 +669,7 @@ Editor.prototype.init = function()
 		var psel = model.getParent(this.graph.getSelectionCell());
 		var cell = graphHandlerGetInitialCellForEvent.apply(this, arguments);
 		var parent = model.getParent(cell);
-		
+
 		if (psel == null || (psel != cell && psel != parent))
 		{
 			while (!this.graph.isCellSelected(cell) && !this.graph.isCellSelected(parent) &&
@@ -679,10 +679,10 @@ Editor.prototype.init = function()
 				parent = this.graph.getModel().getParent(cell);
 			}
 		}
-		
+
 		return cell;
 	};
-	
+
 	// Selection is delayed to mouseup if child selected
 	var graphHandlerIsDelayedSelection = mxGraphHandler.prototype.isDelayedSelection;
 	mxGraphHandler.prototype.isDelayedSelection = function(cell)
@@ -691,7 +691,7 @@ Editor.prototype.init = function()
 		var model = this.graph.getModel();
 		var psel = model.getParent(this.graph.getSelectionCell());
 		var parent = model.getParent(cell);
-		
+
 		if (psel == null || (psel != cell && psel != parent))
 		{
 			if (!this.graph.isCellSelected(cell) && model.isVertex(parent) && !this.graph.isValidRoot(parent))
@@ -699,29 +699,29 @@ Editor.prototype.init = function()
 				result = true;
 			}
 		}
-		
+
 		return result;
 	};
-	
+
 	// Delayed selection of parent group
 	mxGraphHandler.prototype.selectDelayed = function(me)
 	{
 		var cell = me.getCell();
-		
+
 		if (cell == null)
 		{
 			cell = this.cell;
 		}
-		
+
 		var model = this.graph.getModel();
 		var parent = model.getParent(cell);
-		
+
 		while (this.graph.isCellSelected(cell) && model.isVertex(parent) && !this.graph.isValidRoot(parent))
 		{
 			cell = parent;
 			parent = model.getParent(cell);
 		}
-		
+
 		this.graph.selectCellForEvent(cell, me.getEvent());
 	};
 
@@ -731,17 +731,17 @@ Editor.prototype.init = function()
 		var cell = me.getCell();
 		var model = this.graph.getModel();
 		var parent = model.getParent(cell);
-		
+
 		while (model.isVertex(parent) && !this.graph.isValidRoot(parent))
 		{
 			if (this.graph.isCellSelected(parent))
 			{
 				cell = parent;
 			}
-			
+
 			parent = model.getParent(parent);
 		}
-		
+
 		return cell;
 	};
 };
@@ -759,7 +759,7 @@ Editor.prototype.createUndoManager = function()
 	{
 		undoMgr.undoableEditHappened(evt.getProperty('edit'));
 	};
-	
+
 	graph.getModel().addListener(mxEvent.UNDO, listener);
 	graph.getView().addListener(mxEvent.UNDO, listener);
 
@@ -768,7 +768,7 @@ Editor.prototype.createUndoManager = function()
 	{
 		var cand = graph.getSelectionCellsForChanges(evt.getProperty('edit').changes);
 		var cells = [];
-		
+
 		for (var i = 0; i < cand.length; i++)
 		{
 			if (graph.view.getState(cand[i]) != null)
@@ -776,10 +776,10 @@ Editor.prototype.createUndoManager = function()
 				cells.push(cand[i]);
 			}
 		}
-		
+
 		graph.setSelectionCells(cells);
 	};
-	
+
 	undoMgr.addListener(mxEvent.UNDO, undoHandler);
 	undoMgr.addListener(mxEvent.REDO, undoHandler);
 

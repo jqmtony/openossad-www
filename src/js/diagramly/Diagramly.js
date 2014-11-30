@@ -616,7 +616,7 @@ function setCurrentXml(data, filename)
 	};
 
 	// Adds persistent state to file
-	var editorGetGraphXml = Editor.prototype.getGraphXml;	
+	var editorGetGraphXml = Editor.prototype.getGraphXml;
 	Editor.prototype.getGraphXml = function()
 	{
 		var node = editorGetGraphXml.apply(this, arguments);
