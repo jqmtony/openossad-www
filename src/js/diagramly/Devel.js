@@ -23,7 +23,12 @@ mxscript(geBasePath +'/Dialogs.js');
 mxscript('js/diagramly/GoogleDrive.js');
 mxscript('js/diagramly/Integration.js');
 mxscript('js/diagramly/Dialogs.js');
+mxscript('js/diagramly/OpenossadDialogs.js');
 mxscript('js/diagramly/Sidebar.js');
 mxscript('js/diagramly/EditorUi.js');
 mxscript('js/diagramly/Sharing.js');
 mxscript('js/diagramly/Diagramly.js');
+
+mxscript('js/openossad/App.js');
+
+

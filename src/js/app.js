@@ -115,7 +115,7 @@ var t0 = new Date();
 		var mxBasePath = 'mxgraph';
 
 		// Used to request grapheditor/mxgraph sources in dev mode
-		var mxDevUrl = 'http://draw.localhost/mxgraph';
+		var mxDevUrl = 'http://openossad.localhost/mxgraph';
 
 		// Customizes sharing host
 		var share = urlParams['sharehost'];
@@ -149,6 +149,7 @@ var t0 = new Date();
 			mxscript('js/deflate/rawdeflate.js');
 			mxscript('js/deflate/base64.js');
 			mxscript('js/stately/Stately.js');
+            //mxscript('js/sanitizer/sanitizer.min.js');
 
 			// Adds all JS code that depends on mxClient. This indirection via Devel.js is
 			// required in some browsers to make sure mxClient.js (and the files that it

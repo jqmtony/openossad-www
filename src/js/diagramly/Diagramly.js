@@ -286,7 +286,7 @@ function setCurrentXml(data, filename)
 
         this.editorUi.actions.addAction('newOpenOSSADGraph', mxUtils.bind(this, function()
         {
-            this.editorUi.showDialog(new NewOpenossadGraph(this.editorUi).container, 680, 540, true, true);
+            this.editorUi.showDialog(new NewOpenossadDialog(this.editorUi).container, 680, 540, true, true);
             this.editorUi.dialog.container.style.overflow = 'auto';
         }));
 

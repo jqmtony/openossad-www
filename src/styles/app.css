@@ -1,6 +1,5 @@
-.geSidebarContainer .geTitle { color:#606060; }
-.geSidebar .geItem:hover { opacity:1; }
-.geSidebar .geItem { opacity:0.7; }
+body { _overflow: hidden; }
+.geSidebarContainer .geTitle { color:#505050; }
 .geSidebarContainer .geTitle input {
     font-size:8pt;
     color:#606060;
@@ -10,10 +9,8 @@
     margin:100px;
     margin-top:40px;
     margin-bottom:30px;
-    padding:50px;
-    padding-bottom:40px;
-    padding-top:20px;
-    border-radius:10px;
+    padding:20px;
+    border-radius:6px;
     -webkit-box-shadow:0px 0px 4px 4px #e5e5e5;
     -moz-box-shadow:0px 0px 4px 4px #e5e5e5;
     box-shadow:0px 0px 4px 4px #e5e5e5;
@@ -21,8 +18,9 @@
     border:1px solid gray;
     background-color:white;
 }
-.geBlock p {
-    padding-top:10px;
+.geBlock h1, .geBlock h2 {
+    margin-top:0px;
+    padding-top:0px;
 }
 .geEditor {
     background-color:whiteSmoke;
@@ -42,4 +40,18 @@
 }
 .geEditor ::-webkit-scrollbar-thumb:hover {
     background:#b5b5b5;
+}
+.geTemplate {
+    border:1px solid transparent;
+    display:inline-block;
+    _display:inline;
+    vertical-align:top;
+    border-radius:3px;
+    overflow:hidden;
+    font-size:14pt;
+    cursor:pointer;
+    margin:5px;
+}
+.geFooterContainer {
+    z-index:100;
 }

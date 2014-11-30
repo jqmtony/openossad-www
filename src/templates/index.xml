@@ -1,0 +1,65 @@
+<templates>
+<template url="businessprocess/bpmn.xml" libs="general;bpmn"/>
+<template url="businessprocess/lean_mapping.xml"/>
+<template url="businessprocess/swimlane.xml"/>
+<template url="businessprocess/swot_diagram.xml"/>
+<template url="businessprocess/swot_diagram2.xml"/>
+<template url="businessprocess/swot_diagram3.xml"/>
+<template url="businessprocess/swot_diagram4.xml"/>
+<template url="charts/bar_chart.xml"/>
+<template url="charts/bar_chart2.xml"/>
+<template url="charts/city_org_chart.xml"/>
+<template url="charts/org_chart1.xml" libs="general;flowchart"/>
+<template url="charts/org_chart2.xml" libs="general;flowchart"/>
+<template url="charts/work_breakdown_structure.xml"/>
+<template url="engineering/karnaugh_map.xml"/>
+<template url="engineering/oscillator_logic_circuit.xml"/>
+<template url="engineering/pid.xml"/>
+<template url="engineering/plc_ladder.xml" libs="general;plc_ladder"/>
+<template url="engineering/process_flow_diagram.xml"/>
+<template url="engineering/rack_diagram.xml"/>
+<template url="engineering/star_delta.xml"/>
+<template url="flowcharts/decision_tree.xml"/>
+<template url="flowcharts/flowchart_1.xml" libs="general;flowchart"/>
+<template url="flowcharts/flowchart_2.xml" libs="general;flowchart"/>
+<template url="flowcharts/gantt.xml"/>
+<template url="flowcharts/sipoc_diagram.xml"/>
+<template url="flowcharts/site_map.xml"/>
+<template url="flowcharts/workflow.xml" libs="general;flowchart"/>
+<template url="mindmaps/iso_mind_map.xml"/>
+<template url="mindmaps/living_beings_mind_map.xml"/>
+<template url="mockups/ios_app_ui.xml"/>
+<template url="mockups/ios_location.xml"/>
+<template url="networkdiagrams/internet.xml"/>
+<template url="networkdiagrams/social_network.xml"/>
+<template url="other/aws.xml"/>
+<template url="other/block_diagram.xml"/>
+<template url="other/calendar.xml"/>
+<template url="other/compare_diagram.xml"/>
+<template url="other/cycle_diagram.xml"/>
+<template url="other/ishikawa_diagram.xml"/>
+<template url="other/kwl_chart_1.xml"/>
+<template url="other/kwl_chart_2.xml"/>
+<template url="other/math_diagram.xml"/>
+<template url="other/pert_chart.xml"/>
+<template url="other/pert_chart2.xml"/>
+<template url="softwaredesign/activity_diagram.xml"/>
+<template url="softwaredesign/class_diagram.xml"/>
+<template url="softwaredesign/data_flow_diagram.xml"/>
+<template url="softwaredesign/database.xml"/>
+<template url="softwaredesign/deployment_diagram.xml"/>
+<template url="softwaredesign/entity_relation.xml"/>
+<template url="softwaredesign/mmo_simracing_service.xml"/>
+<template url="softwaredesign/package.xml"/>
+<template url="softwaredesign/sequential_diagram.xml"/>
+<template url="softwaredesign/state_machine.xml"/>
+<template url="softwaredesign/uml.xml"/>
+<template url="softwaredesign/use_case.xml"/>
+<template url="venndiagrams/venn.xml"/>
+<template url="venndiagrams/venn_diagram2.xml"/>
+<template url="wireframes/blog_wireframe.xml"/>
+<template url="wireframes/gmail_wireframe.xml"/>
+<template url="wireframes/google_wireframe.xml"/>
+<template url="wireframes/learning_wireframe.xml"/>
+<template url="wireframes/youtube_wireframe.xml"/>
+</templates>
