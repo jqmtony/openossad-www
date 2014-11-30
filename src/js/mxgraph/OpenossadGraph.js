@@ -1,18 +1,47 @@
-/**
- * $Id: Graph.js,v 1.12 2013-02-02 15:37:13 gaudenz Exp $
- * Copyright (c) 2006-2012, JGraph Ltd
- */
-/**
- * Constructs a new graph instance. Note that the constructor does not take a
- * container because the graph instance is needed for creating the UI, which
- * in turn will create the container for the graph. Hence, the container is
- * assigned later in EditorUi.
- */
+
 OpenossadGraph = function(container, model, renderHint, stylesheet)
 {
 	Graph.call(this, container, model, renderHint, stylesheet);
 
+    this.setTooltips(true);
+
+    this.getModel().beginUpdate();
+
+    var cells = [];
+    var cell = new mxCell("", new mxGeometry(1, 1, 80, 30));
+    cell.vertex = true;
+    cell.setConnectable(false);
+
+
+    cells.push(cell);
+    this.importCells(cells);
+
+    this.getModel().endUpdate();
+
+//    graph.moveCells(cells, 20, 20);
+
 };
 
-// Graph inherits from mxGraph
+// OpenossadGraph inherits from Graph
 mxUtils.extend(OpenossadGraph, Graph);
+
+
+/**
+ * Overrides tooltips to show position and size
+ */
+OpenossadGraph.prototype.getTooltipForCell = function(cell)
+{
+    var tip = '';
+
+    if (this.getModel().isVertex(cell))
+    {
+        tip += 'This is an openossad test';
+    }
+    else if (this.getModel().isEdge(cell))
+    {
+        tip = mxGraph.prototype.getTooltipForCell.apply(this, arguments);
+    }
+
+    return tip;
+};
+
