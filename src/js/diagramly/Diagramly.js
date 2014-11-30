@@ -283,7 +283,13 @@ function setCurrentXml(data, filename)
 			addItem(['basic'], mxResources.get('basic'));
 			addItem(['arrows'], mxResources.get('arrows'));
 		})));
-		
+
+        this.editorUi.actions.addAction('newOpenOSSADGraph', mxUtils.bind(this, function()
+        {
+            this.editorUi.showDialog(new NewOpenossadGraph(this.editorUi).container, 680, 540, true, true);
+            this.editorUi.dialog.container.style.overflow = 'auto';
+        }));
+
 		this.editorUi.actions.put('new', new Action(mxResources.get('blankDrawing'), mxUtils.bind(this, function()
 		{
 			window.open(this.editorUi.getUrl());
@@ -556,7 +562,7 @@ function setCurrentXml(data, filename)
 		})));
 		this.put('new', new Menu(mxUtils.bind(this, function(menu, parent)
 		{
-			this.addMenuItems(menu, ['new', 'newCopy', '-', 'fromTemplate', 'fromText'], parent);
+			this.addMenuItems(menu, ['newOpenOSSADGraph', '-', 'new', 'newCopy', '-', 'fromTemplate', 'fromText'], parent);
 		})));
 		// Adds shapes submenu in file menu
 		this.editorUi.actions.addAction('embed', mxUtils.bind(this, function()
