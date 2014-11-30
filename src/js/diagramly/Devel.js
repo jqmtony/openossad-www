@@ -8,7 +8,7 @@
 // files and the mxClient.js loads other files.
 
 // Uses grapheditor from devhost
-mxscript(geBasePath +'/Editor.js');
+mxscript(geBasePath +'/OpenossadEditor.js');
 mxscript(geBasePath +'/Graph.js');
 mxscript(geBasePath +'/OpenossadGraph.js');
 mxscript(geBasePath +'/Shapes.js');

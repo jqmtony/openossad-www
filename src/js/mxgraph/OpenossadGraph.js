@@ -5,21 +5,6 @@ OpenossadGraph = function(container, model, renderHint, stylesheet)
 
     this.setTooltips(true);
 
-    this.getModel().beginUpdate();
-
-    var cells = [];
-    var cell = new mxCell("", new mxGeometry(1, 1, 80, 30));
-    cell.vertex = true;
-    cell.setConnectable(false);
-
-
-    cells.push(cell);
-    this.importCells(cells);
-
-    this.getModel().endUpdate();
-
-//    graph.moveCells(cells, 20, 20);
-
 };
 
 // OpenossadGraph inherits from Graph
