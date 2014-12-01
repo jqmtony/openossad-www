@@ -1,6 +1,8 @@
 openossad
 =========
 
+To start developer mode `http://openossad.localhost/?dev=1&https=0`
+
 
 Architecture of the app
 =======================

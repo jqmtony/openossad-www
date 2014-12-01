@@ -31,14 +31,14 @@ function ExperimentBootstrapDialog(editorUi)
 };
 
 function NewOpenossadDialog(editorUi, b) {
-
+    editorUi.mode == App.MODE_BROWSER;
     function c() {
         var b = input.value;
         null != b && 0 < b.length && editorUi.createFile(b, p, null != n && 0 <
             n.length ? n : null, null, function () {
             editorUi.hideDialog()
         })
-        editorUi.mode == App.MODE_BROWSER;
+
     }
 
     function d(a, b, c) {
