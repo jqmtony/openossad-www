@@ -9,9 +9,9 @@ var mxGoogleDrive =
 	apiKey : 'AIzaSyCEqguTW7a75lGDc9EzRNIGB2pg-UYBfDc',
 	scopes : [ 'https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/drive.install',
 		'https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile' ],*/
-	appID : '420247213240',
-	clientID : '420247213240-hnbju1pt13seqrc1hhd5htpotk4g9q7u.apps.googleusercontent.com',
-	apiKey : 'AIzaSyCtCIW1vJ21MAk8hZsuCtzov-0d01VS8Qc',
+	appID : '00000000',
+	clientID : '000000.apps.googleusercontent.com',
+	apiKey : '000000000000',
 	scopes : [ 'https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/drive.install',
 			'https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile' ],
 	accessToken : null,
