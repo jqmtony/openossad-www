@@ -7,7 +7,7 @@ module.exports = function(grunt) {
                 separator: ';'
             },
             dist: {
-                src: ['js/**/*.js'],
+                src: ['src/js/**/*.js'],
                 dest: 'dist/<%= pkg.name %>.js'
             }
         },
@@ -42,7 +42,7 @@ module.exports = function(grunt) {
                 // Task-specific options go here.
             },
             all: {
-                src: ["css/**/*.css"],
+                src: ["src/styles/**/*.css"],
                 dest: "dist/styles.css"
             }
         },
@@ -58,7 +58,7 @@ module.exports = function(grunt) {
         },
         copy: {
             main: {
-                src: ['images/**/*','font/**/*'],
+                src: ['src/images/**/*','font/**/*'],
                 dest: 'dist/'
             }
         },

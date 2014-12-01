@@ -1,5 +1,5 @@
 {
-    "name": "agile-vietnam",
+    "name": "openossad",
     "version": "0.1.0",
     "devDependencies": {
         "grunt": "~0.4.5",
