@@ -51,36 +51,35 @@ function NewOpenossadDialog(editorUi, b) {
     }
 
     function e(a, b, e, f, g) {
-        var l = document.createElement("div");
-        l.className = "geTemplate";
-        l.style.height = v + "px";
-        l.style.width = x + "px";
-        null != f && 0 < f.length && l.setAttribute("title", f);
+        var div = document.createElement("div");
+        div.className = "geTemplate";
+        div.style.height = v + "px";
+        div.style.width = x + "px";
+        null != f && 0 < f.length && div.setAttribute("title", f);
         if (null != a && 0 < a.length) {
             a.substring(0, a.length - 4);
-            l.style.backgroundImage = "url(" + TEMPLATE_PATH +
-                "/" + a.substring(0, a.length - 4) + ".png)";
-            l.style.backgroundPosition = "center center";
-            l.style.backgroundRepeat = "no-repeat";
+            div.style.backgroundImage = "url(" + TEMPLATE_PATH + "/" + a.substring(0, a.length - 4) + ".png)";
+            div.style.backgroundPosition = "center center";
+            div.style.backgroundRepeat = "no-repeat";
             var k = !1;
-            mxEvent.addListener(l, "click", function (e) {
+            mxEvent.addListener(div, "click", function (e) {
                 r.setAttribute("disabled", "disabled");
-                l.style.backgroundColor = "transparent";
-                l.style.border = "1px solid transparent";
+                div.style.backgroundColor = "transparent";
+                div.style.border = "1px solid transparent";
                 mxUtils.get(TEMPLATE_PATH + "/" + a, mxUtils.bind(this, function (a) {
-                    200 == a.getStatus() && (r.removeAttribute("disabled"), d(l, a.getText(), b), k && c())
+                    200 == a.getStatus() && (r.removeAttribute("disabled"), d(div, a.getText(), b), k && c())
                 }))
             });
-            mxEvent.addListener(l, "dblclick", function (a) {
+            mxEvent.addListener(div, "dblclick", function (a) {
                 k = !0
             })
-        } else l.innerHTML = '\x3ctable width\x3d"100%" height\x3d"100%"\x3e\x3ctr\x3e\x3ctd align\x3d"center" valign\x3d"middle"\x3e' +
-            mxResources.get(e) + "\x3c/td\x3e\x3c/tr\x3e\x3c/table\x3e", g && d(l), mxEvent.addListener(l, "click", function (a) {
-            d(l)
-        }), mxEvent.addListener(l, "dblclick", function (a) {
+        } else div.innerHTML = '\x3ctable width\x3d"100%" height\x3d"100%"\x3e\x3ctr\x3e\x3ctd align\x3d"center" valign\x3d"middle"\x3e' +
+            mxResources.get(e) + "\x3c/td\x3e\x3c/tr\x3e\x3c/table\x3e", g && d(div), mxEvent.addListener(div, "click", function (a) {
+            d(div)
+        }), mxEvent.addListener(div, "dblclick", function (a) {
             c()
         });
-        u.appendChild(l)
+        select.appendChild(div)
     }
 
     function f() {
@@ -90,8 +89,8 @@ function NewOpenossadDialog(editorUi, b) {
 
         1 < t ? (mxUtils.write(l, mxResources.get("templates") + ":"), l.appendChild(y)) : input.style.width = "440px";
         var b = 0;
-        mxEvent.addListener(u, "scroll", function (b) {
-            u.scrollTop + u.clientHeight >= u.scrollHeight &&
+        mxEvent.addListener(select, "scroll", function (b) {
+            select.scrollTop + select.clientHeight >= select.scrollHeight &&
             (a(), mxEvent.consume(b))
         });
         for (var c in s) {
@@ -104,8 +103,8 @@ function NewOpenossadDialog(editorUi, b) {
             y.appendChild(f)
         }
         mxEvent.addListener(y, "change", function (c) {
-            u.scrollTop = 0;
-            u.innerHTML = "";
+            select.scrollTop = 0;
+            select.innerHTML = "";
             b = 0;
             z = s[y.value];
             a()
@@ -113,13 +112,12 @@ function NewOpenossadDialog(editorUi, b) {
         a()
     }
 
-    var g = document.createElement("div");
-    g.style.height = "100%";
+    var div = document.createElement("div");
+    div.style.height = "100%";
     var l = document.createElement("div");
-    l.style.whiteSpace =
-        "nowrap";
+    l.style.whiteSpace = "nowrap";
     l.style.height = "46px";
-    g.appendChild(l);
+    div.appendChild(l);
     var k = document.createElement("img");
     k.setAttribute("border", "0");
     k.setAttribute("align", "absmiddle");
@@ -150,14 +148,15 @@ function NewOpenossadDialog(editorUi, b) {
         c()
     });
     r.className = "geBtn gePrimaryBtn";
-    var u = document.createElement("div");
-    u.style.borderWidth = "1px 0px 1px 0px";
-    u.style.borderColor = "#d3d3d3";
-    u.style.borderStyle = "solid";
-    u.style.marginTop = "6px";
-    u.style.overflow = "auto";
-    u.style.height = "340px";
-    var v = 180, x = 180, y = document.createElement("select");
+    var select = document.createElement("div");
+    select.style.borderWidth = "1px 0px 1px 0px";
+    select.style.borderColor = "#d3d3d3";
+    select.style.borderStyle = "solid";
+    select.style.marginTop = "6px";
+    select.style.overflow = "auto";
+    select.style.height = "340px";
+    var v = 180, x = 180;
+    var y = document.createElement("select");
     y.style.marginLeft = "10px";
     var s = {}, t = 1;
     s.basic = [
@@ -165,7 +164,7 @@ function NewOpenossadDialog(editorUi, b) {
     ];
     var z = s.basic;
     if (!b) {
-        g.appendChild(u);
+        div.appendChild(select);
         var D = !1;
         mxUtils.get(TEMPLATE_PATH + "/index.xml", function (a) {
             if (!D) {
@@ -207,8 +206,8 @@ function NewOpenossadDialog(editorUi, b) {
     }
     k.appendChild(r);
     editorUi.editor.cancelFirst || k.appendChild(B);
-    g.appendChild(k);
-    this.container = g
+    div.appendChild(k);
+    this.container = div
 }
 
 

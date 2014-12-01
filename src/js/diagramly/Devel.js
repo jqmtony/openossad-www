@@ -27,6 +27,8 @@ mxscript('js/diagramly/Dialogs.js');
 mxscript('js/diagramly/OpenossadDialogs.js');
 mxscript('js/diagramly/Sidebar.js');
 mxscript('js/diagramly/Format.js');
+mxscript('js/diagramly/StorageFile.js');
+mxscript('js/diagramly/File.js');
 mxscript('js/diagramly/EditorUi.js');
 
 mxscript('js/googledrive/DriveClient.js');
