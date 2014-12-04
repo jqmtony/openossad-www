@@ -34,4 +34,6 @@ OpenossadGraph
 
     graph.moveCells(cells, 20, 20);
 
+This is the way we're going to create userdata:
+ var c = graphXml.ownerDocument.createElement("mxfile");
 

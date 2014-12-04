@@ -92,10 +92,10 @@ function mxinclude(src)
 var isSvgBrowser = navigator.userAgent.indexOf('MSIE') < 0 || document.documentMode >= 9;
 var isLocalStorage = typeof(localStorage) != 'undefined';
 
-// Redirect from rt.drive.io to drive.draw.io
-if (window.location.host == 'rt.draw.io')
+// Redirect from rt.drive.io to drive.openossad.com
+if (window.location.host == 'rt.openossad.com')
 {
-    window.location.host = 'drive.draw.io';
+    window.location.host = 'drive.openossad.com';
 }
 
 // Redirects to SSL/non-SSL

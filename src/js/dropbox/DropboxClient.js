@@ -15,7 +15,7 @@ DropboxClient.prototype.appFolder = "/Apps/drawio";
 DropboxClient.prototype.extension = ".xml";
 DriveClient.prototype.maxRetries = 4;
 DropboxClient.prototype.user = null;
-DropboxClient.prototype.writingFile = !1;
+DropboxClient.prototype.writingFile = false;
 DropboxClient.prototype.signOut = function () {
     this.client.signOut(mxUtils.bind(this, function () {
         this.setUser(null)
@@ -55,7 +55,7 @@ DropboxClient.prototype.getFile = function (a, b, c) {
     var d = mxUtils.bind(this, function () {
         this.execute(mxUtils.bind(this, function () {
             var e = !0, f = window.setTimeout(mxUtils.bind(this, function () {
-                e = !1;
+                e = false;
                 c({code: App.ERROR_TIMEOUT, retry: d})
             }), this.ui.timeout);
             this.client.readFile("/" + a, mxUtils.bind(this, function (a, d, k) {
@@ -68,10 +68,10 @@ DropboxClient.prototype.getFile = function (a, b, c) {
 };
 DropboxClient.prototype.checkExists = function (a, b) {
     this.client.stat(a, mxUtils.bind(this, function (c, d) {
-        null != c && 404 == c.status || null != d && d.isRemoved ? b(!0) : this.ui.confirm(mxResources.get("replace", [a]), function () {
-            b(!0)
+        null != c && 404 == c.status || null != d && d.isRemoved ? b(true) : this.ui.confirm(mxResources.get("replace", [a]), function () {
+            b(true)
         }, function () {
-            b(!1)
+            b(false)
         })
     }))
 };
@@ -103,13 +103,13 @@ DropboxClient.prototype.saveFile = function (a, b, c, d) {
 DropboxClient.prototype.writeFile = function (a, b, c, d) {
     if (this.writingFile)null != d && d({code: App.ERROR_BUSY}); else {
         var e = !0, f = null;
-        this.writingFile = !0;
+        this.writingFile = true;
         var g = 0;
         null != this.requestThread && window.clearTimeout(this.requestThread);
         var l = mxUtils.bind(this, function () {
             null != f && window.clearTimeout(f);
             f = window.setTimeout(mxUtils.bind(this, function () {
-                e = this.writingFile = !1;
+                e = this.writingFile = false;
                 d({code: App.ERROR_TIMEOUT, retry: l})
             }), this.ui.timeout);
             this.client.writeFile(a, b, mxUtils.bind(this, function (a, b) {

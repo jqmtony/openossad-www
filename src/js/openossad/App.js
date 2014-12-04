@@ -37,9 +37,9 @@ App.prototype.init = function () {
             var a = this.getCurrentFile();
             if (null == this.drive.getUser() && (null == a || a.constructor == DriveFile))this.setMode(null), this.fileLoaded(null);
             a = document.getElementById("gePowered");
-            null != a && (a.innerHTML = null != this.drive && "420247213240" == this.drive.appId ? '\x3ca title\x3d"IMPORTANT NOTICE" href\x3d"https://support.draw.io/display/DO/2014/11/27/Switching+application+in+Google+Drive" target\x3d"_blank" style\x3d"text-decoration:none;"\x3eIMPORTANT NOTICE\x3c/a\x3e' : '\x3ca title\x3d"Please rate us" href\x3d"https://chrome.google.com/webstore/detail/drawio-pro/onlkggianjhjenigcpigpjehhpplldkc/reviews" target\x3d"_blank" style\x3d"text-decoration:none;"\x3ePlease help us to 5 stars\x3c/a\x3e');
+            null != a && (a.innerHTML = null != this.drive && "420247213240" == this.drive.appId ? '\x3ca title\x3d"IMPORTANT NOTICE" href\x3d"https://support.openossad.com/display/DO/2014/11/27/Switching+application+in+Google+Drive" target\x3d"_blank" style\x3d"text-decoration:none;"\x3eIMPORTANT NOTICE\x3c/a\x3e' : '\x3ca title\x3d"Please rate us" href\x3d"https://chrome.google.com/webstore/detail/drawio-pro/onlkggianjhjenigcpigpjehhpplldkc/reviews" target\x3d"_blank" style\x3d"text-decoration:none;"\x3ePlease help us to 5 stars\x3c/a\x3e');
             a = document.getElementById("gePlug1");
-            null != a && null != this.drive && "420247213240" == this.drive.appId && (a.innerHTML = '\x3ca title\x3d"IMPORTANT NOTICE" href\x3d"https://support.draw.io/display/DO/2014/11/27/Switching+application+in+Google+Drive" target\x3d"_blank" style\x3d"text-decoration:none;"\x3eIMPORTANT NOTICE\x3c/a\x3e');
+            null != a && null != this.drive && "420247213240" == this.drive.appId && (a.innerHTML = '\x3ca title\x3d"IMPORTANT NOTICE" href\x3d"https://support.openossad.com/display/DO/2014/11/27/Switching+application+in+Google+Drive" target\x3d"_blank" style\x3d"text-decoration:none;"\x3eIMPORTANT NOTICE\x3c/a\x3e');
             this.updateUserElement()
         }))), "undefined" != typeof Dropbox && null != Dropbox.Client && (this.dropbox = new DropboxClient(this), this.dropbox.addListener("userChanged", mxUtils.bind(this, function () {
         var a =
@@ -57,7 +57,7 @@ App.prototype.isOffline = function () {
     return mxClient.IS_FF && this.isOfflineApp() || !navigator.onLine
 };
 App.prototype.isDriveDomain = function () {
-    return"rt.draw.io" == window.location.hostname || "drive.draw.io" == window.location.hostname
+    return"rt.openossad.com" == window.location.hostname || "drive.openossad.com" == window.location.hostname
 };
 App.prototype.getPreferredMode = function () {
     return this.isDriveDomain() ? App.MODE_GOOGLE : null
@@ -77,24 +77,37 @@ App.prototype.updateDocumentTitle = function () {
     document.title = a
 };
 App.prototype.getFileData = function () {
-    var a = this.editor.getGraphXml(), b = a.ownerDocument.createElement("diagram"), c = a.ownerDocument.createElement("mxfile");
-    c.setAttribute("userAgent", navigator.userAgent);
-    c.setAttribute("type", this.mode);
-    var a = this.editor.graph.zapGremlins(mxUtils.getXml(a)), d = this.editor.compress(a);
-    if (this.editor.decompress(d) != a) {
+    var graphXml = this.editor.getGraphXml();
+    var diagramElement = graphXml.ownerDocument.createElement("diagram");
+    var mxfile = graphXml.ownerDocument.createElement("mxfile");
+    mxfile.setAttribute("userAgent", navigator.userAgent);
+    mxfile.setAttribute("type", this.mode);
+    var a = this.editor.graph.zapGremlins(mxUtils.getXml(graphXml));
+    var text = this.editor.compress(a);
+    if (this.editor.decompress(text) != a) {
         try {
             this.errorReported || (this.errorReported = !0, mxUtils.post("/email", "data\x3d" + encodeURIComponent("Diagram:\n" + encodeURIComponent(a) + "\nBrowser:\n" + navigator.userAgent)))
         } catch (e) {
         }
         return a
     }
-    mxUtils.setTextContent(b,
-        d);
-    c.appendChild(b);
-    return mxUtils.getXml(c)
+//    mxUtils.setTextContent(diagramElement,text);
+//    void 0 !== a.innerText ? a.innerText = b : a[void 0 === a.textContent ? "text" : "textContent"] = b
+    diagramElement.innerText = text;
+    diagramElement.textContent = "textContent";
+//
+    mxfile.appendChild(diagramElement);
+    return mxUtils.getXml(mxfile)
 };
-App.prototype.setFileData = function (a) {
-    null != a && 0 < a.length ? (a = mxUtils.parseXml(a).documentElement, this.editor.setGraphXml(a)) : (this.editor.resetGraph(), this.editor.graph.model.clear(), this.editor.fireEvent(new mxEventObject("resetGraphView")))
+App.prototype.setFileData = function (data) {
+    if (data && 0 < data.length) {
+        data = mxUtils.parseXml(data).documentElement;
+        this.editor.setGraphXml(data);
+    } else {
+        this.editor.resetGraph();
+        this.editor.graph.model.clear();
+        this.editor.fireEvent(new mxEventObject("resetGraphView"));
+    }
 };
 App.prototype.createBackground = function () {
     var a = this.createDiv("background");
@@ -141,10 +154,10 @@ App.prototype.createSpinner = function (a, b, c) {
     c = null != c ? c : 24;
     var d = new Spinner({lines: 12, length: c, width: Math.round(c / 3), radius: Math.round(c / 2), rotate: 0, color: "#000", speed: 1.5, trail: 60, shadow: !1, hwaccel: !1, zIndex: 2E9}), e = d.spin;
     d.spin = function (c, f) {
-        var k = !1;
+        var k = false;
         if (!this.active) {
             e.call(this, c);
-            this.active = !0;
+            this.active = true;
             if (null != f && (k = document.createElement("div"), k.style.position = "absolute", k.style.whiteSpace = "nowrap", k.style.background = "#4B4243", k.style.color = "white", k.style.fontFamily = "Helvetica, Arial", k.style.fontSize =
                 "9pt", k.style.padding = "6px", k.style.paddingLeft = "10px", k.style.paddingRight = "10px", k.style.zIndex = 2E9, k.style.left = Math.max(0, a) + "px", k.style.top = Math.max(0, b + 70) + "px", mxUtils.setPrefixedStyle(k.style, "borderRadius", "6px"), mxUtils.setPrefixedStyle(k.style, "boxShadow", "2px 2px 3px 0px #ddd"), mxUtils.setPrefixedStyle(k.style, "transform", "translate(-50%,-50%)"), k.innerHTML = f + "...", c.appendChild(k), d.status = k, mxClient.IS_VML && (null == document.documentMode || 8 >= document.documentMode)))k.style.left = Math.round(Math.max(0,
                 a - k.offsetWidth / 2)) + "px", k.style.top = Math.round(Math.max(0, b + 70 - k.offsetHeight / 2)) + "px";
@@ -164,7 +177,7 @@ App.prototype.createSpinner = function (a, b, c) {
     var f = d.stop;
     d.stop = function () {
         f.call(this);
-        this.active = !1;
+        this.active = false;
         null != d.status && (d.status.parentNode.removeChild(d.status), d.status = null)
     };
     return d
@@ -272,7 +285,7 @@ App.prototype.start = function () {
         var b = mxUtils.bind(this, function () {
             "1" == urlParams.client ? (window.opener || window.parent) != window && this.installMessageHandler(mxUtils.bind(this, function (a) {
                 this.fileLoaded(new LocalFile(this, a, urlParams.title || this.defaultFilename));
-                this.getCurrentFile().setModified(!0)
+                this.getCurrentFile().setModified(true)
             })) : null == this.dialog &&
                 ("1" == urlParams.demo ? this.createFile(this.defaultFilename, null, null, useLocalStorage ? App.MODE_BROWSER : App.MODE_DEVICE) : this.loadFile(this.getDiagramId()))
         }), c = urlParams.create;
@@ -283,7 +296,7 @@ App.prototype.start = function () {
                 this.spinner.stop();
                 this.fileLoaded(new LocalFile(this,
                     a, null));
-                this.editor.graph.setEnabled(!1);
+                this.editor.graph.setEnabled(false);
                 this.mode = urlParams.mode;
                 var b = urlParams.title, b = null != b ? decodeURIComponent(b) : this.defaultFilename, b = new CreateDialog(this, b, mxUtils.bind(this, function (b, c) {
                     this.createFile(b, a, null, c)
@@ -333,9 +346,9 @@ App.prototype.addLanguageMenu = function (a) {
             var d = new mxPopupMenu(this.menus.get("language").funct);
             d.div.className +=
                 " geMenubarMenu";
-            d.smartSeparators = !0;
-            d.showDisabled = !0;
-            d.autoExpand = !0;
+            d.smartSeparators = true;
+            d.showDisabled = true;
+            d.autoExpand = true;
             d.hideMenu = mxUtils.bind(this, function () {
                 mxPopupMenu.prototype.hideMenu.apply(d, arguments);
                 d.destroy()
@@ -401,12 +414,12 @@ App.prototype.saveLibrary = function (a, b, c) {
     });
     null == c && this.spinner.spin(document.body, mxResources.get("inserting")) ? this.drive.insertFile(a, d, null, mxUtils.bind(this, function (a) {
         this.spinner.stop();
-        this.hideDialog(!0);
+        this.hideDialog(true);
         this.libraryLoaded(a, b)
     }), f, this.drive.libraryMimeType) : this.spinner.spin(document.body, mxResources.get("saving")) && (c.setData(d), c.save(!0, mxUtils.bind(this, function (e) {
-        a == c.getTitle() ? (this.spinner.stop(), this.hideDialog(!0), this.libraryLoaded(c, b)) : c.rename(a, function (a) {
+        a == c.getTitle() ? (this.spinner.stop(), this.hideDialog(true), this.libraryLoaded(c, b)) : c.rename(a, function (a) {
             this.spinner.stop();
-            this.hideDialog(!0);
+            this.hideDialog(true);
             this.libraryLoaded(c, b)
         }, f)
     }), f))
@@ -544,10 +557,10 @@ App.prototype.libraryLoaded = function (a, b) {
         mxEvent.consume(c)
     })))
 };
-App.prototype.fileLoaded = function (a) {
+App.prototype.fileLoaded = function (file) {
     this.hideDialog();
-    var b = this.getCurrentFile();
-    null != b && (b.removeListener(this.descriptorChangedListener), b.close());
+    var currentFile = this.getCurrentFile();
+    null != currentFile && (currentFile.removeListener(this.descriptorChangedListener), currentFile.close());
     this.editor.graph.model.clear();
     this.editor.undoManager.clear();
     var c = mxUtils.bind(this, function () {
@@ -555,21 +568,36 @@ App.prototype.fileLoaded = function (a) {
         this.editor.undoManager.clear();
         this.setCurrentFile(null);
         this.diagramContainer.style.visibility = "hidden";
-        this.editor.graph.setEnabled(!1);
+        this.editor.graph.setEnabled(false);
         this.updateDocumentTitle();
-        null != window.location.hash && 0 < window.location.hash.length &&
-        (window.location.hash = "");
+        null != window.location.hash && 0 < window.location.hash.length && (window.location.hash = "");
         null != this.fname && (this.fname.style.display = "none", this.fname.innerHTML = "", this.fname.setAttribute("title", mxResources.get("rename")));
         this.updateUi();
         this.showSplash()
     });
-    if (null != a)try {
-        a.open(), this.setCurrentFile(a), this.diagramContainer.style.visibility = "", a.addListener("descriptorChanged", this.descriptorChangedListener), a.addListener("contentChanged", this.descriptorChangedListener), this.descriptorChanged(), this.editor.undoManager.clear(), this.setMode(a.getMode()), this.updateUi(),
-            a.isEditable() ? this.editor.setStatus("") : this.editor.setStatus(mxResources.get("readOnly")), this.showLayersDialog(), this.restoreLibraries(), this.editor.fireEvent(new mxEventObject("fileLoaded"))
-    } catch (d) {
-        null != window.console && console.log("error loading file", a, d), this.handleError(d, mxResources.get("errorLoadingFile"), mxUtils.bind(this, function () {
-            null != urlParams.url && this.spinner.spin(document.body, mxResources.get("reconnecting")) ? window.location.search = this.getSearch(["url"]) : c()
-        }))
+    if (null != file) try {
+        file.open();
+        this.setCurrentFile(file);
+        this.diagramContainer.style.visibility = "";
+        file.addListener("descriptorChanged", this.descriptorChangedListener);
+        file.addListener("contentChanged", this.descriptorChangedListener);
+        this.descriptorChanged();
+        this.editor.undoManager.clear();
+        this.setMode(file.getMode());
+        this.updateUi();
+        file.isEditable() ? this.editor.setStatus("") : this.editor.setStatus(mxResources.get("readOnly"));
+        this.showLayersDialog();
+        this.restoreLibraries();
+        this.editor.fireEvent(new mxEventObject("fileLoaded"))
+    }
+    catch (error) {
+
+        console.log("error loading file", file, error);
+        this.handleError(error, mxResources.get("errorLoadingFile"),
+            mxUtils.bind(this, function () {
+                null != urlParams.url && this.spinner.spin(document.body, mxResources.get("reconnecting")) ? window.location.search = this.getSearch(["url"]) : c()
+            }));
+
     } else c()
 };
 App.prototype.restoreLibraries = function () {
@@ -588,26 +616,26 @@ App.prototype.restoreLibraries = function () {
 App.prototype.updateActionStates = function () {
     EditorUi.prototype.updateActionStates.apply(this, arguments);
     var a = this.getCurrentFile(), a = null != a && a.isEditable() || "1" == urlParams.embed;
-    this.actions.get("documentProperties").setEnabled(a);
+//    this.actions.get("documentProperties").setEnabled(a);
     this.actions.get("guides").setEnabled(a);
     this.actions.get("grid").setEnabled(a);
     a = this.editor.graph;
-    this.actions.get("editGeometry").setEnabled(a.getModel().isVertex(a.getSelectionCell()))
+//    this.actions.get("editGeometry").setEnabled(a.getModel().isVertex(a.getSelectionCell()))
 };
 App.prototype.updateUi = function () {
     var a = this.getCurrentFile(), b = null != a || "1" == urlParams.embed, a = null != a && a.isEditable();
     this.updateActionStates();
     this.actions.get("save").setEnabled(b);
     this.actions.get("saveAs").setEnabled(b);
-    this.actions.get("rename").setEnabled(b);
+//    this.actions.get("rename").setEnabled(b);
     this.actions.get("import").setEnabled(b);
     this.actions.get("pageSetup").setEnabled(b);
     this.actions.get("print").setEnabled(b);
     this.actions.get("editFile").setEnabled(b);
-    this.actions.get("share").setEnabled(b);
-    this.actions.get("chatWindowTitle").setEnabled(b);
-    this.actions.get("makeCopy").setEnabled(b);
-    this.actions.get("moveToFolder").setEnabled(b);
+//    this.actions.get("share").setEnabled(b);
+//    this.actions.get("chatWindowTitle").setEnabled(b);
+//    this.actions.get("makeCopy").setEnabled(b);
+//    this.actions.get("moveToFolder").setEnabled(b);
     this.actions.get("image").setEnabled(b);
     this.actions.get("zoomIn").setEnabled(b);
     this.actions.get("zoomOut").setEnabled(b);
@@ -617,9 +645,9 @@ App.prototype.updateUi = function () {
     this.menus.get("format").setEnabled(a);
     this.menus.get("text").setEnabled(a);
     this.menus.get("options").setEnabled(b);
-    this.menus.get("downloadAs").setEnabled(b);
-    this.menus.get("importFrom").setEnabled(b);
-    this.menus.get("embed").setEnabled(b);
+//    this.menus.get("downloadAs").setEnabled(b);
+//    this.menus.get("importFrom").setEnabled(b);
+//    this.menus.get("embed").setEnabled(b);
     this.menus.get("arrange").setEnabled(a);
     if (this.isOfflineApp()) {
         if ((mxClient.IS_GC || mxClient.IS_IOS && mxClient.IS_SF) && null != applicationCache) {
@@ -763,13 +791,12 @@ App.prototype.showError = function (a, b, c, d, e, f, g) {
     a.init()
 };
 App.prototype.alert = function (a, b) {
-    var c = new ErrorDialog(this, null, a, mxResources.get("ok"), b);
-    this.showDialog(c.container, 340, 100, !0, !1);
-    c.init()
+    var errorDialog = new ErrorDialog(this, null, a, mxResources.get("ok"), b);
+    this.showDialog(errorDialog.container, 340, 100, !0, !1);
+    errorDialog.init()
 };
 App.prototype.confirm = function (a, b, c) {
-    var d = null != this.spinner.pause ? this.spinner.pause() : function () {
-    };
+    var d = null != this.spinner.pause ? this.spinner.pause() : function () {};
     this.showDialog((new ConfirmDialog(this, a, function () {
         d();
         null != b && b()
@@ -784,7 +811,7 @@ App.prototype.toggleChat = function () {
         if (null == a.chatWindow) {
             var b = document.body.offsetWidth - 300;
             a.chatWindow = new ChatWindow(mxResources.get("chatWindowTitle"), document.getElementById("geChat"), b, 80, 250, 350, a.realtime);
-            a.chatWindow.window.setVisible(!1)
+            a.chatWindow.window.setVisible(false)
         }
         a.chatWindow.window.setVisible(!a.chatWindow.window.isVisible())
     }
@@ -839,7 +866,7 @@ App.prototype.updateHeader = function () {
         this.appIcon.style.height = this.menubarHeight + "px";
         mxEvent.disableContextMenu(this.appIcon);
         mxEvent.addListener(this.appIcon, "click", mxUtils.bind(this, function (a) {
-            mxEvent.isAltDown(a) && (this.showSplash(!0), mxEvent.consume(a))
+            mxEvent.isAltDown(a) && (this.showSplash(true), mxEvent.consume(a))
         }));
         var a = isSvgBrowser ? "url('" +
             IMAGE_PATH + "/logo-white.svg')" : "url('" + IMAGE_PATH + "/logo-white.png')";

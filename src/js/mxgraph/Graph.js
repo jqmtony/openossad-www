@@ -434,6 +434,14 @@ Graph.prototype.initTouch = function()
 	};
 };
 
+Graph.prototype.zapGremlins = function (a) {
+    for (var b = [], c = 0; c < a.length; c++) {
+        var d = a.charCodeAt(c);
+        (32 <= d || 9 == d || 10 == d || 13 == d) && b.push(a.charAt(c))
+    }
+    return b.join("")
+};
+
 /**
  * Implements touch devices.
  */

@@ -1,4 +1,4 @@
-var mxBasePath = "//drawdotio.appspot.com/mxgraph/", mxLoadStylesheets = mxLoadResources = !1;
+var mxBasePath = "//drawdotio.appspot.com/mxgraph/", mxLoadStylesheets = mxLoadResources = false;
 var mxClient = {VERSION: "1.10.4.2", IS_IE: 0 <= navigator.userAgent.indexOf("MSIE"), IS_IE6: 0 <= navigator.userAgent.indexOf("MSIE 6"), IS_QUIRKS: 0 <= navigator.userAgent.indexOf("MSIE") && (null == document.documentMode || 5 == document.documentMode), VML_PREFIX: "v", OFFICE_PREFIX: "o", IS_NS: 0 <= navigator.userAgent.indexOf("Mozilla/") && 0 > navigator.userAgent.indexOf("MSIE"), IS_OP: 0 <= navigator.userAgent.indexOf("Opera/"), IS_OT: 0 > navigator.userAgent.indexOf("Presto/2.4.") && 0 > navigator.userAgent.indexOf("Presto/2.3.") && 0 > navigator.userAgent.indexOf("Presto/2.2.") &&
     0 > navigator.userAgent.indexOf("Presto/2.1.") && 0 > navigator.userAgent.indexOf("Presto/2.0.") && 0 > navigator.userAgent.indexOf("Presto/1."), IS_SF: 0 <= navigator.userAgent.indexOf("AppleWebKit/") && 0 > navigator.userAgent.indexOf("Chrome/"), IS_GC: 0 <= navigator.userAgent.indexOf("Chrome/"), IS_MT: 0 <= navigator.userAgent.indexOf("Firefox/") && 0 > navigator.userAgent.indexOf("Firefox/1.") && 0 > navigator.userAgent.indexOf("Firefox/2.") || 0 <= navigator.userAgent.indexOf("Iceweasel/") && 0 > navigator.userAgent.indexOf("Iceweasel/1.") &&
     0 > navigator.userAgent.indexOf("Iceweasel/2.") || 0 <= navigator.userAgent.indexOf("SeaMonkey/") && 0 > navigator.userAgent.indexOf("SeaMonkey/1.") || 0 <= navigator.userAgent.indexOf("Iceape/") && 0 > navigator.userAgent.indexOf("Iceape/1."), IS_SVG: 0 <= navigator.userAgent.indexOf("Firefox/") || 0 <= navigator.userAgent.indexOf("Iceweasel/") || 0 <= navigator.userAgent.indexOf("Seamonkey/") || 0 <= navigator.userAgent.indexOf("Iceape/") || 0 <= navigator.userAgent.indexOf("Galeon/") || 0 <= navigator.userAgent.indexOf("Epiphany/") || 0 <=
@@ -33,7 +33,7 @@ mxClient.defaultLanguage = "undefined" != typeof mxDefaultLanguage ? mxDefaultLa
 mxLoadStylesheets && mxClient.link("stylesheet", mxClient.basePath + "/css/common.css");
 "undefined" != typeof mxLanguages && (mxClient.languages = mxLanguages);
 if (mxClient.IS_IE) {
-    if (9 <= document.documentMode)mxClient.IS_VML = !1, mxClient.IS_SVG = !0; else {
+    if (9 <= document.documentMode)mxClient.IS_VML = !1, mxClient.IS_SVG = true; else {
         8 == document.documentMode ? (document.namespaces.add(mxClient.VML_PREFIX, "urn:schemas-microsoft-com:vml", "#default#VML"), document.namespaces.add(mxClient.OFFICE_PREFIX, "urn:schemas-microsoft-com:office:office", "#default#VML")) : (document.namespaces.add(mxClient.VML_PREFIX, "urn:schemas-microsoft-com:vml"), document.namespaces.add(mxClient.OFFICE_PREFIX, "urn:schemas-microsoft-com:office:office"));
         var ss = document.createStyleSheet();
         ss.cssText = "v\\:*{behavior:url(#default#VML)}o\\:*{behavior:url(#default#VML)}";
@@ -1290,7 +1290,7 @@ function mxEventObject(a) {
 }
 mxEventObject.prototype.name = null;
 mxEventObject.prototype.properties = null;
-mxEventObject.prototype.consumed = !1;
+mxEventObject.prototype.consumed = false;
 mxEventObject.prototype.getName = function () {
     return this.name
 };
@@ -1310,7 +1310,7 @@ function mxMouseEvent(a, b) {
     this.evt = a;
     this.state = b
 }
-mxMouseEvent.prototype.consumed = !1;
+mxMouseEvent.prototype.consumed = false;
 mxMouseEvent.prototype.evt = null;
 mxMouseEvent.prototype.graphX = null;
 mxMouseEvent.prototype.graphY = null;
@@ -1362,7 +1362,7 @@ function mxEventSource(a) {
     this.setEventSource(a)
 }
 mxEventSource.prototype.eventListeners = null;
-mxEventSource.prototype.eventsEnabled = !0;
+mxEventSource.prototype.eventsEnabled = true;
 mxEventSource.prototype.eventSource = null;
 mxEventSource.prototype.isEventsEnabled = function () {
     return this.eventsEnabled
@@ -1551,8 +1551,8 @@ function mxUndoableEdit(a, b) {
 mxUndoableEdit.prototype.source = null;
 mxUndoableEdit.prototype.changes = null;
 mxUndoableEdit.prototype.significant = null;
-mxUndoableEdit.prototype.undone = !1;
-mxUndoableEdit.prototype.redone = !1;
+mxUndoableEdit.prototype.undone = false;
+mxUndoableEdit.prototype.redone = false;
 mxUndoableEdit.prototype.isEmpty = function () {
     return this.changes.length == 0
 };
@@ -1718,7 +1718,7 @@ function mxPanningManager(a) {
 }
 mxPanningManager.prototype.damper = 1 / 6;
 mxPanningManager.prototype.delay = 10;
-mxPanningManager.prototype.handleMouseOut = !0;
+mxPanningManager.prototype.handleMouseOut = true;
 mxPanningManager.prototype.border = 0;
 function mxPopupMenu(a) {
     this.factoryMethod = a;
@@ -1729,12 +1729,12 @@ mxPopupMenu.prototype.constructor = mxPopupMenu;
 mxPopupMenu.prototype.submenuImage = mxClient.imageBasePath + "/submenu.gif";
 mxPopupMenu.prototype.zIndex = 10006;
 mxPopupMenu.prototype.factoryMethod = null;
-mxPopupMenu.prototype.useLeftButtonForPopup = !1;
-mxPopupMenu.prototype.enabled = !0;
+mxPopupMenu.prototype.useLeftButtonForPopup = false;
+mxPopupMenu.prototype.enabled = true;
 mxPopupMenu.prototype.itemCount = 0;
-mxPopupMenu.prototype.autoExpand = !1;
-mxPopupMenu.prototype.smartSeparators = !1;
-mxPopupMenu.prototype.labels = !0;
+mxPopupMenu.prototype.autoExpand = false;
+mxPopupMenu.prototype.smartSeparators = false;
+mxPopupMenu.prototype.labels = true;
 mxPopupMenu.prototype.init = function () {
     this.table = document.createElement("table");
     this.table.className = "mxPopupMenu";
@@ -1918,7 +1918,7 @@ mxPopupMenu.prototype.destroy = function () {
 };
 function mxImageExport() {
 }
-mxImageExport.prototype.includeOverlays = !1;
+mxImageExport.prototype.includeOverlays = false;
 mxImageExport.prototype.drawState = function (a, b) {
     if (a != null) {
         this.visitStatesRecursive(a, b, this.drawCellState);
@@ -1955,7 +1955,7 @@ function mxAbstractCanvas2D() {
 mxAbstractCanvas2D.prototype.state = null;
 mxAbstractCanvas2D.prototype.states = null;
 mxAbstractCanvas2D.prototype.path = null;
-mxAbstractCanvas2D.prototype.rotateHtml = !0;
+mxAbstractCanvas2D.prototype.rotateHtml = true;
 mxAbstractCanvas2D.prototype.lastX = 0;
 mxAbstractCanvas2D.prototype.lastY = 0;
 mxAbstractCanvas2D.prototype.moveOp = "M";
@@ -1963,7 +1963,7 @@ mxAbstractCanvas2D.prototype.lineOp = "L";
 mxAbstractCanvas2D.prototype.quadOp = "Q";
 mxAbstractCanvas2D.prototype.curveOp = "C";
 mxAbstractCanvas2D.prototype.closeOp = "Z";
-mxAbstractCanvas2D.prototype.pointerEvents = !1;
+mxAbstractCanvas2D.prototype.pointerEvents = false;
 mxAbstractCanvas2D.prototype.createUrlConverter = function () {
     return new mxUrlConverter
 };
@@ -2126,12 +2126,12 @@ function mxSvgCanvas2D(a, b) {
 }
 mxUtils.extend(mxSvgCanvas2D, mxAbstractCanvas2D);
 mxSvgCanvas2D.prototype.node = null;
-mxSvgCanvas2D.prototype.matchHtmlAlignment = !0;
-mxSvgCanvas2D.prototype.textEnabled = !0;
-mxSvgCanvas2D.prototype.foEnabled = !0;
+mxSvgCanvas2D.prototype.matchHtmlAlignment = true;
+mxSvgCanvas2D.prototype.textEnabled = true;
+mxSvgCanvas2D.prototype.foEnabled = true;
 mxSvgCanvas2D.prototype.strokeTolerance = 0;
 mxSvgCanvas2D.prototype.refCount = 0;
-mxSvgCanvas2D.prototype.blockImagePointerEvents = !1;
+mxSvgCanvas2D.prototype.blockImagePointerEvents = false;
 mxSvgCanvas2D.prototype.reset = function () {
     mxAbstractCanvas2D.prototype.reset.apply(this, arguments);
     this.gradients = []
@@ -2574,7 +2574,7 @@ var mxVmlCanvas2D = function (a) {
 };
 mxUtils.extend(mxVmlCanvas2D, mxAbstractCanvas2D);
 mxVmlCanvas2D.prototype.node = null;
-mxVmlCanvas2D.prototype.textEnabled = !0;
+mxVmlCanvas2D.prototype.textEnabled = true;
 mxVmlCanvas2D.prototype.moveOp = "m";
 mxVmlCanvas2D.prototype.lineOp = "l";
 mxVmlCanvas2D.prototype.curveOp = "c";
@@ -3094,8 +3094,8 @@ mxShape.prototype.style = null;
 mxShape.prototype.boundingBox = null;
 mxShape.prototype.stencil = null;
 mxShape.prototype.svgStrokeTolerance = 6;
-mxShape.prototype.pointerEvents = !0;
-mxShape.prototype.stencilPointerEvents = !1;
+mxShape.prototype.pointerEvents = true;
+mxShape.prototype.stencilPointerEvents = false;
 mxShape.prototype.vmlScale = 1;
 mxShape.prototype.init = function (a) {
     if (this.node == null) {
@@ -3746,10 +3746,10 @@ mxText.prototype.baseSpacingTop = 0;
 mxText.prototype.baseSpacingBottom = 0;
 mxText.prototype.baseSpacingLeft = 0;
 mxText.prototype.baseSpacingRight = 0;
-mxText.prototype.replaceLinefeeds = !0;
+mxText.prototype.replaceLinefeeds = true;
 mxText.prototype.verticalTextRotation = -90;
-mxText.prototype.ignoreClippedStringSize = !0;
-mxText.prototype.ignoreStringSize = !1;
+mxText.prototype.ignoreClippedStringSize = true;
+mxText.prototype.ignoreStringSize = false;
 mxText.prototype.isParseVml = function () {
     return false
 };
@@ -4032,7 +4032,7 @@ function mxImageShape(a, b, c, d, e) {
     this.shadow = false
 }
 mxUtils.extend(mxImageShape, mxRectangleShape);
-mxImageShape.prototype.preserveImageAspect = !0;
+mxImageShape.prototype.preserveImageAspect = true;
 mxImageShape.prototype.getSvgScreenOffset = function () {
     return!mxClient.IS_IE ? 0.5 : 0
 };
@@ -4375,14 +4375,14 @@ mxGraphModel.prototype = new mxEventSource;
 mxGraphModel.prototype.constructor = mxGraphModel;
 mxGraphModel.prototype.root = null;
 mxGraphModel.prototype.cells = null;
-mxGraphModel.prototype.maintainEdgeParent = !0;
-mxGraphModel.prototype.createIds = !0;
+mxGraphModel.prototype.maintainEdgeParent = true;
+mxGraphModel.prototype.createIds = true;
 mxGraphModel.prototype.prefix = "";
 mxGraphModel.prototype.postfix = "";
 mxGraphModel.prototype.nextId = 0;
 mxGraphModel.prototype.currentEdit = null;
 mxGraphModel.prototype.updateLevel = 0;
-mxGraphModel.prototype.endingUpdate = !1;
+mxGraphModel.prototype.endingUpdate = false;
 mxGraphModel.prototype.clear = function () {
     this.setRoot(this.createRoot())
 };
@@ -4967,11 +4967,11 @@ mxCell.prototype.id = null;
 mxCell.prototype.value = null;
 mxCell.prototype.geometry = null;
 mxCell.prototype.style = null;
-mxCell.prototype.vertex = !1;
-mxCell.prototype.edge = !1;
-mxCell.prototype.connectable = !0;
-mxCell.prototype.visible = !0;
-mxCell.prototype.collapsed = !1;
+mxCell.prototype.vertex = false;
+mxCell.prototype.edge = false;
+mxCell.prototype.connectable = true;
+mxCell.prototype.visible = true;
+mxCell.prototype.collapsed = false;
 mxCell.prototype.parent = null;
 mxCell.prototype.source = null;
 mxCell.prototype.target = null;
@@ -5145,13 +5145,13 @@ function mxGeometry(a, b, c, d) {
 }
 mxGeometry.prototype = new mxRectangle;
 mxGeometry.prototype.constructor = mxGeometry;
-mxGeometry.prototype.TRANSLATE_CONTROL_POINTS = !0;
+mxGeometry.prototype.TRANSLATE_CONTROL_POINTS = true;
 mxGeometry.prototype.alternateBounds = null;
 mxGeometry.prototype.sourcePoint = null;
 mxGeometry.prototype.targetPoint = null;
 mxGeometry.prototype.points = null;
 mxGeometry.prototype.offset = null;
-mxGeometry.prototype.relative = !1;
+mxGeometry.prototype.relative = false;
 mxGeometry.prototype.swap = function () {
     if (this.alternateBounds != null) {
         var a = new mxRectangle(this.x, this.y, this.width, this.height);
@@ -5398,9 +5398,9 @@ mxCellState.prototype.constructor = mxCellState;
 mxCellState.prototype.view = null;
 mxCellState.prototype.cell = null;
 mxCellState.prototype.style = null;
-mxCellState.prototype.invalid = !0;
-mxCellState.prototype.invalidOrder = !1;
-mxCellState.prototype.orderChanged = !1;
+mxCellState.prototype.invalid = true;
+mxCellState.prototype.invalidOrder = false;
+mxCellState.prototype.orderChanged = false;
 mxCellState.prototype.origin = null;
 mxCellState.prototype.absolutePoints = null;
 mxCellState.prototype.absoluteOffset = null;
@@ -5479,7 +5479,7 @@ mxGraphSelectionModel.prototype.constructor = mxGraphSelectionModel;
 mxGraphSelectionModel.prototype.doneResource = "none" != mxClient.language ? "done" : "";
 mxGraphSelectionModel.prototype.updatingSelectionResource = "none" != mxClient.language ? "updatingSelection" : "";
 mxGraphSelectionModel.prototype.graph = null;
-mxGraphSelectionModel.prototype.singleSelection = !1;
+mxGraphSelectionModel.prototype.singleSelection = false;
 mxGraphSelectionModel.prototype.isSingleSelection = function () {
     return this.singleSelection
 };
@@ -5575,8 +5575,8 @@ mxCellEditor.prototype.graph = null;
 mxCellEditor.prototype.textarea = null;
 mxCellEditor.prototype.editingCell = null;
 mxCellEditor.prototype.trigger = null;
-mxCellEditor.prototype.modified = !1;
-mxCellEditor.prototype.autoSize = !0;
+mxCellEditor.prototype.modified = false;
+mxCellEditor.prototype.autoSize = true;
 mxCellEditor.prototype.emptyLabelText = "";
 mxCellEditor.prototype.textNode = "";
 mxCellEditor.prototype.init = function () {
@@ -5817,7 +5817,7 @@ function mxCellRenderer() {
 mxCellRenderer.prototype.defaultEdgeShape = mxConnector;
 mxCellRenderer.prototype.defaultVertexShape = mxRectangleShape;
 mxCellRenderer.prototype.defaultTextShape = mxText;
-mxCellRenderer.prototype.legacyControlPosition = !0;
+mxCellRenderer.prototype.legacyControlPosition = true;
 mxCellRenderer.prototype.defaultShapes = {};
 mxCellRenderer.registerShape = function (a, b) {
     mxCellRenderer.prototype.defaultShapes[a] = b
@@ -6791,16 +6791,16 @@ mxGraphView.prototype.constructor = mxGraphView;
 mxGraphView.prototype.EMPTY_POINT = new mxPoint;
 mxGraphView.prototype.doneResource = "none" != mxClient.language ? "done" : "";
 mxGraphView.prototype.updatingDocumentResource = "none" != mxClient.language ? "updatingDocument" : "";
-mxGraphView.prototype.allowEval = !1;
-mxGraphView.prototype.captureDocumentGesture = !0;
-mxGraphView.prototype.optimizeVmlReflows = !0;
-mxGraphView.prototype.rendering = !0;
+mxGraphView.prototype.allowEval = false;
+mxGraphView.prototype.captureDocumentGesture = true;
+mxGraphView.prototype.optimizeVmlReflows = true;
+mxGraphView.prototype.rendering = true;
 mxGraphView.prototype.graph = null;
 mxGraphView.prototype.currentRoot = null;
 mxGraphView.prototype.graphBounds = null;
 mxGraphView.prototype.scale = 1;
 mxGraphView.prototype.translate = null;
-mxGraphView.prototype.updateStyle = !1;
+mxGraphView.prototype.updateStyle = false;
 mxGraphView.prototype.getGraphBounds = function () {
     return this.graphBounds
 };
@@ -7626,7 +7626,7 @@ mxGraph.prototype = new mxEventSource;
 mxGraph.prototype.constructor = mxGraph;
 mxGraph.prototype.EMPTY_ARRAY = [];
 mxGraph.prototype.mouseListeners = null;
-mxGraph.prototype.isMouseDown = !1;
+mxGraph.prototype.isMouseDown = false;
 mxGraph.prototype.model = null;
 mxGraph.prototype.view = null;
 mxGraph.prototype.stylesheet = null;
@@ -7637,87 +7637,87 @@ mxGraph.prototype.multiplicities = null;
 mxGraph.prototype.renderHint = null;
 mxGraph.prototype.dialect = null;
 mxGraph.prototype.gridSize = 10;
-mxGraph.prototype.gridEnabled = !0;
-mxGraph.prototype.portsEnabled = !0;
-mxGraph.prototype.doubleTapEnabled = !0;
+mxGraph.prototype.gridEnabled = true;
+mxGraph.prototype.portsEnabled = true;
+mxGraph.prototype.doubleTapEnabled = true;
 mxGraph.prototype.doubleTapTimeout = 700;
 mxGraph.prototype.doubleTapTolerance = 25;
 mxGraph.prototype.lastTouchY = 0;
 mxGraph.prototype.lastTouchY = 0;
 mxGraph.prototype.lastTouchTime = 0;
-mxGraph.prototype.gestureEnabled = !0;
+mxGraph.prototype.gestureEnabled = true;
 mxGraph.prototype.tolerance = 4;
 mxGraph.prototype.defaultOverlap = 0.5;
 mxGraph.prototype.defaultParent = null;
 mxGraph.prototype.alternateEdgeStyle = null;
 mxGraph.prototype.backgroundImage = null;
-mxGraph.prototype.pageVisible = !1;
-mxGraph.prototype.pageBreaksVisible = !1;
+mxGraph.prototype.pageVisible = false;
+mxGraph.prototype.pageBreaksVisible = false;
 mxGraph.prototype.pageBreakColor = "gray";
-mxGraph.prototype.pageBreakDashed = !0;
+mxGraph.prototype.pageBreakDashed = true;
 mxGraph.prototype.minPageBreakDist = 20;
-mxGraph.prototype.preferPageSize = !1;
+mxGraph.prototype.preferPageSize = false;
 mxGraph.prototype.pageFormat = mxConstants.PAGE_FORMAT_A4_PORTRAIT;
 mxGraph.prototype.pageScale = 1.5;
-mxGraph.prototype.enabled = !0;
-mxGraph.prototype.escapeEnabled = !0;
-mxGraph.prototype.invokesStopCellEditing = !0;
-mxGraph.prototype.enterStopsCellEditing = !1;
-mxGraph.prototype.useScrollbarsForPanning = !0;
-mxGraph.prototype.exportEnabled = !0;
-mxGraph.prototype.importEnabled = !0;
-mxGraph.prototype.cellsLocked = !1;
-mxGraph.prototype.cellsCloneable = !0;
-mxGraph.prototype.foldingEnabled = !0;
-mxGraph.prototype.cellsEditable = !0;
-mxGraph.prototype.cellsDeletable = !0;
-mxGraph.prototype.cellsMovable = !0;
-mxGraph.prototype.edgeLabelsMovable = !0;
-mxGraph.prototype.vertexLabelsMovable = !1;
-mxGraph.prototype.dropEnabled = !1;
-mxGraph.prototype.splitEnabled = !0;
-mxGraph.prototype.cellsResizable = !0;
-mxGraph.prototype.cellsBendable = !0;
-mxGraph.prototype.cellsSelectable = !0;
-mxGraph.prototype.cellsDisconnectable = !0;
-mxGraph.prototype.autoSizeCells = !1;
-mxGraph.prototype.autoScroll = !0;
-mxGraph.prototype.timerAutoScroll = !1;
-mxGraph.prototype.allowAutoPanning = !1;
-mxGraph.prototype.ignoreScrollbars = !1;
-mxGraph.prototype.autoExtend = !0;
+mxGraph.prototype.enabled = true;
+mxGraph.prototype.escapeEnabled = true;
+mxGraph.prototype.invokesStopCellEditing = true;
+mxGraph.prototype.enterStopsCellEditing = false;
+mxGraph.prototype.useScrollbarsForPanning = true;
+mxGraph.prototype.exportEnabled = true;
+mxGraph.prototype.importEnabled = true;
+mxGraph.prototype.cellsLocked = false;
+mxGraph.prototype.cellsCloneable = true;
+mxGraph.prototype.foldingEnabled = true;
+mxGraph.prototype.cellsEditable = true;
+mxGraph.prototype.cellsDeletable = true;
+mxGraph.prototype.cellsMovable = true;
+mxGraph.prototype.edgeLabelsMovable = true;
+mxGraph.prototype.vertexLabelsMovable = false;
+mxGraph.prototype.dropEnabled = false;
+mxGraph.prototype.splitEnabled = true;
+mxGraph.prototype.cellsResizable = true;
+mxGraph.prototype.cellsBendable = true;
+mxGraph.prototype.cellsSelectable = true;
+mxGraph.prototype.cellsDisconnectable = true;
+mxGraph.prototype.autoSizeCells = false;
+mxGraph.prototype.autoScroll = true;
+mxGraph.prototype.timerAutoScroll = false;
+mxGraph.prototype.allowAutoPanning = false;
+mxGraph.prototype.ignoreScrollbars = false;
+mxGraph.prototype.autoExtend = true;
 mxGraph.prototype.maximumGraphBounds = null;
 mxGraph.prototype.minimumGraphSize = null;
 mxGraph.prototype.minimumContainerSize = null;
 mxGraph.prototype.maximumContainerSize = null;
-mxGraph.prototype.resizeContainer = !1;
+mxGraph.prototype.resizeContainer = false;
 mxGraph.prototype.border = 0;
-mxGraph.prototype.ordered = !0;
-mxGraph.prototype.keepEdgesInForeground = !1;
-mxGraph.prototype.keepEdgesInBackground = !0;
-mxGraph.prototype.allowNegativeCoordinates = !0;
-mxGraph.prototype.constrainChildren = !0;
-mxGraph.prototype.extendParents = !0;
-mxGraph.prototype.extendParentsOnAdd = !0;
-mxGraph.prototype.collapseToPreferredSize = !0;
+mxGraph.prototype.ordered = true;
+mxGraph.prototype.keepEdgesInForeground = false;
+mxGraph.prototype.keepEdgesInBackground = true;
+mxGraph.prototype.allowNegativeCoordinates = true;
+mxGraph.prototype.constrainChildren = true;
+mxGraph.prototype.extendParents = true;
+mxGraph.prototype.extendParentsOnAdd = true;
+mxGraph.prototype.collapseToPreferredSize = true;
 mxGraph.prototype.zoomFactor = 1.2;
-mxGraph.prototype.keepSelectionVisibleOnZoom = !1;
-mxGraph.prototype.centerZoom = !0;
-mxGraph.prototype.resetViewOnRootChange = !0;
-mxGraph.prototype.resetEdgesOnResize = !1;
-mxGraph.prototype.resetEdgesOnMove = !1;
-mxGraph.prototype.resetEdgesOnConnect = !0;
-mxGraph.prototype.allowLoops = !1;
+mxGraph.prototype.keepSelectionVisibleOnZoom = false;
+mxGraph.prototype.centerZoom = true;
+mxGraph.prototype.resetViewOnRootChange = true;
+mxGraph.prototype.resetEdgesOnResize = false;
+mxGraph.prototype.resetEdgesOnMove = false;
+mxGraph.prototype.resetEdgesOnConnect = true;
+mxGraph.prototype.allowLoops = false;
 mxGraph.prototype.defaultLoopStyle = mxEdgeStyle.Loop;
-mxGraph.prototype.multigraph = !0;
-mxGraph.prototype.connectableEdges = !1;
-mxGraph.prototype.allowDanglingEdges = !0;
-mxGraph.prototype.cloneInvalidEdges = !1;
-mxGraph.prototype.disconnectOnMove = !0;
-mxGraph.prototype.labelsVisible = !0;
-mxGraph.prototype.htmlLabels = !1;
-mxGraph.prototype.swimlaneSelectionEnabled = !0;
-mxGraph.prototype.swimlaneNesting = !0;
+mxGraph.prototype.multigraph = true;
+mxGraph.prototype.connectableEdges = false;
+mxGraph.prototype.allowDanglingEdges = true;
+mxGraph.prototype.cloneInvalidEdges = false;
+mxGraph.prototype.disconnectOnMove = true;
+mxGraph.prototype.labelsVisible = true;
+mxGraph.prototype.htmlLabels = false;
+mxGraph.prototype.swimlaneSelectionEnabled = true;
+mxGraph.prototype.swimlaneNesting = true;
 mxGraph.prototype.swimlaneIndicatorColorAttribute = mxConstants.STYLE_FILLCOLOR;
 mxGraph.prototype.imageBundles = null;
 mxGraph.prototype.minFitScale = 0.1;
@@ -10399,25 +10399,25 @@ function mxGraphHandler(a) {
 }
 mxGraphHandler.prototype.graph = null;
 mxGraphHandler.prototype.maxCells = mxClient.IS_IE ? 20 : 50;
-mxGraphHandler.prototype.enabled = !0;
-mxGraphHandler.prototype.highlightEnabled = !0;
-mxGraphHandler.prototype.cloneEnabled = !0;
-mxGraphHandler.prototype.moveEnabled = !0;
-mxGraphHandler.prototype.guidesEnabled = !1;
+mxGraphHandler.prototype.enabled = true;
+mxGraphHandler.prototype.highlightEnabled = true;
+mxGraphHandler.prototype.cloneEnabled = true;
+mxGraphHandler.prototype.moveEnabled = true;
+mxGraphHandler.prototype.guidesEnabled = false;
 mxGraphHandler.prototype.guide = null;
 mxGraphHandler.prototype.currentDx = null;
 mxGraphHandler.prototype.currentDy = null;
-mxGraphHandler.prototype.updateCursor = !0;
-mxGraphHandler.prototype.selectEnabled = !0;
-mxGraphHandler.prototype.removeCellsFromParent = !0;
-mxGraphHandler.prototype.connectOnDrop = !1;
-mxGraphHandler.prototype.scrollOnMove = !0;
+mxGraphHandler.prototype.updateCursor = true;
+mxGraphHandler.prototype.selectEnabled = true;
+mxGraphHandler.prototype.removeCellsFromParent = true;
+mxGraphHandler.prototype.connectOnDrop = false;
+mxGraphHandler.prototype.scrollOnMove = true;
 mxGraphHandler.prototype.minimumSize = 6;
 mxGraphHandler.prototype.previewColor = "black";
-mxGraphHandler.prototype.htmlPreview = !1;
+mxGraphHandler.prototype.htmlPreview = false;
 mxGraphHandler.prototype.shape = null;
-mxGraphHandler.prototype.scaleGrid = !1;
-mxGraphHandler.prototype.rotationEnabled = !0;
+mxGraphHandler.prototype.scaleGrid = false;
+mxGraphHandler.prototype.rotationEnabled = true;
 mxGraphHandler.prototype.isEnabled = function () {
     return this.enabled
 };
@@ -10671,14 +10671,14 @@ mxPanningHandler.prototype.constructor = mxPanningHandler;
 mxPanningHandler.prototype.graph = null;
 mxPanningHandler.prototype.triggerX = null;
 mxPanningHandler.prototype.triggerY = null;
-mxPanningHandler.prototype.usePopupTrigger = !0;
-mxPanningHandler.prototype.useLeftButtonForPanning = !1;
-mxPanningHandler.prototype.selectOnPopup = !0;
-mxPanningHandler.prototype.clearSelectionOnBackground = !0;
-mxPanningHandler.prototype.ignoreCell = !1;
-mxPanningHandler.prototype.previewEnabled = !0;
-mxPanningHandler.prototype.useGrid = !1;
-mxPanningHandler.prototype.panningEnabled = !0;
+mxPanningHandler.prototype.usePopupTrigger = true;
+mxPanningHandler.prototype.useLeftButtonForPanning = false;
+mxPanningHandler.prototype.selectOnPopup = true;
+mxPanningHandler.prototype.clearSelectionOnBackground = true;
+mxPanningHandler.prototype.ignoreCell = false;
+mxPanningHandler.prototype.previewEnabled = true;
+mxPanningHandler.prototype.useGrid = false;
+mxPanningHandler.prototype.panningEnabled = true;
 mxPanningHandler.prototype.isPanningEnabled = function () {
     return this.panningEnabled
 };
@@ -10783,9 +10783,9 @@ function mxCellMarker(a, b, c, d) {
 }
 mxUtils.extend(mxCellMarker, mxEventSource);
 mxCellMarker.prototype.graph = null;
-mxCellMarker.prototype.enabled = !0;
+mxCellMarker.prototype.enabled = true;
 mxCellMarker.prototype.hotspot = mxConstants.DEFAULT_HOTSPOT;
-mxCellMarker.prototype.hotspotEnabled = !1;
+mxCellMarker.prototype.hotspotEnabled = false;
 mxCellMarker.prototype.validColor = null;
 mxCellMarker.prototype.invalidColor = null;
 mxCellMarker.prototype.currentColor = null;
@@ -10903,7 +10903,7 @@ function mxSelectionCellsHandler(a) {
 }
 mxUtils.extend(mxSelectionCellsHandler, mxEventSource);
 mxSelectionCellsHandler.prototype.graph = null;
-mxSelectionCellsHandler.prototype.enabled = !0;
+mxSelectionCellsHandler.prototype.enabled = true;
 mxSelectionCellsHandler.prototype.refreshHandler = null;
 mxSelectionCellsHandler.prototype.maxHandlers = 100;
 mxSelectionCellsHandler.prototype.handlers = null;
@@ -10988,26 +10988,26 @@ function mxConnectionHandler(a, b) {
 }
 mxUtils.extend(mxConnectionHandler, mxEventSource);
 mxConnectionHandler.prototype.graph = null;
-mxConnectionHandler.prototype.factoryMethod = !0;
-mxConnectionHandler.prototype.moveIconFront = !1;
-mxConnectionHandler.prototype.moveIconBack = !1;
+mxConnectionHandler.prototype.factoryMethod = true;
+mxConnectionHandler.prototype.moveIconFront = false;
+mxConnectionHandler.prototype.moveIconBack = false;
 mxConnectionHandler.prototype.connectImage = null;
-mxConnectionHandler.prototype.targetConnectImage = !1;
-mxConnectionHandler.prototype.enabled = !0;
-mxConnectionHandler.prototype.select = !0;
-mxConnectionHandler.prototype.createTarget = !1;
+mxConnectionHandler.prototype.targetConnectImage = false;
+mxConnectionHandler.prototype.enabled = true;
+mxConnectionHandler.prototype.select = true;
+mxConnectionHandler.prototype.createTarget = false;
 mxConnectionHandler.prototype.marker = null;
 mxConnectionHandler.prototype.constraintHandler = null;
 mxConnectionHandler.prototype.error = null;
-mxConnectionHandler.prototype.waypointsEnabled = !1;
-mxConnectionHandler.prototype.tapAndHoldEnabled = !0;
+mxConnectionHandler.prototype.waypointsEnabled = false;
+mxConnectionHandler.prototype.tapAndHoldEnabled = true;
 mxConnectionHandler.prototype.tapAndHoldDelay = 500;
-mxConnectionHandler.prototype.tapAndHoldInProgress = !1;
-mxConnectionHandler.prototype.tapAndHoldValid = !1;
+mxConnectionHandler.prototype.tapAndHoldInProgress = false;
+mxConnectionHandler.prototype.tapAndHoldValid = false;
 mxConnectionHandler.prototype.tapAndHoldTolerance = 4;
 mxConnectionHandler.prototype.initialTouchX = 0;
 mxConnectionHandler.prototype.initialTouchY = 0;
-mxConnectionHandler.prototype.ignoreMouseDown = !1;
+mxConnectionHandler.prototype.ignoreMouseDown = false;
 mxConnectionHandler.prototype.first = null;
 mxConnectionHandler.prototype.connectIconOffset = new mxPoint(0, mxConstants.TOOLTIP_VERTICAL_OFFSET);
 mxConnectionHandler.prototype.edgeState = null;
@@ -11583,7 +11583,7 @@ function mxConstraintHandler(a) {
 }
 mxConstraintHandler.prototype.pointImage = new mxImage(mxClient.imageBasePath + "/point.gif", 5, 5);
 mxConstraintHandler.prototype.graph = null;
-mxConstraintHandler.prototype.enabled = !0;
+mxConstraintHandler.prototype.enabled = true;
 mxConstraintHandler.prototype.highlightColor = mxConstants.DEFAULT_VALID_COLOR;
 mxConstraintHandler.prototype.isEnabled = function () {
     return this.enabled
@@ -11703,8 +11703,8 @@ function mxTooltipHandler(a, b) {
 mxTooltipHandler.prototype.zIndex = 10005;
 mxTooltipHandler.prototype.graph = null;
 mxTooltipHandler.prototype.delay = null;
-mxTooltipHandler.prototype.hideOnHover = !1;
-mxTooltipHandler.prototype.enabled = !0;
+mxTooltipHandler.prototype.hideOnHover = false;
+mxTooltipHandler.prototype.enabled = true;
 mxTooltipHandler.prototype.isEnabled = function () {
     return this.enabled
 };
@@ -11812,8 +11812,8 @@ function mxCellHighlight(a, b, c) {
         this.graph.getView().addListener(mxEvent.UP, this.resetHandler)
     }
 }
-mxCellHighlight.prototype.keepOnTop = !1;
-mxCellHighlight.prototype.graph = !0;
+mxCellHighlight.prototype.keepOnTop = false;
+mxCellHighlight.prototype.graph = true;
 mxCellHighlight.prototype.state = null;
 mxCellHighlight.prototype.spacing = 2;
 mxCellHighlight.prototype.resetHandler = null;
@@ -11901,7 +11901,7 @@ function mxCodec(a) {
 }
 mxCodec.prototype.document = null;
 mxCodec.prototype.objects = null;
-mxCodec.prototype.encodeDefaults = !1;
+mxCodec.prototype.encodeDefaults = false;
 mxCodec.prototype.putObject = function (a, b) {
     return this.objects[a] = b
 };
@@ -12459,7 +12459,7 @@ mxCodecRegistry.register(function () {
                 d -= 2 * f;
                 e -= 2 * f
             }
-            a.setDashed(!1);
+            a.setDashed(false);
             var f = 0, g = null;
             do {
                 g = mxCellRenderer.prototype.defaultShapes[this.style["symbol" + f]];
@@ -12488,7 +12488,7 @@ mxCodecRegistry.register(function () {
     mxCellRenderer.prototype.defaultShapes.message = k;
     i.prototype = new mxCylinder;
     i.prototype.constructor = i;
-    i.prototype.addPipe = !0;
+    i.prototype.addPipe = true;
     i.prototype.redrawPath = function (a, b, c, d, e, f) {
         b = d / 3;
         c = e / 4;
@@ -12499,7 +12499,7 @@ mxCodecRegistry.register(function () {
     l.prototype = new mxCylinder;
     l.prototype.constructor = l;
     l.prototype.size = 10;
-    l.prototype.addPipe = !0;
+    l.prototype.addPipe = true;
     l.prototype.redrawPath = function (a, b, c, d, e, f) {
         b = mxUtils.getValue(this.style, "size", this.size);
         c = 2 * b / 3;
@@ -12519,18 +12519,18 @@ mxCodecRegistry.register(function () {
     mxCellRenderer.prototype.defaultShapes.component = n;
     m.prototype = new mxDoubleEllipse;
     m.prototype.constructor = m;
-    m.prototype.outerStroke = !0;
+    m.prototype.outerStroke = true;
     m.prototype.paintVertexShape = function (a, b, c, d, e) {
         var f = Math.min(4, Math.min(d / 5, e / 5));
         0 < d && 0 < e && (a.ellipse(b + f, c + f, d - 2 * f, e - 2 * f), a.fillAndStroke());
-        a.setShadow(!1);
+        a.setShadow(false);
         this.outerStroke && (a.ellipse(b, c, d, e), a.stroke())
     };
     mxCellRenderer.prototype.defaultShapes.endState = m;
     o.prototype = new m;
     o.prototype.constructor =
         o;
-    o.prototype.outerStroke = !1;
+    o.prototype.outerStroke = false;
     mxCellRenderer.prototype.defaultShapes.startState = o;
     var p = mxImageExport.prototype.initShapes;
     mxImageExport.prototype.initShapes = function () {
@@ -12544,8 +12544,8 @@ mxCodecRegistry.register(function () {
         }
 
         p.apply(this, arguments);
-        this.shapes.endState = a(!0);
-        this.shapes.startState = a(!1)
+        this.shapes.endState = a(true);
+        this.shapes.startState = a(false)
     };
     mxUtils.extend(q,
         mxArrow);
@@ -12574,7 +12574,7 @@ mxCodecRegistry.register(function () {
             mxVertexHandler.call(this, a)
         };
         mxUtils.extend(r, mxVertexHandler);
-        r.prototype.useGridForSpecialHandle = !1;
+        r.prototype.useGridForSpecialHandle = false;
         r.prototype.init = function () {
             this.horizontal = mxUtils.getValue(this.state.style, mxConstants.STYLE_HORIZONTAL, !0);
             var a = this.state.view.graph;
@@ -13139,7 +13139,7 @@ var Base64 = {_keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123
         null == a && (a = Array(65536));
         g = f = b = 0;
         h = -1;
-        k = !1;
+        k = false;
         i = l = 0;
         n = null;
         p = c;

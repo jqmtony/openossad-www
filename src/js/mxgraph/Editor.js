@@ -112,8 +112,41 @@ Editor.prototype.gridImage = IMAGE_PATH + '/grid.gif';
 /**
  * Specifies the image URL to be used for the transparent background.
  */
-Editor.prototype.transparentImage = IMAGE_PATH + '/transparent.gif';
+Editor.prototype.autosave = false;
+Editor.prototype.gridImage = IMAGE_PATH + "/grid.gif";
+Editor.prototype.defaultScrollbars = !mxClient.IS_IOS;
+Editor.prototype.defaultPageVisible = true;
+Editor.prototype.extendCanvas = true;
+Editor.prototype.chromeless = false;
+Editor.prototype.cancelFirst = true;
+Editor.prototype.enabled = true;
+Editor.prototype.filename = null;
+Editor.prototype.modified = false;
+Editor.prototype.autosave = true;
+Editor.prototype.initialTopSpacing = 0;
+Editor.prototype.appName = document.title;
 
+Editor.prototype.createGraph = function () {
+    return new OpenossadGraph
+};
+
+
+Editor.prototype.resetGraph = function () {
+    this.graph.gridEnabled = true;
+    this.graph.graphHandler.guidesEnabled = true;
+    this.graph.setTooltips(true);
+    this.graph.setConnectable(true);
+    this.graph.foldingEnabled = true;
+    this.graph.scrollbars = this.defaultScrollbars;
+    this.graph.pageVisible = this.defaultPageVisible;
+    this.graph.pageBreaksVisible = this.graph.pageVisible;
+    this.graph.preferPageSize = this.graph.pageBreaksVisible;
+    this.graph.background = null;
+    this.graph.pageScale = mxGraph.prototype.pageScale;
+    this.graph.pageFormat = mxGraph.prototype.pageFormat;
+    this.updateGraphComponents();
+    this.graph.view.setScale(1)
+};
 /**
  * Sets the XML node for the current diagram.
  */
@@ -794,6 +827,27 @@ Editor.prototype.initStencilRegistry = function()
 	// Loads default stencils
 	mxStencilRegistry.loadStencilSet(STENCIL_PATH + '/general.xml');
 };
+
+Editor.prototype.stringToBytes = function (a) {
+    for (var b = Array(a.length), c = 0; c < a.length; c++)b[c] = a.charCodeAt(c);
+    return b
+};
+Editor.prototype.bytesToString = function (a) {
+    for (var b = "", c = 0; c < a.length; c++)b += String.fromCharCode(a[c]);
+    return b
+};
+Editor.prototype.compress = function (a) {
+    if ("undefined" === typeof Zlib)return a;
+    a = new Zlib.RawDeflate(this.stringToBytes(encodeURIComponent(a)));
+    a = this.bytesToString(a.compress());
+    return window.btoa ? btoa(a) : Base64.encode(a, !0)
+};
+Editor.prototype.decompress = function (a) {
+    if ("undefined" === typeof Zlib)return a;
+    a = window.atob ? atob(a) : Base64.decode(a, !0);
+    return this.graph.zapGremlins(decodeURIComponent(RawDeflate.inflate(a)))
+};
+
 
 /**
  * Overrides stencil registry for dynamic loading of stencils.

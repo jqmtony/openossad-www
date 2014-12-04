@@ -35,7 +35,7 @@ StorageFile.prototype.doSave = function (a, b, c) {
     var d = this.getData(), e = mxUtils.bind(this, function () {
         this.title = a;
         localStorage.setItem(this.title, d);
-        this.setModified(!1);
+        this.setModified(false);
         this.contentChanged();
         null != b && b()
     });

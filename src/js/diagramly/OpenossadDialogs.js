@@ -61,7 +61,7 @@ function NewOpenossadDialog(editorUi, b) {
             div.style.backgroundImage = "url(" + TEMPLATE_PATH + "/" + a.substring(0, a.length - 4) + ".png)";
             div.style.backgroundPosition = "center center";
             div.style.backgroundRepeat = "no-repeat";
-            var k = !1;
+            var k = false;
             mxEvent.addListener(div, "click", function (e) {
                 r.setAttribute("disabled", "disabled");
                 div.style.backgroundColor = "transparent";
@@ -84,7 +84,7 @@ function NewOpenossadDialog(editorUi, b) {
 
     function f() {
         function a() {
-            for (var c = !0; b < z.length && (c || 0 != mxUtils.mod(b, 30));)c = z[b++], e(c.url, c.libs, c.title, c.tooltip, c.select), c = !1
+            for (var c = true; b < z.length && (c || 0 != mxUtils.mod(b, 30));)c = z[b++], e(c.url, c.libs, c.title, c.tooltip, c.select), c = !1
         }
 
         1 < t ? (mxUtils.write(l, mxResources.get("templates") + ":"), l.appendChild(y)) : input.style.width = "440px";
@@ -165,10 +165,10 @@ function NewOpenossadDialog(editorUi, b) {
     var z = s.basic;
     if (!b) {
         div.appendChild(select);
-        var D = !1;
+        var D = false;
         mxUtils.get(TEMPLATE_PATH + "/index.xml", function (a) {
             if (!D) {
-                D = !0;
+                D = true;
                 for (a = a.getXml().documentElement.firstChild; null != a;) {
                     if ("undefined" !== typeof a.getAttribute) {
                         var b = a.getAttribute("url"), c = b.indexOf("/"), b = b.substring(0, c), c = s[b];
@@ -188,7 +188,7 @@ function NewOpenossadDialog(editorUi, b) {
     k.style.marginTop = b ? "4px" : "16px";
     k.style.textAlign = "right";
     var B = mxUtils.button(mxResources.get("cancel"), function () {
-        editorUi.hideDialog(!0)
+        editorUi.hideDialog(true)
     });
     B.className = "geBtn";
     editorUi.editor.cancelFirst && k.appendChild(B);
@@ -552,7 +552,7 @@ function ExportDialog (editorUi) {
     this.container = g
 };
 ExportDialog.imgExportFormat = "xml";
-ExportDialog.showXmlOption = !0;
+ExportDialog.showXmlOption = true;
 
 function ooPageSetupDialog(editorUi) {
     null == PageSetupDialog.formats && (PageSetupDialog.formats = [
@@ -583,7 +583,7 @@ function ooPageSetupDialog(editorUi) {
     var m = document.createElement("tr");
     m.style.display = "none";
     var n = document.createElement("select");
-    d = !1;
+    d = false;
     for (var p = {}, q = 0; q < PageSetupDialog.formats.length; q++) {
         var r =
             PageSetupDialog.formats[q];
@@ -612,7 +612,7 @@ function ooPageSetupDialog(editorUi) {
     d.appendChild(c);
     mxEvent.addListener(c,
         "click", function (a) {
-            g.checked = !0;
+            g.checked = true;
             mxEvent.consume(a)
         });
     l.style.marginLeft = "10px";
@@ -621,7 +621,7 @@ function ooPageSetupDialog(editorUi) {
     mxUtils.write(c, " " + mxResources.get("landscape"));
     d.appendChild(c);
     mxEvent.addListener(c, "click", function (a) {
-        l.checked = !0;
+        l.checked = true;
         mxEvent.consume(a)
     });
     k.appendChild(d);
@@ -697,7 +697,7 @@ function StorageDialog (editorUi, b) {
         d.appendChild(n);
         mxEvent.addListener(n, "click", function () {
             g == App.MODE_GOOGLE && "www.draw.io" ==
-                window.location.hostname ? window.location.hostname = "drive.draw.io" : g == App.MODE_GOOGLE && editorUi.spinner.spin(document.body, mxResources.get("authorizing")) ? editorUi.drive.checkToken(mxUtils.bind(this, function () {
+                window.location.hostname ? window.location.hostname = "drive.openossad.com" : g == App.MODE_GOOGLE && editorUi.spinner.spin(document.body, mxResources.get("authorizing")) ? editorUi.drive.checkToken(mxUtils.bind(this, function () {
                 editorUi.spinner.stop();
                 editorUi.setMode(g, f.checked);
                 b()
@@ -710,9 +710,8 @@ function StorageDialog (editorUi, b) {
     editorUi.addLanguageMenu(d);
     if (!editorUi.isOffline()) {
         var e = document.createElement("a");
-        e.setAttribute("href", "https://support.draw.io/display/DO/Selecting+Storage");
-        e.setAttribute("title",
-            mxResources.get("help"));
+        e.setAttribute("href", "https://support.openossad.com/display/DO/Selecting+Storage");
+        e.setAttribute("title", mxResources.get("help"));
         e.setAttribute("target", "_blank");
         e.style.position = "absolute";
         e.style.fontSize = "11px";
@@ -762,7 +761,7 @@ function SplashDialog (editorUi) {
     b.style.textAlign = "center";
     editorUi.addLanguageMenu(b);
     var c = null;
-    editorUi.isOffline() || (c = document.createElement("a"), c.setAttribute("href", "https://support.draw.io/display/DO/Selecting+Storage"), c.setAttribute("title", mxResources.get("help")), c.setAttribute("target", "_blank"), c.style.position = "absolute", c.style.fontSize =
+    editorUi.isOffline() || (c = document.createElement("a"), c.setAttribute("href", "https://support.openossad.com/display/DO/Selecting+Storage"), c.setAttribute("title", mxResources.get("help")), c.setAttribute("target", "_blank"), c.style.position = "absolute", c.style.fontSize =
         "11px", c.style.textDecoration = "none", c.style.cursor = "pointer", c.style.bottom = "22px", c.style.left = "20px", c.style.color = "gray", c.innerHTML = mxResources.get("needHelp"), b.appendChild(c));
     var d = document.createElement("p");
     d.style.fontSize = "16pt";
@@ -778,12 +777,30 @@ function SplashDialog (editorUi) {
     e.style.height = "40px";
     e.style.marginRight = "12px";
     e.style.paddingBottom = "4px";
-    var f = "";
-    editorUi.mode == App.MODE_GOOGLE ? (e.src = IMAGE_PATH + "/google-drive-logo.svg", f = mxResources.get("googleDrive"), c.setAttribute("href", "https://support.draw.io/display/DO/Using+draw.io+with+Google+Drive")) : editorUi.mode == App.MODE_DROPBOX ? (e.src = IMAGE_PATH + "/dropbox-logo.svg", f = mxResources.get("dropbox"), c.setAttribute("href", "https://support.draw.io/display/DO/Using+draw.io+with+Dropbox")) : editorUi.mode == App.MODE_BROWSER ? (e.src = IMAGE_PATH + "/osa_database.png", f =
-        mxResources.get("browser")) : (e.src = IMAGE_PATH + "/osa_drive-harddisk.png", f = mxResources.get("device"));
+
+    e.src = IMAGE_PATH + "/osa_drive-harddisk.png";
+    var f = mxResources.get("device");
+
+    if (editorUi.mode == App.MODE_GOOGLE) {
+        e.src = IMAGE_PATH + "/google-drive-logo.svg";
+        f = mxResources.get("googleDrive");
+        c.setAttribute("href", "https://support.openossad.com/display/DO/Using+draw.io+with+Google+Drive");
+    }
+
+    if (editorUi.mode == App.MODE_DROPBOX) {
+        e.src = IMAGE_PATH + "/dropbox-logo.svg";
+        f = mxResources.get("dropbox");
+        c.setAttribute("href", "https://support.openossad.com/display/DO/Using+draw.io+with+Dropbox");
+    }
+    if (editorUi.mode == App.MODE_BROWSER) {
+        e.src = IMAGE_PATH + "/osa_database.png";
+        f = mxResources.get("browser")
+    }
+
     d.appendChild(e);
     mxUtils.write(d, f);
     b.appendChild(d);
+
     c = document.createElement("button");
     c.className = "geBigButton";
     c.style.marginBottom = "8px";
@@ -796,8 +813,7 @@ function SplashDialog (editorUi) {
     b.appendChild(c);
     mxUtils.br(b);
     c = document.createElement("button");
-    c.className =
-        "geBigButton";
+    c.className = "geBigButton";
     c.style.marginBottom = "36px";
     mxClient.IS_QUIRKS && (c.style.width = "340px");
     mxUtils.write(c, mxResources.get("openExistingDiagram"));
@@ -816,7 +832,7 @@ function SplashDialog (editorUi) {
     1 < e && (mxUtils.br(b), e = document.createElement("a"), e.setAttribute("href", "javascript:void(0)"), mxUtils.write(e, mxResources.get("notUsingService", [d])), mxEvent.addListener(e, "click", function () {
         editorUi.hideDialog();
         editorUi.clearMode();
-        editorUi.showSplash(!0)
+        editorUi.showSplash(true)
     }), b.appendChild(e), mxUtils.br(b), d = null != editorUi.drive ? editorUi.drive.getUser() : null, editorUi.mode == App.MODE_GOOGLE && null != d && (c.style.marginBottom = "24px", e = document.createElement("a"), e.setAttribute("href", "javascript:void(0)"), e.style.display =
         "block", e.style.marginTop = "2px", mxUtils.write(e, mxResources.get("changeUser") + " (" + d.displayName + ")"), mxEvent.addListener(e, "click", function () {
         editorUi.hideDialog();

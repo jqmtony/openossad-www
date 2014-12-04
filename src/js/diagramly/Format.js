@@ -34,7 +34,7 @@ Format.prototype.refresh = function () {
         c.style.marginTop = "8px";
         mxUtils.write(c, mxResources.get("diagram"));
         this.container.appendChild(c);
-        c = c.cloneNode(!1);
+        c = c.cloneNode(false);
         c.style.textAlign = "left";
         c.style.fontWeight = "normal";
         c.style.color =
@@ -52,7 +52,7 @@ Format.prototype.refresh = function () {
         c.style.marginTop = "8px";
         mxUtils.write(c, mxResources.get("style"));
         this.container.appendChild(c);
-        c = c.cloneNode(!1);
+        c = c.cloneNode(false);
         c.style.textAlign = "left";
         c.style.fontWeight = "normal";
         c.style.color = "rgb(81, 81, 81)";
@@ -91,7 +91,7 @@ Format.prototype.refresh = function () {
             c.appendChild(k);
             c.appendChild(l);
             return c
-        })(c.cloneNode(!1));
+        })(c.cloneNode(false));
         (function (c) {
             e.appendChild(c);
             var g = document.createElement("input");
@@ -124,7 +124,7 @@ Format.prototype.refresh = function () {
             c.appendChild(k);
             c.appendChild(l);
             return c
-        })(c.cloneNode(!1));
+        })(c.cloneNode(false));
         (function (c) {
             e.appendChild(c);
             var g = document.createElement("input");
@@ -158,7 +158,7 @@ Format.prototype.refresh = function () {
             c.appendChild(k);
             c.appendChild(l);
             return c
-        })(c.cloneNode(!1));
+        })(c.cloneNode(false));
         (function (a) {
             e.appendChild(a);
             var c = document.createElement("input");
@@ -181,6 +181,6 @@ Format.prototype.refresh = function () {
                 mxEvent.consume(a)
             });
             a.appendChild(l)
-        })(c.cloneNode(!1))
+        })(c.cloneNode(false))
     }
 };

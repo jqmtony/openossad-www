@@ -28,8 +28,8 @@
         var ee = this.sidebar.ee;
         var pids = this.sidebar.pids;
 
-//        b = Math.max(document.body.clientHeight || 0, document.documentElement.clientHeight || 0) / 2;
-//        this.spinner = this.createSpinner(document.body.clientWidth / 2 - 2, b, 24);
+        b = Math.max(document.body.clientHeight || 0, document.documentElement.clientHeight || 0) / 2;
+        this.spinner = this.createSpinner(document.body.clientWidth / 2 - 2, b, 24);
 
         // Adds style input in test mode
         if (urlParams['test'] == '1')
@@ -652,16 +652,16 @@
             a.getModel().isVertex(g) && (c = !0);
             if (d && c)break
         }
-        e = "cut copy bold italic underline delete duplicate style backgroundColor borderColor toFront toBack lockUnlock editData".split(" ");
-        for (f = 0; f < e.length; f++)this.actions.get(e[f]).setEnabled(b);
+//        e = "cut copy bold italic underline delete duplicate style backgroundColor borderColor toFront toBack lockUnlock editData".split(" ");
+//        for (f = 0; f < e.length; f++)this.actions.get(e[f]).setEnabled(b);
 
-        this.actions.get("setAsDefaultStyle").setEnabled(1 ==a.getSelectionCount());
-        this.actions.get("switchDirection").setEnabled(!a.isSelectionEmpty());
+//        this.actions.get("setAsDefaultStyle").setEnabled(1 ==a.getSelectionCount());
+//        this.actions.get("switchDirection").setEnabled(!a.isSelectionEmpty());
         this.actions.get("curved").setEnabled(d);
         this.actions.get("rotation").setEnabled(c);
         this.actions.get("wordWrap").setEnabled(c);
         this.actions.get("autosize").setEnabled(c);
-        this.actions.get("collapsible").setEnabled(c);
+//        this.actions.get("collapsible").setEnabled(c);
         this.actions.get("group").setEnabled(1 < a.getSelectionCount());
         this.actions.get("ungroup").setEnabled(1 == a.getSelectionCount() && 0 < a.getModel().getChildCount(a.getSelectionCell()));
         f = c && 1 == a.getSelectionCount();
@@ -670,7 +670,7 @@
         for (f = 0; f < e.length; f++)this.menus.get(e[f]).setEnabled(b);
         b = a.view.getState(a.getSelectionCell());
         this.menus.get("align").setEnabled(1 < a.getSelectionCount());
-        this.menus.get("distribute").setEnabled(1 < a.getSelectionCount());
+//        this.menus.get("distribute").setEnabled(1 < a.getSelectionCount());
         this.menus.get("direction").setEnabled(c || d && null != b && a.isLoop(b));
         this.actions.get("home").setEnabled(null != a.view.currentRoot);
         this.actions.get("exitGroup").setEnabled(null != a.view.currentRoot);
@@ -696,7 +696,58 @@
             null != callback && callback();
             this.fileCreated(storageFile, c)
         }), App.MODE_BROWSER);
+    }
+    EditorUi.prototype.fileCreated = function (file, b) {
+        if (null != urlParams.create)file.constructor == LocalFile ? this.fileLoaded(file) : this.spinner.spin(document.body, mxResources.get("inserting")) && (this.setCurrentFile(file), window.location.hash = file.getHash(), window.location.search = this.getSearch(["create", "title", "mode"])); else {
+            var c = mxUtils.bind(this, function () {
+                window.openFile = null;
+                this.fileLoaded(file);
+                null != b && this.sidebar.showEntries(b)
+            });
+            if (null != this.getCurrentFile() && (decodeURIComponent(this.getDiagramId()) != decodeURIComponent(file.getHash()) ||
+                file.constructor == LocalFile)) {
+                var d = window.location.pathname;
+                null != b && 0 < b.length && (d += "?libs\x3d" + b);
+                d = this.getUrl(d);
+                file.constructor == LocalFile ? (window.openFile = new OpenFile(function () {
+                    window.openFile = null
+                }), window.openFile.setData(file.getData(), file.getTitle())) : d += "#" + file.getHash();
+                window.openWindow(d, null, c)
+            } else c()
+        }
+    };
 
+    EditorUi.prototype.fileLoaded = function (a) {
+        this.hideDialog();
+        var b = this.getCurrentFile();
+        null != b && (b.removeListener(this.descriptorChangedListener), b.close());
+        this.editor.graph.model.clear();
+        this.editor.undoManager.clear();
+        var c = mxUtils.bind(this, function () {
+            this.editor.graph.model.clear();
+            this.editor.undoManager.clear();
+            this.setCurrentFile(null);
+            this.diagramContainer.style.visibility = "hidden";
+            this.editor.graph.setEnabled(false);
+            this.updateDocumentTitle();
+            null != window.location.hash && 0 < window.location.hash.length &&
+            (window.location.hash = "");
+            null != this.fname && (this.fname.style.display = "none", this.fname.innerHTML = "", this.fname.setAttribute("title", mxResources.get("rename")));
+            this.updateUi();
+            this.showSplash()
+        });
+        if (null != a)try {
+            a.open(), this.setCurrentFile(a), this.diagramContainer.style.visibility = "", a.addListener("descriptorChanged", this.descriptorChangedListener), a.addListener("contentChanged", this.descriptorChangedListener), this.descriptorChanged(), this.editor.undoManager.clear(), this.setMode(a.getMode()), this.updateUi(),
+                a.isEditable() ? this.editor.setStatus("") : this.editor.setStatus(mxResources.get("readOnly")), this.showLayersDialog(), this.restoreLibraries(), this.editor.fireEvent(new mxEventObject("fileLoaded"))
+        } catch (d) {
+            null != window.console && console.log("error loading file", a, d), this.handleError(d, mxResources.get("errorLoadingFile"), mxUtils.bind(this, function () {
+                null != urlParams.url && this.spinner.spin(document.body, mxResources.get("reconnecting")) ? window.location.search = this.getSearch(["url"]) : c()
+            }))
+        } else c()
+    };
+    EditorUi.prototype.showLayersDialog = function () {
+        1 < this.editor.graph.getModel().getChildCount(this.editor.graph.getModel().getRoot()) && (null == this.actions.layersWindow ? this.actions.get("layers").funct() : this.actions.layersWindow.window.setVisible(true))
+    };
 //        d = null != d ? d : this.mode;
 ////        if (null != a && this.spinner.spin(document.body, mxResources.get("inserting"))) {
 //            b = null != b ? b : "";
@@ -722,7 +773,7 @@
 //                null == this.getCurrentFile() && null == this.dialog && this.showSplash()
 //            }))) : d == App.MODE_DEVICE && (null != callback && callback(), this.spinner.stop(), this.fileCreated(new LocalFile(this, b, a), c))
 ////        }
-    };
+
 
     // Sharing
     /*EditorUi.prototype.connect = function(name, highlight)

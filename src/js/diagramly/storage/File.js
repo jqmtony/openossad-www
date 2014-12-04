@@ -2,17 +2,17 @@
  * Created by xavi on 30/11/14.
  */
 
-File = function (a, b) {
+File = function (editor, data) {
     mxEventSource.call(this);
-    this.ui = a;
-    this.data = b || ""
+    this.ui = editor;
+    this.data = data || ""
 };
 mxUtils.extend(File, mxEventSource);
 File.prototype.autosaveDelay = 1500;
 File.prototype.maxAutosaveDelay = 3E4;
 File.prototype.autosaveThread = null;
 File.prototype.lastAutosave = null;
-File.prototype.modified = !1;
+File.prototype.modified = false;
 File.prototype.lastAutosaveRevision = null;
 File.prototype.maxAutosaveRevisionDelay = 18E5;
 File.prototype.descriptorChanged = function () {
@@ -64,46 +64,53 @@ File.prototype.getUi = function () {
 File.prototype.getTitle = function () {
     return""
 };
-File.prototype.setData = function (a) {
-    this.data = a
+File.prototype.setData = function (data) {
+    this.data = data
 };
 File.prototype.getData = function () {
     return this.data
 };
 File.prototype.open = function () {
     this.ui.setFileData(this.getData());
-    this.changeListener = mxUtils.bind(this, function (a, b) {
-        this.setModified(!0);
-        this.isAutosave() ? (this.ui.editor.setStatus(mxResources.get("saving") + "..."), this.autosave(this.autosaveDelay, this.maxAutosaveDelay, mxUtils.bind(this, function (a) {
-            null == this.autosaveThread && this.ui.getCurrentFile() == this && this.ui.editor.setStatus(mxResources.get("allChangesSaved"))
-        }), mxUtils.bind(this, function (a) {
+
+    var onChangeEventAction = function (a, b) {
+        this.setModified(true);
+    };
+    if (this.isAutosave()) {
+        this.ui.editor.setStatus(mxResources.get("saving") + "...");
+        var b2 = function (a) {
             this.ui.getCurrentFile() == this && this.ui.editor.setStatus(mxResources.get("unsavedChanges"))
-        }))) :
-            this.ui.editor.setStatus(mxResources.get("unsavedChanges"))
-    });
+        };
+        this.autosave(this.autosaveDelay, this.maxAutosaveDelay, mxUtils.bind(this, function (a) {}), mxUtils.bind(this, b2))
+    } else {
+        this.ui.editor.setStatus(mxResources.get("unsavedChanges"));
+    }
+    this.changeListener = mxUtils.bind(this, onChangeEventAction);
     this.ui.editor.graph.model.addListener(mxEvent.CHANGE, this.changeListener);
-    this.ui.addListener("pageFormatChanged", this.changeListener);
-    this.ui.addListener("backgroundColorChanged", this.changeListener);
-    this.ui.addListener("backgroundImageChanged", this.changeListener);
-    this.ui.addListener("mathEnabledChanged", this.changeListener);
-    this.ui.addListener("gridEnabledChanged", this.changeListener);
-    this.ui.addListener("guidesEnabledChanged", this.changeListener);
-    this.ui.addListener("pageViewChanged", this.changeListener)
+//    this.ui.addListener("pageFormatChanged", this.changeListener);
+//    this.ui.addListener("backgroundColorChanged", this.changeListener);
+//    this.ui.addListener("backgroundImageChanged", this.changeListener);
+//    this.ui.addListener("mathEnabledChanged", this.changeListener);
+//    this.ui.addListener("gridEnabledChanged", this.changeListener);
+//    this.ui.addListener("guidesEnabledChanged", this.changeListener);
+//    this.ui.addListener("pageViewChanged", this.changeListener);
 };
-File.prototype.autosave = function (a, b, c, d) {
+File.prototype.autosave = function (autosaveDelay, maxAutosaveDelay, c, d) {
     null == this.lastAutosave && (this.lastAutosave = (new Date).getTime());
-    a = (new Date).getTime() - this.lastAutosave < b ? a : 0;
+    autosaveDelay = (new Date).getTime() - this.lastAutosave < maxAutosaveDelay ? autosaveDelay : 0;
     this.clearAutosave();
-    this.autosaveThread = window.setTimeout(mxUtils.bind(this, function () {
+    var b2 = function () {
         this.lastAutosave = this.autosaveThread = null;
-        var a = this.isAutosaveRevision();
-        this.save(a, mxUtils.bind(this, function (b) {
-            a && (this.lastAutosaveRevision = (new Date).getTime());
+        var autosaveRevision = this.isAutosaveRevision();
+        this.save(autosaveRevision, mxUtils.bind(this, function (b) {
+            autosaveRevision && (this.lastAutosaveRevision = (new Date).getTime());
             null != c && c(b)
         }), function (a) {
             null != d && d(a)
         })
-    }), a)
+    };
+    var code = mxUtils.bind(this, b2);
+    this.autosaveThread = window.setTimeout(code, autosaveDelay)
 };
 File.prototype.clearAutosave = function () {
     null != this.autosaveThread && (window.clearTimeout(this.autosaveThread), this.autosaveThread = null)

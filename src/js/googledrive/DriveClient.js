@@ -77,7 +77,7 @@ DriveClient.prototype.executeRequest = function (a, b, c) {
         this.currentRequest = a;
         null != e && window.clearTimeout(e);
         e = window.setTimeout(mxUtils.bind(this, function () {
-            d = !1;
+            d = false;
             null != c && c({code: App.ERROR_TIMEOUT, retry: g})
         }), this.ui.timeout);
         a.execute(mxUtils.bind(this, function (l) {
@@ -150,7 +150,7 @@ DriveClient.prototype.loadRealtime = function (a, b, c) {
     if ("1" != urlParams.ignoremime && "420247213240" == this.appId && ("application/mxr" == a.mimeType || "application/vnd.jgraph.mxfile.realtime" == a.mimeType))this.redirectToPro(c); else if (a.editable || "application/mxe" != a.mimeType && "application/vnd.jgraph.mxfile" != a.mimeType) {
         var d = mxUtils.bind(this, function () {
             var e = !0, f = window.setTimeout(mxUtils.bind(this, function () {
-                e = !1;
+                e = false;
                 c({code: App.ERROR_TIMEOUT, retry: d})
             }), this.ui.timeout);
             gapi.drive.realtime.load(a.id, mxUtils.bind(this,
@@ -187,21 +187,21 @@ DriveClient.prototype.verifyMimeType = function (a, b, c, d) {
     null == this.lastMimeCheck && (this.lastMimeCheck = 0);
     var e = (new Date).getTime();
     if (c || e - this.lastMimeCheck > this.mimeTypeCheckCoolOff)this.lastMimeCheck = e, this.checkingMimeType || (this.checkingMimeType = !0, this.executeRequest(gapi.client.drive.files.get({fileId: a, fields: "mimeType"}), mxUtils.bind(this, function (a) {
-        this.checkingMimeType = !1;
+        this.checkingMimeType = false;
         null != a && "application/vnd.jgraph.mxfile.realtime" == a.mimeType ? this.redirectToPro(d) : null != b && b()
     })))
 };
 DriveClient.prototype.redirectToPro = function (a) {
     this.ui.spinner.stop();
     this.redirectDialogShowing || (this.redirectDialogShowing = !0, null != a ? this.ui.confirm(mxResources.get("redirectToPro"), mxUtils.bind(this, function () {
-        this.redirectDialogShowing = !1;
-        window.location.hostname = "drive.draw.io"
+        this.redirectDialogShowing = false;
+        window.location.hostname = "drive.openossad.com"
     }), mxUtils.bind(this, function () {
-        this.redirectDialogShowing = !1;
+        this.redirectDialogShowing = false;
         a()
     })) : this.ui.alert(mxResources.get("redirectToPro"), mxUtils.bind(this, function () {
-        this.redirectDialogShowing = !1;
-        window.location.hostname = "drive.draw.io"
+        this.redirectDialogShowing = false;
+        window.location.hostname = "drive.openossad.com"
     })))
 };
 DriveClient.prototype.insertFile = function (a, b, c, d, e, f) {
@@ -238,7 +238,7 @@ DriveClient.prototype.pickFile = function (a, b) {
             a)this[d + "Token"] = a, a = new google.picker.DocsView, b || a.setMimeTypes(this.mimeTypes), this[d] = (new google.picker.PickerBuilder).enableFeature(google.picker.Feature.NAV_HIDDEN).setOAuthToken(this[d + "Token"]).setLocale(mxLanguage).setAppId(this.appId).addView(a).setCallback(mxUtils.bind(this, function (a) {
             a.action == google.picker.Action.PICKED && this.filePicked(a)
         })).build();
-        this[d].setVisible(!0);
+        this[d].setVisible(true);
         this.ui.movePickersToTop()
     }))
 };
@@ -255,7 +255,7 @@ DriveClient.prototype.pickLibrary = function (a) {
         if (null == this.libraryPicker || this.libraryPickerToken != a)this.libraryPickerToken = a, a = new google.picker.DocsView, a.setMimeTypes(this.libraryMimeType), this.libraryPicker = (new google.picker.PickerBuilder).enableFeature(google.picker.Feature.NAV_HIDDEN).setOAuthToken(this.libraryPickerToken).setLocale(mxLanguage).setAppId(this.appId).addView(a).setCallback(mxUtils.bind(this, function (a) {
             a.action == google.picker.Action.PICKED && this.filePicked(a)
         })).build();
-        this.libraryPicker.setVisible(!0);
+        this.libraryPicker.setVisible(true);
         this.ui.movePickersToTop()
     }))
 };
