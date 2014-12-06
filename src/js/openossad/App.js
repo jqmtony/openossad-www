@@ -91,15 +91,20 @@ App.prototype.getFileData = function () {
         }
         return a
     }
-//    mxUtils.setTextContent(diagramElement,text);
-//    void 0 !== a.innerText ? a.innerText = b : a[void 0 === a.textContent ? "text" : "textContent"] = b
-    diagramElement.innerText = text;
-    diagramElement.textContent = text;
-//
+    ooUtils.setTextContent(diagramElement,text);
+
     mxfile.appendChild(diagramElement);
-    var xml = mxUtils.getXml(mxfile);
+    var xml = ooUtils.getXml(mxfile);
     return  xml;
 };
+
+App.prototype.getXml =  function (a, b) {
+    var c = "";
+    null != window.XMLSerializer ? c = (new XMLSerializer).serializeToString(a) :
+        null != a.xml && (c = a.xml.replace(/\r\n\t[\t]*/g, "").replace(/>\r\n/g, "\x3e").replace(/\r\n/g, "\n"));
+    return c.replace(/\n/g, b || "\x26#xa;")
+}
+
 App.prototype.setFileData = function (data) {
     if (data && 0 < data.length) {
         data = mxUtils.parseXml(data).documentElement;

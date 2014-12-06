@@ -8,6 +8,12 @@
 // files and the mxClient.js loads other files.
 
 // Uses grapheditor from devhost
+// openossad sdk
+mxscript('js/openossad/ooLog.js');
+mxscript('js/openossad/ooConstants.js');
+mxscript('js/openossad/ooClient.js');
+mxscript('js/openossad/ooUtils.js');
+
 //mxscript(geBasePath +'/OpenossadEditor.js');
 mxscript(geBasePath +'/Editor.js');
 mxscript(geBasePath +'/Graph.js');

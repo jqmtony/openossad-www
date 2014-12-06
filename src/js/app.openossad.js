@@ -213,6 +213,7 @@ var mxLanguageMap = {'bs' : 'Bosanski', 'cs' : 'Čeština', 'da' : 'Dansk', 'de'
 
 var geBasePath = 'js';
 var mxBasePath = 'mxgraph';
+var ooBasePath = 'openossad';
 var mxLanguages = [];
 
 // Populates the list of supported special language bundles
