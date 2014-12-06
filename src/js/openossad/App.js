@@ -98,13 +98,6 @@ App.prototype.getFileData = function () {
     return  xml;
 };
 
-App.prototype.getXml =  function (a, b) {
-    var c = "";
-    null != window.XMLSerializer ? c = (new XMLSerializer).serializeToString(a) :
-        null != a.xml && (c = a.xml.replace(/\r\n\t[\t]*/g, "").replace(/>\r\n/g, "\x3e").replace(/\r\n/g, "\n"));
-    return c.replace(/\n/g, b || "\x26#xa;")
-}
-
 App.prototype.setFileData = function (data) {
     if (data && 0 < data.length) {
         data = ooUtils.parseXml(data).documentElement;
