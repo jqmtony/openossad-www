@@ -31,7 +31,7 @@ EditorUi = function(editor, container)
 	this.createUi();
 
 	// Disables HTML and text selection
-	var textEditing =  mxUtils.bind(this, function(evt)
+	var textEditing =  ooUtils.bind(this, function(evt)
 	{
 		if (evt == null)
 		{
@@ -102,7 +102,7 @@ EditorUi = function(editor, container)
 	graph.panningHandler.autoExpand = true;
 
     // Installs context menu
-	graph.panningHandler.factoryMethod = mxUtils.bind(this, function(menu, cell, evt)
+	graph.panningHandler.factoryMethod = ooUtils.bind(this, function(menu, cell, evt)
 	{
 		this.menus.createPopupMenu(menu, cell, evt);
 	});
@@ -111,7 +111,7 @@ EditorUi = function(editor, container)
 	editor.outline.init(this.outlineContainer);
 	
 	// Hides context menu
-	mxEvent.addGestureListeners(document, mxUtils.bind(this, function(evt)
+	mxEvent.addGestureListeners(document, ooUtils.bind(this, function(evt)
 	{
 		graph.panningHandler.hideMenu();
 	}));
@@ -120,7 +120,7 @@ EditorUi = function(editor, container)
 	if (mxClient.IS_TOUCH)
 	{
 		mxEvent.addListener(graph.container, 'gesturechange',
-			mxUtils.bind(this, function(evt)
+			ooUtils.bind(this, function(evt)
 			{
 				graph.view.getDrawPane().setAttribute('transform', 'scale(' + evt.scale + ')');
 				graph.view.getOverlayPane().style.visibility = 'hidden';
@@ -128,7 +128,7 @@ EditorUi = function(editor, container)
 		);
 	
 		mxEvent.addListener(graph.container, 'gestureend',
-			mxUtils.bind(this, function(evt)
+			ooUtils.bind(this, function(evt)
 			{
 				graph.view.getDrawPane().removeAttribute('transform');
 				graph.zoomToCenter = true;
@@ -148,7 +148,7 @@ EditorUi = function(editor, container)
 	};
 
 	// Updates the editor UI after the window has been resized
-   	mxEvent.addListener(window, 'resize', mxUtils.bind(this, function()
+   	mxEvent.addListener(window, 'resize', ooUtils.bind(this, function()
    	{
    		this.refresh();
    		graph.sizeDidChange();
@@ -196,31 +196,149 @@ EditorUi.prototype.vsplitPosition = 190;
  */
 EditorUi.prototype.init = function()
 {
-	// Updates action states
-	this.addUndoListener();
-	this.addSelectionListener();
+//	// Updates action states
+//	this.addUndoListener();
+//	this.addSelectionListener();
+//
+//	// Overrides clipboard to update paste action state
+//	var paste = this.actions.get('paste');
+//
+//	var updatePaste = function()
+//	{
+//		paste.setEnabled(!mxClipboard.isEmpty());
+//	};
+//
+//	var mxClipboardCut = mxClipboard.cut;
+//	mxClipboard.cut = function()
+//	{
+//		mxClipboardCut.apply(this, arguments);
+//		updatePaste();
+//	};
+//
+//	var mxClipboardCopy = mxClipboard.copy;
+//	mxClipboard.copy = function()
+//	{
+//		mxClipboardCopy.apply(this, arguments);
+//		updatePaste();
+//	};
 
-	// Overrides clipboard to update paste action state
+    this.addUndoListener();
+    this.addBeforeUnloadListener();
+    this.editor.graph.getSelectionModel().addListener(mxEvent.CHANGE, ooUtils.bind(this, function () {
+        this.updateActionStates()
+    }));
+    this.updateActionStates();
+    this.initClipboard();
+    //TODO: se openossadcanvas
+//    this.initCanvas()
+};
+
+EditorUi.prototype.initCanvas = function () {
+    var a = this.editor.graph, a = this.editor.graph;
+    a.timerAutoScroll = true;
+    a.scrollTileSize = new mxRectangle(0, 0, 400, 400);
+    a.getPagePadding = function () {
+        return new mxPoint(Math.max(0, Math.round(a.container.offsetWidth - 34)), Math.max(0, Math.round(a.container.offsetHeight - 34)))
+    };
+    a.getPageSize = function () {
+        return this.pageVisible ? new mxRectangle(0, 0, this.pageFormat.width * this.pageScale, this.pageFormat.height * this.pageScale) : this.scrollTileSize
+    };
+    a.getPageLayout = function () {
+        var a =
+            this.pageVisible ? this.getPageSize() : this.scrollTileSize, b = this.getGraphBounds();
+        if (0 == b.width || 0 == b.height)return new mxRectangle(0, 0, 1, 1);
+        var c = Math.ceil(b.x / this.view.scale - this.view.translate.x), d = Math.ceil(b.y / this.view.scale - this.view.translate.y), k = Math.floor(b.height / this.view.scale), m = Math.floor(c / a.width), n = Math.floor(d / a.height), b = Math.ceil((c + Math.floor(b.width / this.view.scale)) / a.width) - m, a = Math.ceil((d + k) / a.height) - n;
+        return new mxRectangle(m, n, b, a)
+    };
+    a.view.getBackgroundPageBounds = function () {
+        var a =
+            this.graph.getPageLayout(), b = this.graph.getPageSize();
+        return new mxRectangle(this.scale * (this.translate.x + a.x * b.width), this.scale * (this.translate.y + a.y * b.height), this.scale * a.width * b.width, this.scale * a.height * b.height)
+    };
+    var b = null;
+    if (this.editor.chromeless)b = ooUtils.bind(this, function (b) {
+        if (null != a.container) {
+            var c = a.view.translate, d = a.view.scale, l = a.pageVisible ? a.view.getBackgroundPageBounds() : a.getGraphBounds(), k = l.width, m = l.height, n = a.container.scrollTop, p = a.container.scrollLeft, q = a.container.clientWidth -
+                10, r = a.container.clientHeight - 10, u = b ? Math.max(0.3, Math.min(1, q / k * d)) : d;
+            a.view.scaleAndTranslate(u, Math.max(0, (q - k / (b ? d : 1)) / 2 / d) - l.x / d + c.x, Math.max(0, (r - m / (b ? d : 1)) / 4 / d) - l.y / d + c.y);
+            a.container.scrollTop = n;
+            a.container.scrollLeft = p
+        }
+    }), mxEvent.addListener(window, "resize", ooUtils.bind(this, function () {
+        b(false)
+    })), this.editor.addListener("resetGraphView", ooUtils.bind(this, function () {
+        b(true)
+    })), a.getPreferredPageSize = function (a, b, c) {
+        a = this.getPageLayout();
+        b = this.getPageSize();
+        c = this.view.scale;
+        return new mxRectangle(0,
+            0, a.width * b.width * c, a.height * b.height * c)
+    }; else if (this.editor.extendCanvas) {
+        a.getPreferredPageSize = function (a, b, c) {
+            a = this.getPageLayout();
+            b = this.getPageSize();
+            return new mxRectangle(0, 0, a.width * b.width, a.height * b.height)
+        };
+        var c = a.view.validate;
+        a.view.validate = function () {
+            if (null != this.graph.container && ooUtils.hasScrollbars(this.graph.container)) {
+                var a = this.graph.getPagePadding(), b = this.graph.getPageSize();
+                this.translate.x = a.x / this.scale - (this.x0 || 0) * b.width;
+                this.translate.y = a.y / this.scale - (this.y0 ||
+                    0) * b.height
+            }
+            c.apply(this, arguments)
+        };
+        var d = a.sizeDidChange;
+        a.sizeDidChange = function () {
+            if (null != this.container && ooUtils.hasScrollbars(this.container)) {
+                var b = this.getPageLayout(), c = this.getPagePadding(), g = this.getPageSize(), l = Math.ceil(2 * c.x / this.view.scale + b.width * g.width), k = Math.ceil(2 * c.y / this.view.scale + b.height * g.height), m = a.minimumGraphSize;
+                if (null == m || m.width != l || m.height != k)a.minimumGraphSize = new mxRectangle(0, 0, l, k);
+                l = c.x / this.view.scale - b.x * g.width;
+                c = c.y / this.view.scale - b.y * g.height;
+                !this.autoTranslate &&
+                    (this.view.translate.x != l || this.view.translate.y != c) ? (this.autoTranslate = !0, this.view.x0 = b.x, this.view.y0 = b.y, b = a.view.translate.x, g = a.view.translate.y, a.view.setTranslate(l, c), a.container.scrollLeft += (l - b) * a.view.scale, a.container.scrollTop += (c - g) * a.view.scale, this.autoTranslate = !1) : d.apply(this, arguments)
+            }
+        }
+    }
+    mxEvent.addMouseWheelListener(function (c, d) {
+        if (mxEvent.isAltDown(c) || a.panningHandler.isActive())d ? a.zoomIn() : a.zoomOut(), null != b && b(false), mxEvent.consume(c)
+    })
+};
+
+
+
+EditorUi.prototype.initClipboard = function () {
+
+    // Overrides clipboard to update paste action state
 	var paste = this.actions.get('paste');
-	
+
 	var updatePaste = function()
 	{
 		paste.setEnabled(!mxClipboard.isEmpty());
 	};
-	
+
 	var mxClipboardCut = mxClipboard.cut;
 	mxClipboard.cut = function()
 	{
 		mxClipboardCut.apply(this, arguments);
 		updatePaste();
 	};
-	
+
 	var mxClipboardCopy = mxClipboard.copy;
 	mxClipboard.copy = function()
 	{
 		mxClipboardCopy.apply(this, arguments);
 		updatePaste();
 	};
+};
+
+
+EditorUi.prototype.addBeforeUnloadListener = function () {
+    window.onbeforeunload = ooUtils.bind(this, function () {
+        return this.onBeforeUnload()
+    })
 };
 
 /**
@@ -242,11 +360,11 @@ EditorUi.prototype.open = function()
 	{
 		if (window.opener != null && window.opener.openFile != null)
 		{
-			window.opener.openFile.setConsumer(mxUtils.bind(this, function(xml, filename)
+			window.opener.openFile.setConsumer(ooUtils.bind(this, function(xml, filename)
 			{
 				try
 				{
-					var doc = mxUtils.parseXml(xml); 
+					var doc = ooUtils.parseXml(xml); 
 					this.editor.setGraphXml(doc.documentElement);
 					this.editor.modified = false;
 					this.editor.undoManager.clear();
@@ -258,7 +376,7 @@ EditorUi.prototype.open = function()
 				}
 				catch (e)
 				{
-					mxUtils.alert(mxResources.get('invalidOrMissingFile') + ': ' + e.message);
+					ooUtils.alert(mxResources.get('invalidOrMissingFile') + ': ' + e.message);
 				}
 			}));
 		}
@@ -276,14 +394,14 @@ EditorUi.prototype.save = function(name)
 {
 	if (name != null)
 	{
-		var xml = mxUtils.getXml(this.editor.getGraphXml());
+		var xml = ooUtils.getXml(this.editor.getGraphXml());
 		
 		try
 		{
 			if (useLocalStorage)
 			{
 				if (localStorage.getItem(name) != null &&
-					!mxUtils.confirm(mxResources.get('replace', [name])))
+					!ooUtils.confirm(mxResources.get('replace', [name])))
 				{
 					return;
 				}
@@ -300,8 +418,8 @@ EditorUi.prototype.save = function(name)
 				}
 				else
 				{
-					mxUtils.alert(mxResources.get('drawingTooLarge'));
-					mxUtils.popup(xml);
+					ooUtils.alert(mxResources.get('drawingTooLarge'));
+					ooUtils.popup(xml);
 					
 					return;
 				}
@@ -374,7 +492,7 @@ EditorUi.prototype.addUndoListener = function()
  */
 EditorUi.prototype.addSelectionListener = function()
 {
-	var selectionListener = mxUtils.bind(this, function()
+	var selectionListener = ooUtils.bind(this, function()
     {
 		var graph = this.editor.graph;
 		var selected = !graph.isSelectionEmpty();
@@ -581,7 +699,7 @@ EditorUi.prototype.createUi = function()
 	this.statusContainer = this.createStatusContainer();
 
 	// Connects the status bar to the editor status
-	this.editor.addListener('statusChanged', mxUtils.bind(this, function()
+	this.editor.addListener('statusChanged', ooUtils.bind(this, function()
 	{
 		this.setStatusText(this.editor.getStatus());
 	}));
@@ -600,7 +718,7 @@ EditorUi.prototype.createUi = function()
 	this.container.appendChild(this.vsplit);
 	
 	// HSplit
-	this.addSplitHandler(this.hsplit, true, 0, mxUtils.bind(this, function(value)
+	this.addSplitHandler(this.hsplit, true, 0, ooUtils.bind(this, function(value)
 	{
 		this.hsplitPosition = value;
 		this.refresh();
@@ -610,7 +728,7 @@ EditorUi.prototype.createUi = function()
 	}));
 
 	// VSplit
-	this.addSplitHandler(this.vsplit, false, this.footerHeight, mxUtils.bind(this, function(value)
+	this.addSplitHandler(this.vsplit, false, this.footerHeight, ooUtils.bind(this, function(value)
 	{
 		this.vsplitPosition = value;
 		this.refresh();
@@ -744,7 +862,7 @@ EditorUi.prototype.hideDialog = function()
 EditorUi.prototype.openFile = function()
 {
 	// Closes dialog after open
-	window.openFile = new OpenFile(mxUtils.bind(this, function(a)
+	window.openFile = new OpenFile(ooUtils.bind(this, function(a)
 	{
 		this.hideDialog(a);
 	}));
@@ -796,7 +914,7 @@ EditorUi.prototype.executeLayout = function(layout, animate, ignoreChildCount)
 		{
 			// New API for animating graph layout results asynchronously
 			var morph = new mxMorphing(graph);
-			morph.addListener(mxEvent.DONE, mxUtils.bind(this, function()
+			morph.addListener(mxEvent.DONE, ooUtils.bind(this, function()
 			{
 				graph.getModel().endUpdate();
 			}));
@@ -855,7 +973,7 @@ EditorUi.prototype.createKeyHandler = function(editor)
     };
 
     // Binds keystrokes to actions
-    var bindAction = mxUtils.bind(this, function(code, control, key, shift)
+    var bindAction = ooUtils.bind(this, function(code, control, key, shift)
     {
     	var action = this.actions.get(key);
     	

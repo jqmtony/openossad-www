@@ -6,7 +6,7 @@ StorageFile = function (a, callback, title) {
     File.call(this, a, callback);
     this.title = title
 };
-mxUtils.extend(StorageFile, File);
+ooUtils.extend(StorageFile, File);
 StorageFile.prototype.autosaveDelay = 500;
 StorageFile.prototype.maxAutosaveDelay = 1E4;
 StorageFile.prototype.getMode = function () {

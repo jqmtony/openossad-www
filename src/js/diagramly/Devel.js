@@ -35,6 +35,7 @@ mxscript('js/diagramly/Sidebar.js');
 mxscript('js/diagramly/Format.js');
 mxscript('js/diagramly/storage/File.js');
 mxscript('js/diagramly/storage/StorageFile.js');
+mxscript('js/diagramly/storage/LocalFile.js');
 mxscript('js/diagramly/EditorUi.js');
 
 mxscript('js/googledrive/DriveClient.js');

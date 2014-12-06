@@ -296,9 +296,9 @@ App.prototype.start = function () {
         var a = ooUtils.bind(this, function () {
             this.spinner.spin(document.body, mxResources.get("reconnecting")) && (window.location.search = this.getSearch(["url"]))
         });
+
         ooUtils.get(PROXY_URL + "?url\x3d" + urlParams.url, ooUtils.bind(this, function (b) {
-            200 == b.getStatus() ? (this.spinner.stop(), this.fileLoaded(new LocalFile(this,
-                b.getText(), null))) : this.handleError(null, mxResources.get("errorLoadingFile"), a)
+            200 == b.getStatus() ? (this.spinner.stop(), this.fileLoaded(new LocalFile(this,b.getText(), null))) : this.handleError(null, mxResources.get("errorLoadingFile"), a)
         }), ooUtils.bind(this, function () {
             this.handleError(null, mxResources.get("errorLoadingFile"), a)
         }))
