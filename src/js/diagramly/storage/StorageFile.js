@@ -2,9 +2,9 @@
  * Created by xavi on 30/11/14.
  */
 
-StorageFile = function (a, b, c) {
-    File.call(this, a, b);
-    this.title = c
+StorageFile = function (a, callback, title) {
+    File.call(this, a, callback);
+    this.title = title
 };
 mxUtils.extend(StorageFile, File);
 StorageFile.prototype.autosaveDelay = 500;
@@ -27,19 +27,21 @@ StorageFile.prototype.isRenamable = function () {
 StorageFile.prototype.save = function (a, b, c) {
     this.saveAs(this.getTitle(), b, c)
 };
-StorageFile.prototype.saveAs = function (a, b, c) {
+StorageFile.prototype.saveAs = function (title, b, c) {
     File.prototype.save.apply(this, arguments);
-    this.doSave(a, b, c)
+    this.doSave(title, b, c)
 };
-StorageFile.prototype.doSave = function (a, b, c) {
-    var d = this.getData(), e = mxUtils.bind(this, function () {
-        this.title = a;
-        localStorage.setItem(this.title, d);
+StorageFile.prototype.doSave = function (title, b, c) {
+    var data = this.getData();
+
+    var e = ooUtils.bind(this, function () {
+        this.title = title;
+        localStorage.setItem(this.title, data);
         this.setModified(false);
         this.contentChanged();
         null != b && b()
     });
-    this.getTitle() == a || null == localStorage.getItem(a) ? e() : this.ui.confirm(mxResources.get("replace", [a]), e, c)
+    this.getTitle() == title || null == localStorage.getItem(title) ? e() : this.ui.confirm(mxResources.get("replace", [title]), e, c)
 };
 StorageFile.prototype.rename = function (a, b, c) {
     var d = this.getTitle();

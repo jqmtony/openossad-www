@@ -15,6 +15,7 @@ EditorCompress.prototype.bytesToString = function (a) {
     return b
 };
 EditorCompress.prototype.compress = function (a) {
+    return a;
     if ("undefined" === typeof Zlib)return Base64.encode(encodeURIComponent(a), true);
     a = encodeURIComponent(a);
 //    a = new Zlib.RawDeflate(this.stringToBytes(a));
@@ -22,6 +23,7 @@ EditorCompress.prototype.compress = function (a) {
     return window.btoa ? btoa(a) : Base64.encode(a, true);
 };
 EditorCompress.prototype.decompress = function (a) {
+    return a;
     if ("undefined" === typeof Zlib)return Base64.decode(decodeURIComponent(a), true);
     a = window.atob ? atob(a) : Base64.decode(a, true);
     a = decodeURIComponent(a);

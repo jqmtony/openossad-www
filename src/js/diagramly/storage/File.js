@@ -7,7 +7,7 @@ File = function (editor, data) {
     this.ui = editor;
     this.data = data || ""
 };
-mxUtils.extend(File, mxEventSource);
+ooUtils.extend(File, mxEventSource);
 File.prototype.autosaveDelay = 1500;
 File.prototype.maxAutosaveDelay = 3E4;
 File.prototype.autosaveThread = null;
@@ -22,7 +22,8 @@ File.prototype.contentChanged = function () {
     this.fireEvent(new mxEventObject("contentChanged"))
 };
 File.prototype.save = function (a, b, c) {
-    this.setData(this.ui.getFileData());
+    var fileData = this.ui.getFileData();
+    this.setData(fileData);
     this.clearAutosave()
 };
 File.prototype.saveAs = function (a, b, c) {

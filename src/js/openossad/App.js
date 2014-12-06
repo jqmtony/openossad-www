@@ -445,15 +445,18 @@ App.prototype.saveLibrary = function (a, b, c) {
         }, f)
     }), f))
 };
-App.prototype.saveFile = function (a) {
-    var b = this.getCurrentFile();
-    null != b && (!a && null != b.getTitle() ? this.save(b.getTitle()) : (a = null != b.getTitle() ? b.getTitle() : this.defaultFilename, a = new FilenameDialog(this, a, mxResources.get("save"), ooUtils.bind(this, function (a) {
-        this.save(a, !0)
-    }), null, ooUtils.bind(this, function (a) {
+App.prototype.saveFile = function (title) {
+    var currentFile = this.getCurrentFile();
+    var arg = function (a) {
+        this.save(a, true)
+    };
+
+    var arg2 = function (a) {
         if (null != a && 0 < a.length)return!0;
         this.showError(mxResources.get("error"), mxResources.get("invalidName"), mxResources.get("ok"));
-        return!1
-    })), this.showDialog(a.container, 300, 100, !0, !0), a.init()))
+        return false
+    };
+    null != currentFile && (!title && null != currentFile.getTitle() ? this.save(currentFile.getTitle()) : (title = null != currentFile.getTitle() ? currentFile.getTitle() : this.defaultFilename, title = new FilenameDialog(this, title, mxResources.get("save"), ooUtils.bind(this, arg), null, ooUtils.bind(this, arg2)), this.showDialog(title.container, 300, 100, !0, !0), title.init()))
 };
 App.prototype.createFile = function (a, b, c, d, e) {
     d = null != d ? d : this.mode;
@@ -694,23 +697,27 @@ App.prototype.updateUi = function () {
         }
     } else this.updateUserElement()
 };
-App.prototype.save = function (a) {
-    var b = this.getCurrentFile();
-    null != b && this.spinner.spin(document.body, mxResources.get("saving")) && (a == b.getTitle() ? b.save(!0, ooUtils.bind(this, function (a) {
+App.prototype.save = function (title) {
+    var currentFile = this.getCurrentFile();
+    var callbackSaved = function (a) {
         this.spinner.stop();
         this.editor.setStatus(mxResources.get("allChangesSaved"))
-    }), ooUtils.bind(this, function (a) {
+    };
+
+    var callbackError = function (a) {
         this.editor.setStatus("");
         this.handleError(a, null != a ? mxResources.get("errorSavingFile") : null)
-    })) : b.saveAs(a, ooUtils.bind(this, function (a) {
-        this.spinner.stop();
-        this.editor.setStatus(mxResources.get("allChangesSaved"))
-    }),
-        ooUtils.bind(this, function (a) {
-            this.editor.setStatus("");
-            this.handleError(a, null != a ? mxResources.get("errorSavingFile") : null)
-        })))
+    };
+
+    this.spinner.spin(document.body, mxResources.get("saving"));
+
+    if (title == currentFile.getTitle()) {
+        currentFile.save(true, ooUtils.bind(this, callbackSaved), ooUtils.bind(this, callbackError))
+    } else {
+        currentFile.saveAs(title, ooUtils.bind(this, callbackSaved),ooUtils.bind(this, callbackError));
+    }
 };
+
 App.prototype.base64toBlob = function (a, b) {
     contentType = contentType || "";
     for (var c = atob(base64Data), d = c.length, e = Math.ceil(d / 1024), f = Array(e), g = 0; g < e; ++g) {

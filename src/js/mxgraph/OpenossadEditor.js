@@ -80,14 +80,14 @@ Editor = function()
 	this.modified = false;
 
 	// Updates modified state if graph changes
-	this.graph.getModel().addListener(mxEvent.CHANGE, mxUtils.bind(this, function()
+	this.graph.getModel().addListener(mxEvent.CHANGE, ooUtils.bind(this, function()
 	{
 		this.modified = true;
 	}));
 
 	// Installs dialog if browser window is closed without saving
 	// This must be disabled during save and image export
-	window.onbeforeunload = mxUtils.bind(this, function()
+	window.onbeforeunload = ooUtils.bind(this, function()
 	{
 		if (this.modified)
 		{
@@ -102,7 +102,7 @@ Editor = function()
 };
 
 // Editor inherits from mxEventSource
-mxUtils.extend(Editor, mxEventSource);
+ooUtils.extend(Editor, mxEventSource);
 
 /**
  * Specifies the image URL to be used for the grid.
@@ -182,7 +182,7 @@ Editor.prototype.setGraphXml = function(node)
  */
 Editor.prototype.getGraphXml = function()
 {
-	var enc = new mxCodec(mxUtils.createXmlDocument());
+	var enc = new mxCodec(ooUtils.createXmlDocument());
 	var node = enc.encode(this.graph.getModel());
 
 	if (this.graph.view.translate.x != 0 || this.graph.view.translate.y != 0)
@@ -317,7 +317,7 @@ Editor.prototype.init = function()
 		var marker = mxConnectionHandlerCreateMarker.apply(this, arguments);
 
 		// Overrides to ignore hotspot only for target terminal
-		marker.intersects = mxUtils.bind(this, function(state, evt)
+		marker.intersects = ooUtils.bind(this, function(state, evt)
 		{
 			if (this.isConnecting())
 			{
@@ -396,7 +396,7 @@ Editor.prototype.init = function()
 		graphPanGraph.apply(this, arguments);
 
 		if ((this.dialect != mxConstants.DIALECT_SVG && this.view.backgroundPageShape != null) &&
-			(!this.useScrollbarsForPanning || !mxUtils.hasScrollbars(this.container)))
+			(!this.useScrollbarsForPanning || !ooUtils.hasScrollbars(this.container)))
 		{
 			this.view.backgroundPageShape.node.style.marginLeft = dx + 'px';
 			this.view.backgroundPageShape.node.style.marginTop = dy + 'px';
@@ -456,7 +456,7 @@ Editor.prototype.init = function()
 
 				// Adds listener for double click handling on background
 				mxEvent.addListener(this.backgroundPageShape.node, 'dblclick',
-					mxUtils.bind(this, function(evt)
+					ooUtils.bind(this, function(evt)
 					{
 						this.graph.dblClick(evt);
 					})
@@ -465,11 +465,11 @@ Editor.prototype.init = function()
 				// Adds basic listeners for graph event dispatching outside of the
 				// container and finishing the handling of a single gesture
 				mxEvent.addGestureListeners(this.backgroundPageShape.node,
-					mxUtils.bind(this, function(evt)
+					ooUtils.bind(this, function(evt)
 					{
 						this.graph.fireMouseEvent(mxEvent.MOUSE_DOWN, new mxMouseEvent(evt));
 					}),
-					mxUtils.bind(this, function(evt)
+					ooUtils.bind(this, function(evt)
 					{
 						// Hides the tooltip if mouse is outside container
 						if (this.graph.tooltipHandler != null &&
@@ -485,7 +485,7 @@ Editor.prototype.init = function()
 								new mxMouseEvent(evt));
 						}
 					}),
-					mxUtils.bind(this, function(evt)
+					ooUtils.bind(this, function(evt)
 					{
 						this.graph.fireMouseEvent(mxEvent.MOUSE_UP,
 								new mxMouseEvent(evt));
@@ -845,7 +845,7 @@ Editor.prototype.initStencilRegistry = function()
 							}
 							else if (fname.toLowerCase().substring(fname.length - 3, fname.length) == '.js')
 							{
-								var req = mxUtils.load(fname);
+								var req = ooUtils.load(fname);
 								
 								if (req != null)
 								{
@@ -908,7 +908,7 @@ Editor.prototype.initStencilRegistry = function()
 			
 			if (xmlDoc == null)
 			{
-				var req = mxUtils.load(stencilFile);
+				var req = ooUtils.load(stencilFile);
 				xmlDoc = req.getXml();
 				mxStencilRegistry.packages[stencilFile] = xmlDoc;
 				install = true;
@@ -1002,7 +1002,7 @@ OpenFile.prototype.setData = function(value, filename)
 OpenFile.prototype.error = function(msg)
 {
 	this.cancel();
-	mxUtils.alert(msg);
+	ooUtils.alert(msg);
 };
 
 /**

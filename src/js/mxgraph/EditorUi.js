@@ -744,13 +744,13 @@ EditorUi.prototype.hideDialog = function()
 EditorUi.prototype.openFile = function()
 {
 	// Closes dialog after open
-	window.openFile = new OpenFile(mxUtils.bind(this, function()
+	window.openFile = new OpenFile(mxUtils.bind(this, function(a)
 	{
-		this.hideDialog();
+		this.hideDialog(a);
 	}));
 
 	// Removes openFile if dialog is closed
-	this.showDialog(new OpenDialog(this).container, 300, 180, true, true, function()
+	this.showDialog(new OpenDialog(this).container, 360, 220, true, true, function()
 	{
 		window.openFile = null;
 	});

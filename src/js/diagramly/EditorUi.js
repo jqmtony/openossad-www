@@ -684,67 +684,9 @@
         this.actions.get("grid").setEnabled(a.isEnabled())
     };
 
-    EditorUi.prototype.createFile = function (a, b, c, d, callback) {
-        console.log("a:"+a);
-        console.log(":"+b);
-        console.log(":"+c);
-        console.log(":"+d);
-        console.log(":"+callback);
 
-        var storageFile = new StorageFile(this, b, a);
-        storageFile.doSave(a, mxUtils.bind(this, function () {
-            null != callback && callback();
-            this.fileCreated(storageFile, c)
-        }), App.MODE_BROWSER);
-    }
-    EditorUi.prototype.fileCreated = function (file, b) {
-        if (null != urlParams.create)file.constructor == LocalFile ? this.fileLoaded(file) : this.spinner.spin(document.body, mxResources.get("inserting")) && (this.setCurrentFile(file), window.location.hash = file.getHash(), window.location.search = this.getSearch(["create", "title", "mode"])); else {
-            var c = mxUtils.bind(this, function () {
-                window.openFile = null;
-                this.fileLoaded(file);
-                null != b && this.sidebar.showEntries(b)
-            });
-            if (null != this.getCurrentFile() && (decodeURIComponent(this.getDiagramId()) != decodeURIComponent(file.getHash()) ||
-                file.constructor == LocalFile)) {
-                var d = window.location.pathname;
-                null != b && 0 < b.length && (d += "?libs\x3d" + b);
-                d = this.getUrl(d);
-                file.constructor == LocalFile ? (window.openFile = new OpenFile(function () {
-                    window.openFile = null
-                }), window.openFile.setData(file.getData(), file.getTitle())) : d += "#" + file.getHash();
-                window.openWindow(d, null, c)
-            } else c()
-        }
-    };
 
-    EditorUi.prototype.fileLoaded = function (a) {
-        this.hideDialog();
-        var b = this.getCurrentFile();
-        null != b && (b.removeListener(this.descriptorChangedListener), b.close());
-        this.editor.graph.model.clear();
-        this.editor.undoManager.clear();
-        var c = mxUtils.bind(this, function () {
-            this.editor.graph.model.clear();
-            this.editor.undoManager.clear();
-            this.setCurrentFile(null);
-            this.diagramContainer.style.visibility = "hidden";
-            this.editor.graph.setEnabled(false);
-            this.updateDocumentTitle();
-            null != window.location.hash && 0 < window.location.hash.length &&
-            (window.location.hash = "");
-            null != this.fname && (this.fname.style.display = "none", this.fname.innerHTML = "", this.fname.setAttribute("title", mxResources.get("rename")));
-            this.updateUi();
-            this.showSplash()
-        });
-        if (null != a)try {
-            a.open(), this.setCurrentFile(a), this.diagramContainer.style.visibility = "", a.addListener("descriptorChanged", this.descriptorChangedListener), a.addListener("contentChanged", this.descriptorChangedListener), this.descriptorChanged(), this.editor.undoManager.clear(), this.setMode(a.getMode()), this.updateUi(),
-                a.isEditable() ? this.editor.setStatus("") : this.editor.setStatus(mxResources.get("readOnly")), this.showLayersDialog(), this.restoreLibraries(), this.editor.fireEvent(new mxEventObject("fileLoaded"))
-        } catch (d) {
-            null != window.console && console.log("error loading file", a, d), this.handleError(d, mxResources.get("errorLoadingFile"), mxUtils.bind(this, function () {
-                null != urlParams.url && this.spinner.spin(document.body, mxResources.get("reconnecting")) ? window.location.search = this.getSearch(["url"]) : c()
-            }))
-        } else c()
-    };
+
     EditorUi.prototype.showLayersDialog = function () {
         1 < this.editor.graph.getModel().getChildCount(this.editor.graph.getModel().getRoot()) && (null == this.actions.layersWindow ? this.actions.get("layers").funct() : this.actions.layersWindow.window.setVisible(true))
     };
