@@ -229,7 +229,7 @@ EditorUi.prototype.init = function()
     }));
     this.updateActionStates();
     this.initClipboard();
-    //TODO: se openossadcanvas
+    //TODO: set openossad canvas
 //    this.initCanvas()
 };
 
