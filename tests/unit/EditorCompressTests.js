@@ -11,13 +11,13 @@ describe('EditorCompress', function() {
     describe('compress', function() {
         it('should return compressed string', function(version) {
             var actual = sut.compress('hola petardaken');
-            expect(actual).toEqual('BUCxCQAwCLume/GjQAOCoiJ9fwjeiWN3+LEPwRI=');
+            expect(actual).toEqual('aG9sYSUyMHBldGFyZGFrZW4=');
         });
     });
     describe('decompress', function() {
         it('should return correct string', function(version) {
-            var actual = sut.decompress('BUCxCQAwCLume/GjQAOCoiJ9fwjeiWN3+LEPwRI=');
-            expect(actual).toEqual('mierder');
+            var actual = sut.decompress('aG9sYSUyMHBldGFyZGFrZW4=');
+            expect(actual).toEqual('hola petardaken');
         });
     });
 
