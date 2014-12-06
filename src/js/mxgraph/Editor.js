@@ -48,6 +48,7 @@ Editor = function()
 	this.outline.updateOnPan = true;
 	this.undoManager = this.createUndoManager();
 	this.status = '';
+    this.editorcompress = new EditorCompress(this.graph);
 	
 	// Contains the name which was used for the last save. Default value is null.
 	this.filename = null;
@@ -828,24 +829,18 @@ Editor.prototype.initStencilRegistry = function()
 	mxStencilRegistry.loadStencilSet(STENCIL_PATH + '/general.xml');
 };
 
+
 Editor.prototype.stringToBytes = function (a) {
-    for (var b = Array(a.length), c = 0; c < a.length; c++)b[c] = a.charCodeAt(c);
-    return b
+    return this.editorcompress.stringToBytes(a);
 };
 Editor.prototype.bytesToString = function (a) {
-    for (var b = "", c = 0; c < a.length; c++)b += String.fromCharCode(a[c]);
-    return b
+    return this.editorcompress.bytesToString(a);
 };
 Editor.prototype.compress = function (a) {
-    if ("undefined" === typeof Zlib)return a;
-    a = new Zlib.RawDeflate(this.stringToBytes(encodeURIComponent(a)));
-    a = this.bytesToString(a.compress());
-    return window.btoa ? btoa(a) : Base64.encode(a, !0)
+    return this.editorcompress.compress(a);
 };
 Editor.prototype.decompress = function (a) {
-    if ("undefined" === typeof Zlib)return a;
-    a = window.atob ? atob(a) : Base64.decode(a, !0);
-    return this.graph.zapGremlins(decodeURIComponent(RawDeflate.inflate(a)))
+    return this.editorcompress.decompress(a);
 };
 
 

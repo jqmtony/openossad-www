@@ -86,7 +86,7 @@ App.prototype.getFileData = function () {
     var text = this.editor.compress(a);
     if (this.editor.decompress(text) != a) {
         try {
-            this.errorReported || (this.errorReported = !0, mxUtils.post("/email", "data\x3d" + encodeURIComponent("Diagram:\n" + encodeURIComponent(a) + "\nBrowser:\n" + navigator.userAgent)))
+            this.errorReported || (this.errorReported = true, mxUtils.post("/email", "data\x3d" + encodeURIComponent("Diagram:\n" + encodeURIComponent(a) + "\nBrowser:\n" + navigator.userAgent)))
         } catch (e) {
         }
         return a
@@ -94,10 +94,11 @@ App.prototype.getFileData = function () {
 //    mxUtils.setTextContent(diagramElement,text);
 //    void 0 !== a.innerText ? a.innerText = b : a[void 0 === a.textContent ? "text" : "textContent"] = b
     diagramElement.innerText = text;
-    diagramElement.textContent = "textContent";
+    diagramElement.textContent = text;
 //
     mxfile.appendChild(diagramElement);
-    return mxUtils.getXml(mxfile)
+    var xml = mxUtils.getXml(mxfile);
+    return  xml;
 };
 App.prototype.setFileData = function (data) {
     if (data && 0 < data.length) {
@@ -152,35 +153,57 @@ App.prototype.getStoredMode = function () {
 };
 App.prototype.createSpinner = function (a, b, c) {
     c = null != c ? c : 24;
-    var d = new Spinner({lines: 12, length: c, width: Math.round(c / 3), radius: Math.round(c / 2), rotate: 0, color: "#000", speed: 1.5, trail: 60, shadow: !1, hwaccel: !1, zIndex: 2E9}), e = d.spin;
-    d.spin = function (c, f) {
-        var k = false;
+    var spinner = new Spinner({lines: 12, length: c, width: Math.round(c / 3), radius: Math.round(c / 2), rotate: 0, color: "#000", speed: 1.5, trail: 60, shadow: !1, hwaccel: !1, zIndex: 2E9});
+    var spin = spinner.spin;
+    spinner.spin = function (c, f) {
+        var spinDiv = false;
         if (!this.active) {
-            e.call(this, c);
+            spin.call(this, c);
             this.active = true;
-            if (null != f && (k = document.createElement("div"), k.style.position = "absolute", k.style.whiteSpace = "nowrap", k.style.background = "#4B4243", k.style.color = "white", k.style.fontFamily = "Helvetica, Arial", k.style.fontSize =
-                "9pt", k.style.padding = "6px", k.style.paddingLeft = "10px", k.style.paddingRight = "10px", k.style.zIndex = 2E9, k.style.left = Math.max(0, a) + "px", k.style.top = Math.max(0, b + 70) + "px", mxUtils.setPrefixedStyle(k.style, "borderRadius", "6px"), mxUtils.setPrefixedStyle(k.style, "boxShadow", "2px 2px 3px 0px #ddd"), mxUtils.setPrefixedStyle(k.style, "transform", "translate(-50%,-50%)"), k.innerHTML = f + "...", c.appendChild(k), d.status = k, mxClient.IS_VML && (null == document.documentMode || 8 >= document.documentMode)))k.style.left = Math.round(Math.max(0,
-                a - k.offsetWidth / 2)) + "px", k.style.top = Math.round(Math.max(0, b + 70 - k.offsetHeight / 2)) + "px";
+            if (null != f) {
+                    spinDiv = document.createElement("div");
+                    spinDiv.style.position = "absolute";
+                    spinDiv.style.whiteSpace = "nowrap";
+                    spinDiv.style.background = "#4B4243";
+                    spinDiv.style.color = "white";
+                    spinDiv.style.fontFamily = "Helvetica, Arial";
+                    spinDiv.style.fontSize = "9pt";
+                    spinDiv.style.padding = "6px";
+                    spinDiv.style.paddingLeft = "10px";
+                    spinDiv.style.paddingRight = "10px";
+                    spinDiv.style.zIndex = 2E9;
+                    spinDiv.style.left = Math.max(0, a) + "px";
+                    spinDiv.style.top = Math.max(0, b + 70) + "px";
+//                    mxUtils.setPrefixedStyle(spinDiv.style, "borderRadius", "6px");
+//                    mxUtils.setPrefixedStyle(spinDiv.style, "boxShadow", "2px 2px 3px 0px #ddd");
+//                    mxUtils.setPrefixedStyle(spinDiv.style, "transform", "translate(-50%,-50%)");
+                    spinDiv.innerHTML = f + "...";
+                    c.appendChild(spinDiv);
+                    spinner.status = spinDiv;
+                    if (mxClient.IS_VML && (null == document.documentMode || 8 >= document.documentMode)) {
+                        spinDiv.style.left = Math.round(Math.max(0,a - spinDiv.offsetWidth / 2)) + "px",
+                        spinDiv.style.top = Math.round(Math.max(0, b + 70 - spinDiv.offsetHeight / 2)) + "px";
+                    }
+            }
             this.pause = mxUtils.bind(this, function () {
-                var a = function () {
-                };
+                var a = function () { };
                 this.active && (a = mxUtils.bind(this, function () {
                     this.spin(c, f)
                 }));
                 this.stop();
                 return a
             });
-            k = !0
+            spinDiv = true;
         }
-        return k
+        return spinDiv
     };
-    var f = d.stop;
-    d.stop = function () {
+    var f = spinner.stop;
+    spinner.stop = function () {
         f.call(this);
         this.active = false;
-        null != d.status && (d.status.parentNode.removeChild(d.status), d.status = null)
+        null != spinner.status && (spinner.status.parentNode.removeChild(spinner.status), spinner.status = null)
     };
-    return d
+    return spinner
 };
 App.prototype.getDiagramId = function () {
     var a = window.location.hash;

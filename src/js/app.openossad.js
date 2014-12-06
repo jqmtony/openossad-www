@@ -302,10 +302,13 @@ if (urlParams['dev'] == '1')
     mxscript('js/sharejs/socket.io.js');
     mxscript('js/sharejs/share.uncompressed.js');
     mxscript('js/sharejs/json.uncompressed.js');
-    mxscript('js/deflate/rawdeflate.js');
+    mxscript('js/deflate/rawdeflate.min.js');
+    mxscript('js/deflate/rawinflate.min.js');
     mxscript('js/deflate/base64.js');
     mxscript('js/stately/Stately.js');
     mxscript('js/sanitizer/sanitizer.min.js');
+
+    mxscript('js/openossad/EditorCompress.js');
 
     // Adds all JS code that depends on mxClient. This indirection via Devel.js is
     // required in some browsers to make sure mxClient.js (and the files that it
