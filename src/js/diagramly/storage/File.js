@@ -38,15 +38,16 @@ File.prototype.isAutosaveOptional = function () {
     return!1
 };
 File.prototype.isAutosave = function () {
-    return this.ui.editor.autosave
+    return false;
+//    return this.ui.editor.autosave;
 };
 File.prototype.isRenamable = function () {
-    return!1
+    return false;
 };
 File.prototype.rename = function (a, b, c) {
 };
 File.prototype.isMovable = function () {
-    return!1
+    return false;
 };
 File.prototype.move = function (a, b, c) {
 };

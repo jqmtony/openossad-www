@@ -2,8 +2,8 @@
  * Created by xavi on 30/11/14.
  */
 
-StorageFile = function (a, callback, title) {
-    File.call(this, a, callback);
+StorageFile = function (editor, data, title) {
+    File.call(this, editor, data);
     this.title = title
 };
 ooUtils.extend(StorageFile, File);
@@ -52,5 +52,5 @@ StorageFile.prototype.rename = function (a, b, c) {
 };
 StorageFile.prototype.open = function () {
     File.prototype.open.apply(this, arguments);
-    this.doSave(this.getTitle())
+//    this.doSave(this.getTitle())
 };

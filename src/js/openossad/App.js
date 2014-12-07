@@ -315,8 +315,7 @@ App.prototype.start = function () {
                 this.spinner.spin(document.body, mxResources.get("reconnecting")) && (window.location.search = this.getSearch(["create", "title"]))
             }), d = ooUtils.bind(this, function (a) {
                 this.spinner.stop();
-                this.fileLoaded(new LocalFile(this,
-                    a, null));
+                this.fileLoaded(new LocalFile(this,a, null));
                 this.editor.graph.setEnabled(false);
                 this.mode = urlParams.mode;
                 var b = urlParams.title, b = null != b ? decodeURIComponent(b) : this.defaultFilename, b = new CreateDialog(this, b, ooUtils.bind(this, function (b, c) {
@@ -337,12 +336,14 @@ App.prototype.start = function () {
             }), ooUtils.bind(this, function () {
                 this.handleError(null, mxResources.get("errorLoadingFile"), a)
             }))
-        } else null != this.drive && null != this.stateArg && "create" == this.stateArg.action ? (this.setMode(App.MODE_GOOGLE), this.actions.get("new").funct()) :
-            (null != this.drive && this.defineCustomObjects(), mxEvent.addListener(window, "hashchange", ooUtils.bind(this, function (a) {
-                a = this.getDiagramId();
-                var b = this.getCurrentFile();
-                (null == b || b.getHash() != a) && this.loadFile(a, !0)
-            })), b())
+        } else {
+            null != this.drive && null != this.stateArg && "create" == this.stateArg.action ? (this.setMode(App.MODE_GOOGLE), this.actions.get("new").funct()) :
+                (null != this.drive && this.defineCustomObjects(), mxEvent.addListener(window, "hashchange", ooUtils.bind(this, function (a) {
+                    a = this.getDiagramId();
+                    var b = this.getCurrentFile();
+                    (null == b || b.getHash() != a) && this.loadFile(a, true)
+                })), b())
+        }
     }
 };
 App.prototype.showSplash = function (a) {
@@ -504,27 +505,37 @@ App.prototype.fileCreated = function (a, b) {
         } else c()
     }
 };
+    //TODO: seems the problem loading file is here !!!
 App.prototype.loadFile = function (a, b) {
     this.hideDialog();
-    var c = ooUtils.bind(this, function () {
-        if (this.spinner.spin(document.body, mxResources.get("loading")))if ("L" == a.charAt(0))this.spinner.stop(), a = decodeURIComponent(a.substring(1)), this.fileLoaded(new StorageFile(this, localStorage.getItem(a), a)); else {
-            var b = this.drive;
-            "D" == a.charAt(0) ? (a = decodeURIComponent(a.substring(1)), b = this.dropbox) : "G" == a.charAt(0) && (a = a.substring(1));
-            null == b ? this.handleError({message: mxResources.get("serviceUnavailableOrBlocked")},
-                mxResources.get("errorLoadingFile"), ooUtils.bind(this, function () {
-                    var a = this.getCurrentFile();
-                    window.location.hash = null != a ? a.getHash() : ""
-                })) : b.getFile(a, ooUtils.bind(this, function (a) {
+    var arg = function () {
+        if (this.spinner.spin(document.body, mxResources.get("loading")))
+            if ("L" == a.charAt(0)) {
                 this.spinner.stop();
-                this.fileLoaded(a)
-            }), ooUtils.bind(this, function (a) {
-                this.handleError(a, null != a ? mxResources.get("errorLoadingFile") : null, ooUtils.bind(this, function () {
-                    var a = this.getCurrentFile();
-                    window.location.hash = null != a ? a.getHash() : ""
+                var title = decodeURIComponent(a.substring(1));
+                var data = localStorage.getItem(title);
+                var storageFile = new StorageFile(this, data, title);
+                this.fileLoaded(storageFile);
+            } else {
+                var b = this.drive;
+
+                "D" == a.charAt(0) ? (a = decodeURIComponent(a.substring(1)), b = this.dropbox) : "G" == a.charAt(0) && (a = a.substring(1));
+                null == b ? this.handleError({message: mxResources.get("serviceUnavailableOrBlocked")},
+                    mxResources.get("errorLoadingFile"), ooUtils.bind(this, function () {
+                        var a = this.getCurrentFile();
+                        window.location.hash = null != a ? a.getHash() : ""
+                    })) : b.getFile(a, ooUtils.bind(this, function (a) {
+                    this.spinner.stop();
+                    this.fileLoaded(a)
+                }), ooUtils.bind(this, function (a) {
+                    this.handleError(a, null != a ? mxResources.get("errorLoadingFile") : null, ooUtils.bind(this, function () {
+                        var a = this.getCurrentFile();
+                        window.location.hash = null != a ? a.getHash() : ""
+                    }))
                 }))
-            }))
-        }
-    });
+            }
+    };
+    var c = ooUtils.bind(this, arg);
     null == a || 0 == a.length ? (this.editor.setStatus(""), this.fileLoaded(null)) :
         null != this.getCurrentFile() && !b ? window.openWindow(this.getUrl() + "#" + a, null, c) : c()
 };
