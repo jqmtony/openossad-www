@@ -175,7 +175,7 @@ function getLanguage()
         {
             try
             {
-                var value = localStorage.getItem('.drawio-config');
+                var value = localStorage.getItem('.openossad-config');
 
                 if (value != null)
                 {
@@ -242,7 +242,7 @@ var uiTheme = (function()
         {
             try
             {
-                var value = localStorage.getItem('.drawio-config');
+                var value = localStorage.getItem('.openossad-config');
 
                 if (value != null)
                 {

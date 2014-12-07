@@ -51,8 +51,8 @@ if (urlParams['flash'] == '1')
 if (urlParams['analytics'] != '0')
 {
 	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-78007-10']);
-	_gaq.push(['_setDomainName', '.draw.io']);
+	_gaq.push(['_setAccount', '00000']);
+	_gaq.push(['_setDomainName', '.openossad.com']);
 	_gaq.push(['_trackPageview']);
 
 	mxinclude(('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js');
