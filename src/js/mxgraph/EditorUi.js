@@ -196,32 +196,6 @@ EditorUi.prototype.vsplitPosition = 190;
  */
 EditorUi.prototype.init = function()
 {
-//	// Updates action states
-//	this.addUndoListener();
-//	this.addSelectionListener();
-//
-//	// Overrides clipboard to update paste action state
-//	var paste = this.actions.get('paste');
-//
-//	var updatePaste = function()
-//	{
-//		paste.setEnabled(!mxClipboard.isEmpty());
-//	};
-//
-//	var mxClipboardCut = mxClipboard.cut;
-//	mxClipboard.cut = function()
-//	{
-//		mxClipboardCut.apply(this, arguments);
-//		updatePaste();
-//	};
-//
-//	var mxClipboardCopy = mxClipboard.copy;
-//	mxClipboard.copy = function()
-//	{
-//		mxClipboardCopy.apply(this, arguments);
-//		updatePaste();
-//	};
-
     this.addUndoListener();
     this.addBeforeUnloadListener();
     this.editor.graph.getSelectionModel().addListener(mxEvent.CHANGE, ooUtils.bind(this, function () {

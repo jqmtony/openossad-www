@@ -230,6 +230,34 @@ App.prototype.open = function () {
         }
     } catch (c) {
     }
+    // Cross-domain window access is not allowed in FF, so if we
+    // were opened from another domain then this will fail.
+//    try
+//    {
+//                try
+//                {
+//                    var xml = '<mxGraphModel dx="800" dy="800" grid="1" guides="1" tooltips="1" connect="1" fold="1" page="1" pageScale="1" pageWidth="826" pageHeight="1169" style="default-style2"><root><mxCell id="0"/><mxCell id="1" parent="0"/><mxCell id="2" value="Process" vertex="1" parent="1"><mxGeometry x="10" y="10" width="200" height="200" as="geometry"/></mxCell><mxCell id="3" value="Process" vertex="1" parent="1"><mxGeometry x="10" y="10" width="200" height="200" as="geometry"/></mxCell><mxCell id="4" value="Process" vertex="1" parent="1"><mxGeometry x="10" y="10" width="300" height="300" as="geometry"/></mxCell><mxCell id="5" value="Process" vertex="1" parent="1"><mxGeometry x="10" y="10" width="300" height="300" as="geometry"/></mxCell><mxCell id="6" value="Process" vertex="1" parent="1"><mxGeometry x="10" y="10" width="300" height="300" as="geometry"/></mxCell><mxCell id="7" value="Process" vertex="1" parent="1"><mxGeometry x="10" y="10" width="200" height="200" as="geometry"/></mxCell><mxCell id="8" value="Process" vertex="1" parent="1"><mxGeometry x="10" y="10" width="200" height="200" as="geometry"/></mxCell><mxCell id="9" value="Process" vertex="1" parent="1"><mxGeometry x="10" y="10" width="200" height="200" as="geometry"/></mxCell></root></mxGraphModel>';
+////                    xml = decodeURIComponent(xml);
+//                    var doc = ooUtils.parseXml(xml);
+//                    this.editor.setGraphXml(doc.documentElement);
+//                    this.editor.modified = false;
+//                    this.editor.undoManager.clear();
+//
+//                    if (filename != null)
+//                    {
+//                        this.editor.filename = filename;
+//                    }
+//                }
+//                catch (e)
+//                {
+//                    ooUtils.alert(mxResources.get('invalidOrMissingFile') + ': ' + e.message);
+//                }
+//
+//    }
+//    catch(e)
+//    {
+//        // ignore
+//    }
 };
 App.prototype.load = function () {
 
@@ -623,6 +651,10 @@ App.prototype.fileLoaded = function (file) {
         file.isEditable() ? this.editor.setStatus("") : this.editor.setStatus(mxResources.get("readOnly"));
         this.showLayersDialog();
         this.restoreLibraries();
+        var doc = ooUtils.parseXml(ooUtils.extractDiagram(file.getData()));
+        this.editor.setGraphXml(doc.documentElement);
+        this.editor.modified = false;
+
         this.editor.fireEvent(new mxEventObject("fileLoaded"))
     }
     catch (error) {

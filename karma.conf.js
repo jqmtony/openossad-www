@@ -18,6 +18,8 @@ module.exports = function(config) {
             'src/js/deflate/base64.js',
             'src/js/zlib/*.js',
             'src/js/openossad/EditorCompress.js',
+            'src/openossad/sdk/*.js',
+            'src/js/openossad/oo*.js',
             'tests/unit/**/*Tests.js'
         ],
 
@@ -66,7 +68,7 @@ module.exports = function(config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['PhantomJS'],
+        browsers: ['Chrome'],
 
 
         // Continuous Integration mode

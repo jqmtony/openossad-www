@@ -9,9 +9,11 @@
 
 // Uses grapheditor from devhost
 // openossad sdk
+mxscript('openossad/sdk/ooPoint.js');
+mxscript('openossad/sdk/ooRectangle.js');
 mxscript('js/openossad/ooLog.js');
-mxscript('js/openossad/ooConstants.js');
 mxscript('js/openossad/ooClient.js');
+mxscript('js/openossad/ooConstants.js');
 mxscript('js/openossad/ooUtils.js');
 
 //mxscript(geBasePath +'/OpenossadEditor.js');

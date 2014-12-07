@@ -638,8 +638,8 @@
     }
 
     EditorUi.prototype.currentFile = null;
-    EditorUi.prototype.setCurrentFile = function (a) {
-        this.currentFile = a
+    EditorUi.prototype.setCurrentFile = function (file) {
+        this.currentFile = file
     };
     EditorUi.prototype.getCurrentFile = function () {
         return this.currentFile
