@@ -181,16 +181,16 @@ EditorUi.prototype.createIntegrationUi = function()
 	var editorUi = this;
 
 	var integrationsContainer = document.createElement('div');
-	integrationsContainer.style.position = 'absolute';
-	integrationsContainer.style.right = '0px';
-	integrationsContainer.style.top = '2px';
-	integrationsContainer.style.backgroundColor = 'white';
-
-	var intWithDriveBtn = mxGoogleDrive.createIntegrationButton();
-	mxGoogleDrive.editorUi = this;//TODO maybe find a better place for this reference assignment? 
-
-	integrationsContainer.appendChild(intWithDriveBtn);
-	integrationsContainer.appendChild(mxIntegration.createUi());
+//	integrationsContainer.style.position = 'absolute';
+//	integrationsContainer.style.right = '0px';
+//	integrationsContainer.style.top = '2px';
+//	integrationsContainer.style.backgroundColor = 'white';
+//
+//	var intWithDriveBtn = mxGoogleDrive.createIntegrationButton();
+//	mxGoogleDrive.editorUi = this;//TODO maybe find a better place for this reference assignment?
+//
+//	integrationsContainer.appendChild(intWithDriveBtn);
+//	integrationsContainer.appendChild(mxIntegration.createUi());
 
 	return integrationsContainer;
 }

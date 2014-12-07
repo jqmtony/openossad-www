@@ -54,7 +54,7 @@ App.prototype.isOfflineApp = function () {
     return"1" == urlParams.offline
 };
 App.prototype.isOffline = function () {
-    return mxClient.IS_FF && this.isOfflineApp() || !navigator.onLine
+    return ooClient.IS_FF && this.isOfflineApp() || !navigator.onLine
 };
 App.prototype.isDriveDomain = function () {
     return"rt.openossad.com" == window.location.hostname || "drive.openossad.com" == window.location.hostname
@@ -651,10 +651,13 @@ App.prototype.fileLoaded = function (file) {
         file.isEditable() ? this.editor.setStatus("") : this.editor.setStatus(mxResources.get("readOnly"));
         this.showLayersDialog();
         this.restoreLibraries();
-        var doc = ooUtils.parseXml(ooUtils.extractDiagram(file.getData()));
-        this.editor.setGraphXml(doc.documentElement);
-        this.editor.modified = false;
 
+        var data = file.getData();
+        if ("" != data) {
+            var doc = ooUtils.parseXml(ooUtils.extractDiagram(data));
+            this.editor.setGraphXml(doc.documentElement);
+            this.editor.modified = false;
+        }
         this.editor.fireEvent(new mxEventObject("fileLoaded"))
     }
     catch (error) {

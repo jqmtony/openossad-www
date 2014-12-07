@@ -30,6 +30,10 @@ Actions.prototype.init = function()
 		
 		ui.openFile();
 	});
+    this.addAction('newOpenOSSADGraph', function()
+    {   ui.showDialog(new NewOpenossadDialog(this.editorUi).container, 680, 540, true, true);
+        ui.dialog.container.style.overflow = 'auto';
+    });
 	this.addAction('import', function()
 	{
 		window.openNew = false;

@@ -696,7 +696,7 @@ function StorageDialog (editorUi, b) {
         mxUtils.write(n, e);
         d.appendChild(n);
         mxEvent.addListener(n, "click", function () {
-            g == App.MODE_GOOGLE && "www.draw.io" ==
+            g == App.MODE_GOOGLE && "openossad.localhost" ==
                 window.location.hostname ? window.location.hostname = "drive.openossad.com" : g == App.MODE_GOOGLE && editorUi.spinner.spin(document.body, mxResources.get("authorizing")) ? editorUi.drive.checkToken(mxUtils.bind(this, function () {
                 editorUi.spinner.stop();
                 editorUi.setMode(g, f.checked);
@@ -730,8 +730,7 @@ function StorageDialog (editorUi, b) {
     e.style.padding = "0px";
     e.style.paddingTop = "10px";
     e.style.paddingBottom = "22px";
-    e.style.margin =
-        "0px";
+    e.style.margin = "0px";
     e.style.color = "gray";
     mxUtils.write(e, mxResources.get("saveDiagramsTo") + ":");
     d.appendChild(e);
@@ -808,7 +807,7 @@ function SplashDialog (editorUi) {
     mxUtils.write(c, mxResources.get("createNewDiagram"));
     mxEvent.addListener(c, "click", function () {
         editorUi.hideDialog();
-        editorUi.actions.get("new").funct()
+        editorUi.actions.get("newOpenOSSADGraph").funct()
     });
     b.appendChild(c);
     mxUtils.br(b);
