@@ -4,6 +4,20 @@ body { _overflow: hidden; }
     font-size:8pt;
     color:#606060;
 }
+
+a {
+    color:#39c;
+    font-weight:400;
+    text-decoration:none;
+}
+
+a small {
+    font-size:11px;
+    color:#777;
+    margin-top:-0.6em;
+    display:block;
+}
+
 .geBlock {
     z-index: -3;
     margin:100px;
