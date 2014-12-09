@@ -777,8 +777,9 @@ function SplashDialog (editorUi) {
     e.style.marginRight = "12px";
     e.style.paddingBottom = "4px";
 
-    e.src = IMAGE_PATH + "/osa_drive-harddisk.png";
-    var f = mxResources.get("device");
+
+    e.src = IMAGE_PATH + "/osa_database.png";
+    f = mxResources.get("browser")
 
     if (editorUi.mode == App.MODE_GOOGLE) {
         e.src = IMAGE_PATH + "/google-drive-logo.svg";
@@ -791,9 +792,9 @@ function SplashDialog (editorUi) {
         f = mxResources.get("dropbox");
         c.setAttribute("href", "https://support.openossad.com/display/DO/Using+draw.io+with+Dropbox");
     }
-    if (editorUi.mode == App.MODE_BROWSER) {
-        e.src = IMAGE_PATH + "/osa_database.png";
-        f = mxResources.get("browser")
+    if (editorUi.mode == App.MODE_DEVICE) {
+        e.src = IMAGE_PATH + "/osa_drive-harddisk.png";
+        var f = mxResources.get("device");
     }
 
     d.appendChild(e);
