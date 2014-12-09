@@ -98,22 +98,6 @@ if (window.location.host == 'rt.openossad.com')
     window.location.host = 'drive.openossad.com';
 }
 
-// Redirects to SSL/non-SSL
-if (urlParams['demo'] != '1')
-{
-    var ssl = (urlParams['https'] != null) ? urlParams['https'] == '1' : isSvgBrowser;
-
-    // NOTE: Do not use trailing : to avoid bug in Firefox
-    if (ssl && window.location.protocol != 'https:')
-    {
-        window.location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-    }
-    else if (!ssl && window.location.protocol != 'http:')
-    {
-        window.location.href = 'http:' + window.location.href.substring(window.location.protocol.length);
-    }
-}
-
 var t0 = new Date();
 
 // Public global variables
