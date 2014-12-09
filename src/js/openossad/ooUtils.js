@@ -123,6 +123,7 @@ ooUtils = {
 }(),extractDiagram: function () {
 
         function extracted(htmlDocument) {
+            if (htmlDocument.documentElement.nodeName=='mxGraphModel') return htmlDocument;
             var elements = htmlDocument.getElementsByTagName('diagram');
             var innerHTML = elements[0].innerHTML;
             return  new EditorCompress().decompress(innerHTML);

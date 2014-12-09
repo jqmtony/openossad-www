@@ -626,7 +626,8 @@ App.prototype.fileLoaded = function (file) {
 
         var data = file.getData();
         if ("" != data) {
-            var doc = ooUtils.parseXml(ooUtils.extractDiagram(data));
+            var diagram = ooUtils.extractDiagram(data);
+            var doc = ooUtils.parseXml(diagram);
             this.editor.setGraphXml(doc.documentElement);
             this.editor.modified = false;
         }
