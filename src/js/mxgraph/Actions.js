@@ -27,24 +27,66 @@ Actions.prototype.init = function()
 	{
 		window.openNew = true;
 		window.openKey = 'open';
-		
+
 		ui.openFile();
 	});
     this.addAction('newOpenOSSADGraph', function()
     {   ui.showDialog(new NewOpenossadDialog(this.editorUi).container, 680, 540, true, true);
         ui.dialog.container.style.overflow = 'auto';
     });
+
+    this.addAction('rename', function()
+    {
+        var b4 = function (a) {
+            var b2 = function (a) {
+                ui.handleError(a, null != a ? mxResources.get("errorRenamingFile") : null)
+            };
+            null != a && 0 < a.length && null != b && (ui.spinner.spin(document.body, mxResources.get("renaming")), b.rename(a, mxUtils.bind(this, function (a) {
+                ui.spinner.stop()
+            }), mxUtils.bind(this, b2)))
+        };
+        var currentFile = ui.getCurrentFile();
+        console.log(currentFile);
+        var filenameDialog = new FilenameDialog(ui, currentFile.getTitle(), mxResources.get("rename"),mxUtils.bind(this, b4),mxResources.get("diagramName") );
+        ui.showDialog(filenameDialog.container, 300, 80, true, true);
+        ui.init();
+
+//        if (null != b) {
+//            var b4 = function (a) {
+//                var b2 = function (a) {
+//                    ui.handleError(a, null != a ? mxResources.get("errorRenamingFile") : null)
+//                };
+//                null != a && 0 < a.length && null != b && (ui.spinner.spin(document.body, mxResources.get("renaming")), b.rename(a, mxUtils.bind(this, function (a) {
+//                    ui.spinner.stop()
+//                }), mxUtils.bind(this, b2)))
+//            };
+//            var b5 = function (b) {
+//                if (null != b && 0 < b.length)return!0;
+//                a.showError(mxResources.get("error"), mxResources.get("invalidName"), mxResources.get("ok"));
+//                return!1
+//            }
+//            var f = function (b) {
+//                if (null != b && 0 < b.length)return!0;
+//            a.showError(mxResources.get("error"), mxResources.get("invalidName"), mxResources.get("ok"));
+//            return!1
+//        };var d = null != b.getTitle() ? b.getTitle() : ui.defaultFilename,
+//                d = new FilenameDialog(this.editorUi, d, mxResources.get("rename"), mxUtils.bind(this, b4), b.constructor == StorageFile ? mxResources.get("diagramName") : null, b5);
+//            ui.showDialog(d.container, 300, 80, !0, !0);
+//            d.init()
+//        }
+    });
+
 	this.addAction('import', function()
 	{
 		window.openNew = false;
 		window.openKey = 'import';
-		
+
 		// Closes dialog after open
 		window.openFile = new OpenFile(mxUtils.bind(this, function()
 		{
 			ui.hideDialog();
 		}));
-		
+
 		window.openFile.setConsumer(mxUtils.bind(this, function(xml, filename)
 		{
 			try
@@ -53,7 +95,7 @@ Actions.prototype.init = function()
 				var model = new mxGraphModel();
 				var codec = new mxCodec(doc);
 				codec.decode(doc.documentElement, model);
-				
+
 				var children = model.getChildren(model.getChildAt(model.getRoot(), 0));
 				editor.graph.setSelectionCells(editor.graph.importCells(children));
 			}
@@ -74,7 +116,7 @@ Actions.prototype.init = function()
 	this.addAction('export', function() { ui.showDialog(new ExportDialog(ui).container, 300, 200, true, true); }, null, null, 'Ctrl+E');
 	this.put('editFile', new Action(mxResources.get('edit'), mxUtils.bind(this, function()
 	{
-		this.editorUi.showDialog(new EditFileDialog(ui).container, 620, 420, true, true);
+		ui.showDialog(new EditFileDialog(ui).container, 620, 420, true, true);
 	})));
 	this.addAction('pageSetup', function() { ui.showDialog(new PageSetupDialog(ui).container, 300, 200, true, true); });
 	this.addAction('print', function() { ui.showDialog(new PrintDialog(ui).container, 300, 200, true, true); }, null, 'sprite-print', 'Ctrl+P');

@@ -697,7 +697,8 @@ App.prototype.updateUi = function () {
     this.updateActionStates();
     this.actions.get("save").setEnabled(b);
     this.actions.get("saveAs").setEnabled(b);
-//    this.actions.get("rename").setEnabled(b);
+    //TODO: fix this rename action
+    this.actions.get("rename").setEnabled(b);
     this.actions.get("import").setEnabled(b);
     this.actions.get("pageSetup").setEnabled(b);
     this.actions.get("print").setEnabled(b);
