@@ -29,9 +29,14 @@ function ExperimentBootstrapDialog(editorUi)
 
     this.container = div;
 };
+function GraphPropertiesDialog(editorUi, b) {
+    var div = document.createElement("div");
+    div.innerHTML="weee";
+    this.container = div;
+}
 
 function NewOpenossadDialog(editorUi, b) {
-    editorUi.mode == App.MODE_BROWSER;
+    //editorUi.mode == App.MODE_BROWSER;
     function c() {
         var b = input.value;
         null != b && 0 < b.length && editorUi.createFile(b, p, null != n && 0 <

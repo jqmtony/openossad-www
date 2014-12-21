@@ -1,5 +1,6 @@
 # *DO NOT DIRECTLY EDIT THIS FILE, IT IS AUTOMATICALLY GENERATED AND IT IS BASED ON:*
 # https://docs.google.com/spreadsheet/ccc?key=0000000000000
+graphProperties=Graph Properties
 newOpenOSSADGraph=New OpenOSSAD Graph
 openossadGraph=OpenOSSAD Graph
 aboutDrawio=About draw.io

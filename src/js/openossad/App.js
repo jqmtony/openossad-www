@@ -693,6 +693,10 @@ App.prototype.updateUi = function () {
 //    this.menus.get("importFrom").setEnabled(b);
 //    this.menus.get("embed").setEnabled(b);
     this.menus.get("arrange").setEnabled(a);
+
+    this.actions.get("graphProperties").setEnabled(b);
+    this.menus.get("graphProperties").setEnabled(a);
+
     if (this.isOfflineApp()) {
         if ((mxClient.IS_GC || mxClient.IS_IOS && mxClient.IS_SF) && null != applicationCache) {
             var c = applicationCache;

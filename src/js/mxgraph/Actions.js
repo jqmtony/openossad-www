@@ -30,10 +30,20 @@ Actions.prototype.init = function()
 
 		ui.openFile();
 	});
+
     this.addAction('newOpenOSSADGraph', function()
-    {   ui.showDialog(new NewOpenossadDialog(this.editorUi).container, 680, 540, true, true);
+    {   ui.showDialog(new NewOpenossadDialog(ui).container, 680, 540, true, true);
         ui.dialog.container.style.overflow = 'auto';
     });
+
+	this.addAction('graphProperties', function()
+	{
+		var currentFile = ui.getCurrentFile();
+		console.log('Actions.js graphProperties');
+		console.log(currentFile);
+		ui.showDialog(new GraphPropertiesDialog(ui).container, 400, 300, true, true);
+		ui.dialog.container.style.overflow = 'auto';
+	});
 
     this.addAction('rename', function()
     {

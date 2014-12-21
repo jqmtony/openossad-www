@@ -563,17 +563,26 @@ function setCurrentXml(data, filename)
 		{
 			this.addMenuItems(menu, ['newOpenOSSADGraph'], parent);
 		})));
+
 		// Adds shapes submenu in file menu
 		this.editorUi.actions.addAction('embed', mxUtils.bind(this, function()
 		{
 			this.editorUi.showDialog(new EmbedDialog(this.editorUi).container, 620, 420, true, true);
 		}));
-		
+
+		this.put('graphProperties', new Menu(mxUtils.bind(this, function(menu, parent)
+		{
+			this.addMenuItems(menu, ['newOpenOSSADGraph'], parent);
+		})));
+
 		this.put('file', new Menu(mxUtils.bind(this, function(menu, parent)
 		{
 			this.addSubmenu('new', menu, parent);
-			this.addMenuItems(menu, ['open', '-', 'save', 'saveAs', '-', 'import', 'export', '-', 'embed', 'editFile', '-', 'pageSetup', 'print'], parent);
+			this.addMenuItems(menu, ['open', '-',  'graphProperties', '-', 'save', 'saveAs', '-', 'import', 'export', '-', 'embed', 'editFile', '-', 'pageSetup', 'print'], parent);
 		})));
+
+
+
 	};
 
 	// Sets default style (used in editor.get/setGraphXml below)
