@@ -30,8 +30,12 @@ function ExperimentBootstrapDialog(editorUi)
     this.container = div;
 };
 function GraphPropertiesDialog(editorUi, b) {
-    var div = document.createElement("div");
-    div.innerHTML="weee";
+    var div = document.createElement('div');
+    var context = { url: "/hello-world", body: "Hello World!" };
+    var source = '<div><p>{{body}}</p></div>';
+    var template = Handlebars.compile(source);
+    var html = template(context);
+    div.innerHTML = html;
     this.container = div;
 }
 
