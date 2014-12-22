@@ -292,6 +292,7 @@ if (urlParams['dev'] == '1')
     mxscript('js/deflate/base64.js');
     mxscript('js/stately/Stately.js');
     mxscript('js/sanitizer/sanitizer.min.js');
+    mxscript('js/handlebars/handlebars-v2.0.0.js');
 
     mxscript('js/openossad/EditorCompress.js');
 
