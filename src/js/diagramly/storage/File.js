@@ -119,7 +119,11 @@ File.prototype.clearAutosave = function () {
 };
 File.prototype.close = function () {
     this.isAutosave() && this.isModified() && this.save(this.isAutosaveRevision());
-    null != this.changeListener && (this.ui.editor.graph.model.removeListener(this.changeListener), this.ui.removeListener(this.changeListener), this.changeListener = null)
+    if (null != this.changeListener) {
+        this.ui.editor.graph.model.removeListener(this.changeListener);
+        //this.ui.removeListener(this.changeListener);
+        this.changeListener = null;
+    }
 };
 File.prototype.isAutosaveRevision = function () {
     var a = (new Date).getTime();
