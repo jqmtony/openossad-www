@@ -283,6 +283,7 @@ if (urlParams['dev'] == '1')
     mxscript('/js/mxgraph/mxClient.js');
 
     // Adds external dependencies
+    mxscript('js/jquery/jquery.js');
     mxscript('js/spin/spin.min.js');
     mxscript('js/sharejs/socket.io.js');
     mxscript('js/sharejs/share.uncompressed.js');

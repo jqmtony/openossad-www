@@ -15,11 +15,13 @@ module.exports = function(config) {
         // list of files / patterns to load in the browser
 
         files: [
+            'src/js/jquery/jquery.js',
             'src/js/deflate/base64.js',
             'src/js/zlib/*.js',
             'src/js/openossad/EditorCompress.js',
             'src/openossad/sdk/*.js',
             'src/js/openossad/oo*.js',
+            'src/js/diagramly/OpenossadDialogs.js',
             'tests/unit/**/*Tests.js'
         ],
 

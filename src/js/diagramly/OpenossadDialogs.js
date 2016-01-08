@@ -29,14 +29,38 @@ function ExperimentBootstrapDialog(editorUi)
 
     this.container = div;
 };
-function GraphPropertiesDialog(editorUi, b) {
-    var div = document.createElement('div');
-    var context = { url: "/hello-world", body: "Hello World!" };
-    var source = '<div><p>{{body}}</p></div>';
-    var template = Handlebars.compile(source);
-    var html = template(context);
-    div.innerHTML = html;
-    this.container = div;
+function GraphPropertiesDialog(editorUi) {
+
+    var data = { body: "Hello World!" };
+    var templateName = 'first';
+
+    var ext = 'tpl';
+    var url = 'tpl/'+templateName; //req.toUrl(name).replace(/\.[^/.]+$/, '').replace(/^\.\//, '');
+
+    var done = function(template){
+        var html = template(data);
+        var div = document.createElement('div');
+        div.innerHTML = html;
+        this.container = div;
+        console.log('1');
+    };
+
+    waitsFor(
+        $.get(url + '.' + ext, {}, function(response){
+            waitsFor(
+                done(function(data) {
+                    data = data || {};
+                    return Handlebars.compile(response)(data);
+                    console.log('2');
+                })
+            );
+        }, 'html')
+    );
+
+    console.log('3');
+
+    return div;
+
 }
 
 function NewOpenossadDialog(editorUi, b) {
