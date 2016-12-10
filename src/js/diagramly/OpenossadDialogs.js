@@ -45,17 +45,19 @@ function GraphPropertiesDialog(editorUi) {
         console.log('1');
     };
 
-    waitsFor(
-        $.get(url + '.' + ext, {}, function(response){
-            waitsFor(
-                done(function(data) {
-                    data = data || {};
-                    return Handlebars.compile(response)(data);
-                    console.log('2');
-                })
-            );
-        }, 'html')
-    );
+    var fiber=Fiber.current;
+
+    $.get(url + '.' + ext, {}, function(response){
+
+            done(function(data) {
+                data = data || {};
+                return Handlebars.compile(response)(data);
+                console.log('2');
+            })
+        fiber.run();
+    }, 'html');
+
+    Fiber.yield();
 
     console.log('3');
 
