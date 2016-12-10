@@ -35,33 +35,35 @@ function GraphPropertiesDialog(editorUi) {
     var templateName = 'first';
 
     var ext = 'tpl';
-    var url = 'tpl/'+templateName; //req.toUrl(name).replace(/\.[^/.]+$/, '').replace(/^\.\//, '');
+    var url = 'tpl/'+templateName;
+    var div = document.createElement("div");
 
     var done = function(template){
         var html = template(data);
-        var div = document.createElement('div');
+        div = document.createElement('div');
         div.innerHTML = html;
         this.container = div;
         console.log('1');
     };
 
-    var fiber=Fiber.current;
+    //$.get(url + '.' + ext, {}, function(response){
+    //
+    //        done(function(data) {
+    //            data = data || {};
+    //            console.log('2');
+    //            return Handlebars.compile(response)(data);
+    //        })
+    //
+    //}, 'html');
 
-    $.get(url + '.' + ext, {}, function(response){
 
-            done(function(data) {
-                data = data || {};
-                return Handlebars.compile(response)(data);
-                console.log('2');
-            })
-        fiber.run();
-    }, 'html');
+    var response="<div><p>{{body}}</p></div>";
 
-    Fiber.yield();
+    div.innerHTML = Handlebars.compile(response)(data);
 
-    console.log('3');
+    console.log(div);
 
-    return div;
+    this.container = div;
 
 }
 
